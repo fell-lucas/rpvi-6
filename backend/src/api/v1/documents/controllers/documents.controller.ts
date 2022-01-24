@@ -1,4 +1,12 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { DocumentsService } from '../services/documents.service';
 
-@Controller('documents')
-export class DocumentsController {}
+@Controller('api/v1/documents')
+export class DocumentsController {
+  constructor(private documentsService: DocumentsService) {}
+
+  @Get('list')
+  async getAllDocuments() {
+    return 'hello world';
+  }
+}
