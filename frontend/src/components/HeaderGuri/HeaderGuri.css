@@ -1,0 +1,49 @@
+.header {
+  background-color: #F4F4F4;
+  display: flex;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  align-items: center;
+  justify-content: stretch;
+  color: #009045;
+}
+
+.accessibilityText > span {
+  cursor: pointer;
+}
+
+.accessibilityMenu {
+  display: flex;
+  align-items: baseline;
+  gap: 2rem;
+}
+
+.inline-block {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.rightMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.userMenu {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #009045;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  color: white;
+}
+
+.userItem {
+  border-color: white;
+  border-left: solid 1px;
+  border-right: solid 1px;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
