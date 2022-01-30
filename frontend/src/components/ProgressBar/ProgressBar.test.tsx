@@ -11,7 +11,7 @@ test('renders hidden progress bar', () => {
     </BrowserRouter>
   );
   const elem = screen.getByTitle(/hiddenProgressBar/i);
-  expect(elem).toHaveStyle('background: rgb(0, 144, 69)');
+  expect(elem).toHaveClass('progressItem');
 });
 
 test('renders progress bar with first element active', () => {
