@@ -23,7 +23,7 @@ export default class ProgressBar extends Component<ProgressBarProps> {
     }
     let items: JSX.Element[] = [];
     for (let index = 0; index < this.props.items; index++) {
-      const isActive = this.props.active - 1 === index;
+      const isActive = this.props.active - 1 >= index;
       items.push(
         <Fragment key={`ProgressBar_${index}`}>
           <div

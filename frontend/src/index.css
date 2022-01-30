@@ -5,6 +5,9 @@
   --bg2: #fafafa;
   --bg-inactive: #c4c4c4;
   --gray-text: #263238;
+  --big-font: calc(2.5vmin);
+  --normal-font: calc(2vmin);
+  --small-font: calc(1.8vmin);
 }
 
 body {
@@ -26,6 +29,6 @@ code {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  font-size: calc(2vmin);
+  font-size: var(--normal-font);
   color: white;
 }

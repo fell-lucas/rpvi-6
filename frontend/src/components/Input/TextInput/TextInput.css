@@ -1,5 +1,5 @@
 .textInput {
-  font-size: 24px;
+  font-size: var(--normal-font);
   font-family: inherit;
   padding: 4px 8px;
   background-color: #fff;
@@ -10,7 +10,7 @@
 ::placeholder {
   color: var(--gray-text);
   font-family: 'Inter';
-  font-size: 16px;
+  font-size: var(--small-font);
 }
 
 .inputAndLabel {

@@ -1,18 +1,23 @@
 .formHeader {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
 }
 
-.formHeader > h2 {
+.formHeader > div > h2 {
   color: var(--primary);
-}
-
-.formHeader > div {
-  display: grid;
 }
 
 .inputGroup {
   font-weight: normal;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+}
+
+.endButtons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }

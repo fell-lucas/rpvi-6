@@ -9,7 +9,7 @@
 }
 
 .line {
-  background-color: white;
+  background-color: var(--bg-inactive);
   content: '';
   position: absolute;
   top: calc(50%);

@@ -5,9 +5,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import HeaderGuri from './components/HeaderGuri/HeaderGuri';
 import { Home, HomeRoute } from './pages';
-import Estagiario, {
-  EstagiarioRoute,
-} from './pages/Solicitar/Estagiario/Estagiario';
+import Estagiario, { EstagiarioRoute } from './pages/Solicitar/Estagiario';
+import UnidadeConcedente, {
+  UnidadeConcedenteRoute,
+} from './pages/Solicitar/UnidadeConcedente';
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -22,6 +23,10 @@ ReactDOM.render(
         <Routes>
           <Route path={HomeRoute} element={<Home />} />
           <Route path={EstagiarioRoute} element={<Estagiario />} />
+          <Route
+            path={UnidadeConcedenteRoute}
+            element={<UnidadeConcedente />}
+          />
         </Routes>
       </div>
     </BrowserRouter>

@@ -12,7 +12,7 @@ export default class RadioInput extends Component<InputProps> {
   render() {
     const p = this.props;
     return (
-      <div className='inputAndLabel'>
+      <div className='inputAndLabel' style={{ justifyContent: 'flex-start' }}>
         <label htmlFor={p.name}>{p.label} : </label>
         <div className='inputAndLabel'>
           {Children.map(p.children, (child, idx) => {

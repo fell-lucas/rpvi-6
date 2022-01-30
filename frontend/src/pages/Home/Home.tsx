@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import user from '../../assets/user-empty.png';
-import { LandingCard, OutlinedButton, ProgressBar } from '../../components';
+import { Button, LandingCard, ProgressBar } from '../../components';
 
-import { EstagiarioRoute } from '../Solicitar/Estagiario/Estagiario';
+import { EstagiarioRoute } from '../Solicitar/Estagiario';
 import './Home.css';
 
 export const HomeRoute = '/';
@@ -26,15 +26,11 @@ export default class Home extends Component {
               flex: 1,
             }}
           >
-            <OutlinedButton link={EstagiarioRoute}>
+            <Button link={EstagiarioRoute}>
               Solicitar Termo de Compromisso de Estágio
-            </OutlinedButton>
-            <OutlinedButton link='/acompanhar'>
-              Acompanhar Processo
-            </OutlinedButton>
-            <OutlinedButton link='/relatorio'>
-              Submeter Relatório
-            </OutlinedButton>
+            </Button>
+            <Button link='/acompanhar'>Acompanhar Processo</Button>
+            <Button link='/relatorio'>Submeter Relatório</Button>
           </div>
         </LandingCard>
       </>
