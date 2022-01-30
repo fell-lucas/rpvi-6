@@ -1,0 +1,18 @@
+.formHeader {
+  text-align: center;
+}
+
+.formHeader > h2 {
+  color: var(--primary);
+}
+
+.formHeader > div {
+  display: grid;
+}
+
+.inputGroup {
+  font-weight: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
