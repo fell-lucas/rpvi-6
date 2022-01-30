@@ -19,8 +19,8 @@
 
 .progressItem {
   display: flex;
-  background-color: white;
-  color:#009045;
+  background-color: #c4c4c4;
+  color: #009045;
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
@@ -30,4 +30,8 @@
 
 .progressItem:first-child {
   margin-left: 3rem;
+}
+
+.progressItemActive {
+  background-color: white;
 }

@@ -1,8 +1,8 @@
 .header {
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   display: flex;
   margin-top: 1.5rem;
-  padding: 1rem;
+  padding: 0.5rem;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
   align-items: center;
@@ -28,7 +28,7 @@
 .rightMenu {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
 }
 
 .userMenu {
@@ -41,9 +41,9 @@
 }
 
 .userItem {
-  border-color: white;
+  border-color: rgba(255, 255, 255, 0.25) !important;
   border-left: solid 1px;
   border-right: solid 1px;
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
 }
