@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+
 import './ProgressBar.css';
 
 type ProgressBarProps = {
@@ -15,7 +16,7 @@ export default class ProgressBar extends Component<ProgressBarProps> {
           <div
             title='hiddenProgressBar'
             className='progressItem'
-            style={{ background: '#009045' }}
+            style={{ background: 'var(--primary)' }}
           ></div>
         </div>
       );

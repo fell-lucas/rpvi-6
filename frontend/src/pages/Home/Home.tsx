@@ -1,13 +1,12 @@
-import LandingCard from '../../components/LandingCard/LandingCard';
-import ProgressBar from '../../components/ProgressBar/ProgressBar';
-import user from '../../assets/user-empty.png';
-import './App.css';
-import OutlinedButton from '../../components/OutlinedButton/OutlinedButton';
-import { EstagiarioRoute } from '../Solicitar/Estagiario/Estagiario';
-
 import React, { Component } from 'react';
 
-export default class App extends Component {
+import user from '../../assets/user-empty.png';
+import { LandingCard, OutlinedButton, ProgressBar } from '../../components';
+
+import { EstagiarioRoute } from '../Solicitar/Estagiario/Estagiario';
+import './Home.css';
+
+export default class Home extends Component {
   render() {
     return (
       <>

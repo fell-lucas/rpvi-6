@@ -1,5 +1,5 @@
 .header {
-  background-color: #f4f4f4;
+  background-color: var(--bg1);
   display: flex;
   margin-top: 1.5rem;
   padding: 0.5rem;
@@ -7,7 +7,7 @@
   padding-right: 2.5rem;
   align-items: center;
   justify-content: stretch;
-  color: #009045;
+  color: var(--primary);
 }
 
 .accessibilityText > span {
@@ -34,7 +34,7 @@
 .userMenu {
   display: flex;
   justify-content: space-evenly;
-  background-color: #009045;
+  background-color: var(--primary);
   border-radius: 1rem;
   padding: 0.5rem;
   color: white;

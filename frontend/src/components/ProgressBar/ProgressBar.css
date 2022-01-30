@@ -19,8 +19,8 @@
 
 .progressItem {
   display: flex;
-  background-color: #c4c4c4;
-  color: #009045;
+  background-color: var(--bg-inactive);
+  color: var(--primary);
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;

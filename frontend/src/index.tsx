@@ -2,12 +2,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import HeaderGuri from './components/HeaderGuri/HeaderGuri';
-import './index.css';
-import { App } from './pages';
+import { Home } from './pages';
 import Estagiario, {
   EstagiarioRoute,
 } from './pages/Solicitar/Estagiario/Estagiario';
+
+import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -18,7 +20,7 @@ ReactDOM.render(
           <HeaderGuri />
         </div>
         <Routes>
-          <Route path='/' element={<App />} />
+          <Route path='/' element={<Home />} />
           <Route path={EstagiarioRoute} element={<Estagiario />} />
         </Routes>
       </div>

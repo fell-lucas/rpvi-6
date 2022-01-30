@@ -1,12 +1,13 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+
+import Home from './Home';
 
 test('renders progressBar hidden', () => {
   render(
     <BrowserRouter>
-      <App />
+      <Home />
     </BrowserRouter>
   );
   const progressBarElement = screen.getByRole(/progressBar/i);
