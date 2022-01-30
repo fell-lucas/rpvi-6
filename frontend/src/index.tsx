@@ -1,13 +1,28 @@
 /* istanbul ignore file */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HeaderGuri from './components/HeaderGuri/HeaderGuri';
 import './index.css';
 import { App } from './pages';
+import Estagiario, {
+  EstagiarioRoute,
+} from './pages/Solicitar/Estagiario/Estagiario';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <div className='App'>
+        <div style={{ width: '100%' }}>
+          <HeaderGuri />
+        </div>
+        <Routes>
+          <Route path='/' element={<App />} />
+          <Route path={EstagiarioRoute} element={<Estagiario />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
