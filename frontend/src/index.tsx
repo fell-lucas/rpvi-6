@@ -6,6 +6,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HeaderGuri from './components/HeaderGuri/HeaderGuri';
 import { Home, HomeRoute } from './pages';
 import Estagiario, { EstagiarioRoute } from './pages/Solicitar/Estagiario';
+import Instituicao, { InstituicaoRoute } from './pages/Solicitar/Instituicao';
+import SolicitacaoSuccess, {
+  SolicitacaoSuccessRoute,
+} from './pages/Solicitar/Success';
 import UnidadeConcedente, {
   UnidadeConcedenteRoute,
 } from './pages/Solicitar/UnidadeConcedente';
@@ -26,6 +30,11 @@ ReactDOM.render(
           <Route
             path={UnidadeConcedenteRoute}
             element={<UnidadeConcedente />}
+          />
+          <Route path={InstituicaoRoute} element={<Instituicao />} />
+          <Route
+            path={SolicitacaoSuccessRoute}
+            element={<SolicitacaoSuccess />}
           />
         </Routes>
       </div>
