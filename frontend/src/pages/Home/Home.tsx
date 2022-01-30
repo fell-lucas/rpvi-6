@@ -6,6 +6,7 @@ import { LandingCard, OutlinedButton, ProgressBar } from '../../components';
 import { EstagiarioRoute } from '../Solicitar/Estagiario/Estagiario';
 import './Home.css';
 
+export const HomeRoute = '/';
 export default class Home extends Component {
   render() {
     return (

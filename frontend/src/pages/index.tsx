@@ -1,3 +1,3 @@
-import Home from './Home/Home';
+import Home, { HomeRoute } from './Home/Home';
 
-export { Home };
+export { Home, HomeRoute };

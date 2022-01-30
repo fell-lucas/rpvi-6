@@ -6,8 +6,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import logo from '../../assets/guri-dtic-logo.png';
+import { HomeRoute } from '../../pages';
 
 import './HeaderGuri.css';
 
@@ -15,7 +17,9 @@ export default class HeaderGuri extends Component {
   render() {
     return (
       <div className='header'>
-        <img src={logo} alt='logo guri' width={886} height={109} />
+        <Link to={HomeRoute}>
+          <img src={logo} alt='logo guri' width={886} height={109} />
+        </Link>
         <div style={{ flexGrow: 100 }}></div>
         <div className='rightMenu'>
           <div className='userMenu'>
