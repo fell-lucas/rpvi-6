@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import HeaderGuri from './components/HeaderGuri/HeaderGuri';
-import { Home } from './pages';
+import { Home, HomeRoute } from './pages';
 import Estagiario, {
   EstagiarioRoute,
 } from './pages/Solicitar/Estagiario/Estagiario';
@@ -20,7 +20,7 @@ ReactDOM.render(
           <HeaderGuri />
         </div>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path={HomeRoute} element={<Home />} />
           <Route path={EstagiarioRoute} element={<Estagiario />} />
         </Routes>
       </div>

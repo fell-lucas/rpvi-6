@@ -32,10 +32,10 @@ export default class Estagiario extends Component {
                   name='estagiarioMatricula'
                   placeholder='xxxxxxxxxxx'
                 />
-                <RadioInput
-                  label='Estágio Curricular'
-                  name='estagiarioEstagio'
-                />
+                <RadioInput label='Estágio Curricular' name='estagiarioEstagio'>
+                  <option value='obrigatorio'>Obrigatório</option>
+                  <option value='naoObrigatorio'>Não Obrigatório</option>
+                </RadioInput>
               </div>
             </div>
           </div>

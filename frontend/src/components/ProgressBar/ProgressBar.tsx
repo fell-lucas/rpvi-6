@@ -12,7 +12,7 @@ export default class ProgressBar extends Component<ProgressBarProps> {
   render() {
     if (this.props.hide) {
       return (
-        <div role='progressBar' className='progressBar'>
+        <div className='progressBar'>
           <div
             title='hiddenProgressBar'
             className='progressItem'
@@ -31,7 +31,7 @@ export default class ProgressBar extends Component<ProgressBarProps> {
           >
             {index + 1}
           </div>
-          {this.props.items - 1 != index && (
+          {this.props.items - 1 !== index && (
             <div
               className={`line ${isActive ? 'progressItemActive' : ''}`}
               style={{
@@ -42,10 +42,6 @@ export default class ProgressBar extends Component<ProgressBarProps> {
         </Fragment>
       );
     }
-    return (
-      <div role='progressBar' className='progressBar'>
-        {items}
-      </div>
-    );
+    return <div className='progressBar'>{items}</div>;
   }
 }

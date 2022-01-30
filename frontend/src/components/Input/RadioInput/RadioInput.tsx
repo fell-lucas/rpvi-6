@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Children, Component, Fragment } from 'react';
 
-import './TextInput.css';
+import './RadioInput.css';
 
 type InputProps = {
   name: string;
@@ -14,12 +14,27 @@ export default class RadioInput extends Component<InputProps> {
     return (
       <div className='inputAndLabel'>
         <label htmlFor={p.name}>{p.label} : </label>
-        <input
-          id={p.name}
-          className='textInput'
-          type='radio'
-          placeholder={p.placeholder ?? p.label}
-        />
+        <div className='inputAndLabel'>
+          {Children.map(p.children, (child, idx) => {
+            console.log(child);
+            // @ts-ignore
+            const value = child.props.value as string;
+            // @ts-ignore
+            const text = child.props.children as string;
+            return (
+              <Fragment>
+                <input
+                  type='radio'
+                  className='checkbox'
+                  id={p.name + idx}
+                  name={p.name}
+                  value={value}
+                />
+                <label htmlFor={p.name + idx}>{text}</label>
+              </Fragment>
+            );
+          })}
+        </div>
       </div>
     );
   }
