@@ -16,7 +16,6 @@ export default class RadioInput extends Component<InputProps> {
         <label htmlFor={p.name}>{p.label} : </label>
         <div className='inputAndLabel'>
           {Children.map(p.children, (child, idx) => {
-            console.log(child);
             // @ts-ignore
             const value = child.props.value as string;
             // @ts-ignore

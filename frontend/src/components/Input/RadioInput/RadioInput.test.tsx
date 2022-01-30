@@ -7,12 +7,12 @@ import { RadioInput } from '..';
 test('renders radio input', () => {
   render(
     <BrowserRouter>
-      <RadioInput label='abc' name='abc'>
+      <RadioInput label='radio input' name='abc'>
         <option value='abc'>abc</option>
         <option value='123'>123</option>
       </RadioInput>
     </BrowserRouter>
   );
-  const elem = screen.getByText(/abc/i);
+  const elem = screen.getByText(/radio input/i);
   expect(elem).toBeInTheDocument();
 });
