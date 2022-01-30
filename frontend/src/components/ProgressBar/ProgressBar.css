@@ -1,0 +1,33 @@
+.progressBar {
+  display: flex;
+  position: relative;
+  gap: 5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  justify-content: start;
+  width: 100%;
+}
+
+.line {
+  background-color: white;
+  content: '';
+  position: absolute;
+  top: calc(50%);
+  width: 5rem;
+  height: 2px;
+}
+
+.progressItem {
+  display: flex;
+  background-color: white;
+  color:#009045;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.progressItem:first-child {
+  margin-left: 3rem;
+}
