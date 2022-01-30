@@ -1,3 +1,3 @@
-import App from './App/App';
+import Home, { HomeRoute } from './Home/Home';
 
-export { App };
+export { Home, HomeRoute };

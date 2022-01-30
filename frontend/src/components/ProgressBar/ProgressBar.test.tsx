@@ -1,6 +1,7 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+
 import ProgressBar from './ProgressBar';
 
 test('renders hidden progress bar', () => {
@@ -10,7 +11,7 @@ test('renders hidden progress bar', () => {
     </BrowserRouter>
   );
   const elem = screen.getByTitle(/hiddenProgressBar/i);
-  expect(elem).toHaveStyle('background: rgb(0, 144, 69)');
+  expect(elem).toHaveClass('progressItem');
 });
 
 test('renders progress bar with first element active', () => {

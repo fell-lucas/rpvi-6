@@ -1,3 +1,15 @@
+:root {
+  --primary: #009045;
+  --secondary: #1bb55c;
+  --bg1: #f4f4f4;
+  --bg2: #fafafa;
+  --bg-inactive: #c4c4c4;
+  --gray-text: #263238;
+  --big-font: calc(2.5vmin);
+  --normal-font: calc(2vmin);
+  --small-font: calc(1.8vmin);
+}
+
 body {
   margin: 0;
   font-family: 'Quattrocento Sans', sans-serif;
@@ -11,12 +23,12 @@ code {
 }
 
 .App {
-  background-color: #009045;
+  background-color: var(--primary);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  font-size: calc(2vmin);
+  font-size: var(--normal-font);
   color: white;
 }

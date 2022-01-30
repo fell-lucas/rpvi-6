@@ -1,7 +1,8 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import HeaderGuri from './HeaderGuri';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+
+import HeaderGuri from './HeaderGuri';
 
 test('renders guri header', () => {
   render(

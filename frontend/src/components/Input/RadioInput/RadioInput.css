@@ -1,0 +1,15 @@
+.checkbox {
+  font-size: 24px;
+  font-family: inherit;
+  padding: 4px 8px;
+  background-color: #fff;
+  border: 2px solid var(--secondary);
+  border-radius: 8px;
+}
+
+.inputAndLabel {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: flex-end;
+}

@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import './HeaderGuri.css';
-import logo from '../../assets/guri-dtic-logo.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faAdjust,
   faPowerOff,
   faSitemap,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { Component } from 'react';
+
+import logo from '../../assets/guri-dtic-logo.png';
+
+import './HeaderGuri.css';
 
 export default class HeaderGuri extends Component {
   render() {

@@ -1,0 +1,26 @@
+.textInput {
+  font-size: var(--normal-font);
+  font-family: inherit;
+  padding: 4px 8px;
+  background-color: #fff;
+  border: 2px solid var(--secondary);
+  border-radius: 8px;
+  /* width: 100%; */
+}
+
+::placeholder {
+  color: var(--gray-text);
+  font-family: 'Inter';
+  font-size: var(--small-font);
+}
+
+.inputAndLabel {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.inputAndLabel > label {
+  flex-shrink: 0;
+}

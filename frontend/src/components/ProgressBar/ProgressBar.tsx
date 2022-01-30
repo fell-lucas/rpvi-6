@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+
 import './ProgressBar.css';
 
 type ProgressBarProps = {
@@ -11,18 +12,18 @@ export default class ProgressBar extends Component<ProgressBarProps> {
   render() {
     if (this.props.hide) {
       return (
-        <div role='progressBar' className='progressBar'>
+        <div className='progressBar'>
           <div
             title='hiddenProgressBar'
             className='progressItem'
-            style={{ background: '#009045' }}
+            style={{ background: 'var(--primary)' }}
           ></div>
         </div>
       );
     }
     let items: JSX.Element[] = [];
     for (let index = 0; index < this.props.items; index++) {
-      const isActive = this.props.active - 1 === index;
+      const isActive = this.props.active - 1 >= index;
       items.push(
         <Fragment key={`ProgressBar_${index}`}>
           <div
@@ -30,7 +31,7 @@ export default class ProgressBar extends Component<ProgressBarProps> {
           >
             {index + 1}
           </div>
-          {this.props.items - 1 != index && (
+          {this.props.items - 1 !== index && (
             <div
               className={`line ${isActive ? 'progressItemActive' : ''}`}
               style={{
@@ -41,10 +42,6 @@ export default class ProgressBar extends Component<ProgressBarProps> {
         </Fragment>
       );
     }
-    return (
-      <div role='progressBar' className='progressBar'>
-        {items}
-      </div>
-    );
+    return <div className='progressBar'>{items}</div>;
   }
 }
