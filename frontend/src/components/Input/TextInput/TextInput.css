@@ -5,6 +5,7 @@
   background-color: #fff;
   border: 2px solid var(--secondary);
   border-radius: 8px;
+  /* width: 100%; */
 }
 
 ::placeholder {
@@ -18,4 +19,8 @@
   gap: 1.5rem;
   align-items: center;
   justify-content: flex-end;
+}
+
+.inputAndLabel > label {
+  flex-shrink: 0;
 }
