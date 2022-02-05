@@ -3,16 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import HeaderGuri from './components/HeaderGuri/HeaderGuri';
+import HeaderGuri from './components/HeaderGuri';
 import { Home, HomeRoute } from './pages';
-import Estagiario, { EstagiarioRoute } from './pages/Solicitar/Estagiario';
-import Instituicao, { InstituicaoRoute } from './pages/Solicitar/Instituicao';
-import SolicitacaoSuccess, {
-  SolicitacaoSuccessRoute,
-} from './pages/Solicitar/Success';
-import UnidadeConcedente, {
-  UnidadeConcedenteRoute,
-} from './pages/Solicitar/UnidadeConcedente';
+import Solicitar, { SolicitarRoute } from './pages/Solicitar/Solicitar';
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -26,16 +19,7 @@ ReactDOM.render(
         </div>
         <Routes>
           <Route path={HomeRoute} element={<Home />} />
-          <Route path={EstagiarioRoute} element={<Estagiario />} />
-          <Route
-            path={UnidadeConcedenteRoute}
-            element={<UnidadeConcedente />}
-          />
-          <Route path={InstituicaoRoute} element={<Instituicao />} />
-          <Route
-            path={SolicitacaoSuccessRoute}
-            element={<SolicitacaoSuccess />}
-          />
+          <Route path={SolicitarRoute} element={<Solicitar />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -7,7 +7,7 @@ import { Button } from '..';
 test('renders button', () => {
   render(
     <BrowserRouter>
-      <Button link=''>Button</Button>
+      <Button>Button</Button>
     </BrowserRouter>
   );
   const elem = screen.getByText(/Button/i);

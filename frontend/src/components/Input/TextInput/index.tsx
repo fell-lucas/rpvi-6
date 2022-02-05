@@ -5,24 +5,28 @@ type InputProps = {
   label: string;
   placeholder?: string;
   start?: boolean;
+  inputSpan?: string;
+  labelSpan?: string;
 };
 
 export default class TextInput extends Component<InputProps> {
   render() {
     const p = this.props;
     return (
-      <div className='flex gap-6 items-center justify-end'>
-        <label className='flex-shrink-0' htmlFor={p.name}>
-          {p.label} :{' '}
+      <>
+        <label
+          className={`flex-shrink-0 text-left ${this.props.labelSpan ?? ''}`}
+          htmlFor={p.name}
+        >
+          {p.label}:{' '}
         </label>
         <input
           id={p.name}
-          className='px-1 py-2 border-secondary rounded-lg'
-          style={p.start ? { width: '100%' } : {}}
+          className={`w-full ${this.props.inputSpan ?? ''}`}
           type='text'
           placeholder={p.placeholder ?? p.label}
         />
-      </div>
+      </>
     );
   }
 }
