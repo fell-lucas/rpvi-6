@@ -1,79 +1,86 @@
 import { FormikErrors, FormikTouched } from 'formik';
 import React, { Component } from 'react';
 
-import { TextInput } from '../../../components';
+import { TextInput } from '../../../../components';
 
-import { UnidadeConcedente } from '../../../models';
+import { Instituicao } from '../../../../models';
 
-type UnidadeConcedenteProps = {
-  errors: FormikErrors<UnidadeConcedente>;
-  touched: FormikTouched<UnidadeConcedente>;
+type InstituicaoProps = {
+  errors: FormikErrors<Instituicao>;
+  touched: FormikTouched<Instituicao>;
 };
 
-export default class UnidadeConcedenteStep extends Component<UnidadeConcedenteProps> {
+export default class InstituicaoStep extends Component<InstituicaoProps> {
   render() {
     return (
       <>
         <div className='flex items-end flex-col'>
           <h2 className='font-bold text-2xl w-2/3 text-right border-b-gray-400 border-b pb-3'>
-            UNIDADE CONCEDENTE / SETOR DA UNIPAMPA
+            INSTITUIÇÃO DE ENSINO
           </h2>
         </div>
         <div className='grid grid-cols-12 gap-8 items-center mt-8'>
           <TextInput
             start
             label='Razão Social'
-            name='unidadeRazao'
+            name='instituicao.razaoSocial'
             inputSpan='col-span-6'
           />
           <TextInput
             label='Telefone'
-            name='unidadeTelefone'
+            name='instituicao.telefone'
             placeholder='(55) 9999-9999'
             inputSpan='col-span-4'
           />
           <TextInput
             label='Endereço'
-            name='unidadeEndereco'
+            name='instituicao.endereco'
             inputSpan='col-span-3'
           />
           <TextInput
             label='Bairro'
-            name='unidadeBairro'
+            name='instituicao.bairro'
             inputSpan='col-span-2'
           />
-          <TextInput label='CEP' name='unidadeCEP' inputSpan='col-span-4' />
+          <TextInput
+            label='CEP'
+            name='instituicao.cep'
+            inputSpan='col-span-4'
+          />
           <TextInput
             label='Cidade'
-            name='unidadeCidade'
+            name='instituicao.cidade'
             inputSpan='col-span-3'
           />
-          <TextInput label='UF' name='unidadeUF' inputSpan='col-span-2' />
-          <TextInput label='CNPJ' name='unidadeCNPJ' inputSpan='col-span-4' />
+          <TextInput label='UF' name='instituicao.uf' inputSpan='col-span-2' />
           <TextInput
-            start
-            label='Nome do Supervisor de Estágio'
-            name='unidadeOrientadorNome'
-            labelSpan='col-span-2'
-            inputSpan='col-span-5'
-          />
-          <TextInput
-            label='Cargo'
-            name='unidadeSupervisorCargo'
-            placeholder='Cargo do Supervisor de Estágio'
+            label='CNPJ'
+            name='instituicao.cnpj'
             inputSpan='col-span-4'
           />
           <TextInput
             start
             label='Nome do Representante Legal'
-            name='unidadeRepresentanteNome'
+            name='instituicao.representanteLegal'
             labelSpan='col-span-2'
             inputSpan='col-span-5'
           />
           <TextInput
             label='Cargo'
-            name='unidadeRepresentanteCargo'
+            name='instituicao.cargoRepresentante'
             placeholder='Cargo do Representante Legal'
+            inputSpan='col-span-4'
+          />
+          <TextInput
+            start
+            label='Nome do Orientador de Estágio'
+            name='instituicao.orientadorEstagio'
+            labelSpan='col-span-2'
+            inputSpan='col-span-5'
+          />
+          <TextInput
+            label='Campus'
+            name='instituicao.campus'
             inputSpan='col-span-4'
           />
         </div>

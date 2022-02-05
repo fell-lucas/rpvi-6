@@ -10,5 +10,5 @@ export type Instituicao = {
   representanteLegal: string;
   cargoRepresentante: string;
   orientadorEstagio: string;
-  telefoneOrientador: string;
+  campus: string;
 };

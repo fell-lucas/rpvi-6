@@ -1,3 +1,4 @@
+import { Field } from 'formik';
 import React, { Component } from 'react';
 
 type InputProps = {
@@ -20,7 +21,8 @@ export default class TextInput extends Component<InputProps> {
         >
           {p.label}:{' '}
         </label>
-        <input
+        <Field
+          name={p.name}
           id={p.name}
           className={`w-full ${this.props.inputSpan ?? ''}`}
           type='text'

@@ -1,9 +1,9 @@
 import { FormikErrors, FormikTouched } from 'formik';
 import React, { Component } from 'react';
 
-import { RadioInput, TextInput } from '../../../components';
+import { RadioInput, TextInput } from '../../../../components';
 
-import { Estagiario } from '../../../models';
+import { Estagiario } from '../../../../models';
 
 type EstagiarioProps = {
   errors: FormikErrors<Estagiario>;
@@ -22,61 +22,64 @@ export default class EstagiarioStep extends Component<EstagiarioProps> {
         <div className='grid grid-cols-12 gap-8 items-center mt-8'>
           <TextInput
             label='Nome'
-            name='estagiarioNome'
+            name='estagiario.nome'
             placeholder='Nome completo'
             inputSpan='col-span-3'
           />
           <TextInput
             label='Endereço'
-            name='estagiarioEndereco'
+            name='estagiario.endereco'
             inputSpan='col-span-3'
           />
           <TextInput
             label='Cidade'
-            name='estagiarioCidade'
+            name='estagiario.cidade'
             inputSpan='col-span-3'
           />
           <TextInput
             label='Matrícula Nº'
-            name='estagiarioMatricula'
+            name='estagiario.matricula'
             placeholder='xxxxxxxxxxx'
             inputSpan='col-span-3'
           />
           <TextInput
             label='E-mail'
-            name='estagiarioEmail'
+            name='estagiario.email'
             inputSpan='col-span-3'
           />
           <TextInput
             label='Bairro'
-            name='estagiarioBairro'
+            name='estagiario.bairro'
             inputSpan='col-span-3'
           />
-          <TextInput label='UF' name='estagiarioUF' inputSpan='col-span-3' />
+          <TextInput label='UF' name='estagiario.uf' inputSpan='col-span-3' />
           <TextInput
             label='Curso'
-            name='estagiarioCurso'
+            name='estagiario.curso'
             inputSpan='col-span-3'
           />
           <TextInput
             label='Telefone'
-            name='estagiarioTelefone'
+            name='estagiario.telefone'
             placeholder='(55) 9999-9999'
             inputSpan='col-span-3'
           />
-          <TextInput label='CEP' name='estagiarioCEP' inputSpan='col-span-3' />
+          <TextInput label='CEP' name='estagiario.cep' inputSpan='col-span-3' />
           <TextInput
             label='Campus'
-            name='estagiarioCampus'
+            name='estagiario.campus'
             inputSpan='col-span-3'
           />
           <TextInput
             label='Semestre'
-            name='estagiarioSemestre'
+            name='estagiario.semestre'
             inputSpan='col-span-3'
           />
           <div className='col-span-6 justify-start'>
-            <RadioInput label='Estágio Curricular' name='estagiarioEstagio'>
+            <RadioInput
+              label='Estágio Curricular'
+              name='estagiario.estagioObrigatorio'
+            >
               <option value='obrigatorio'>Obrigatório</option>
               <option value='naoObrigatorio'>Não Obrigatório</option>
             </RadioInput>
