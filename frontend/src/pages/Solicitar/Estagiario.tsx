@@ -6,7 +6,6 @@ import LandingCard from '../../components/LandingCard/LandingCard';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 
 import { HomeRoute } from '..';
-import './Solicitar.css';
 import { UnidadeConcedenteRoute } from './UnidadeConcedente';
 
 export const EstagiarioRoute = '/solicitar/estagiario';
@@ -17,13 +16,13 @@ export default class Estagiario extends Component {
       <>
         <ProgressBar items={3} active={1} />
         <LandingCard>
-          <div className='formHeader'>
+          <div className='text-center flex flex-col justify-between gap-8'>
             <div>
               <h1>TERMO DE COMPROMISSO DE ESTÁGIO - TCE</h1>
               <hr />
-              <h2>ESTAGIÁRIO</h2>
+              <h2 className='text-primary'>ESTAGIÁRIO</h2>
             </div>
-            <div className='inputGroup'>
+            <div className='font-bold grid grid-cols-3 gap-4'>
               <TextInput
                 label='Nome'
                 name='estagiarioNome'
@@ -48,19 +47,14 @@ export default class Estagiario extends Component {
               <TextInput label='CEP' name='estagiarioCEP' />
               <TextInput label='Campus' name='estagiarioCampus' />
               <TextInput label='Semestre' name='estagiarioSemestre' />
-              <div
-                style={{
-                  gridColumn: 'span 2 / 3',
-                  justifyContent: 'flex-start !important',
-                }}
-              >
+              <div className='col-span-2 justify-start'>
                 <RadioInput label='Estágio Curricular' name='estagiarioEstagio'>
                   <option value='obrigatorio'>Obrigatório</option>
                   <option value='naoObrigatorio'>Não Obrigatório</option>
                 </RadioInput>
               </div>
             </div>
-            <div className='endButtons'>
+            <div className='grid grid-cols-3'>
               <Button link={HomeRoute} type='filled'>
                 Voltar
               </Button>
