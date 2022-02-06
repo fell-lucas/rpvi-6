@@ -1,40 +1,58 @@
-import React, { Children, Component, Fragment } from 'react';
+import { FieldAttributes } from 'formik';
+import React, { InputHTMLAttributes, ReactNode } from 'react';
 
-type InputProps = {
-  name: string;
+type RadioButtonGroupProps = {
+  error?: string;
+  touched?: boolean;
   label: string;
-  placeholder?: string;
+  children: ReactNode;
 };
 
-export default class RadioInput extends Component<InputProps> {
-  render() {
-    const p = this.props;
-    return (
-      <div
-        className='flex gap-6 items-center justify-end'
-        style={{ justifyContent: 'flex-start' }}
-      >
-        <label htmlFor={p.name}>{p.label} : </label>
-        <div className='flex gap-6 items-center justify-end'>
-          {Children.map(p.children, (child, idx) => {
-            // @ts-ignore
-            const value = child.props.value as string;
-            // @ts-ignore
-            const text = child.props.children as string;
-            return (
-              <Fragment>
-                <input
-                  type='radio'
-                  id={p.name + idx}
-                  name={p.name}
-                  value={value}
-                />
-                <label htmlFor={p.name + idx}>{text}</label>
-              </Fragment>
-            );
-          })}
-        </div>
+export const RadioButtonGroup = ({
+  error,
+  touched,
+  label,
+  children,
+}: RadioButtonGroupProps) => {
+  return (
+    <div className='flex flex-col'>
+      <div className='flex gap-6 items-center'>
+        <legend>{label}</legend>
+        {children}
       </div>
-    );
-  }
-}
+      <small
+        className={`text-left text-xs text-red-600 ${
+          !!error && touched ? 'p-1' : 'p-3'
+        }`}
+      >
+        {!!error && touched && error}
+      </small>
+    </div>
+  );
+};
+
+type RadioButtonProps = {
+  field: FieldAttributes<InputHTMLAttributes<HTMLInputElement>>;
+  id: string;
+  label: string;
+};
+
+export const RadioButton = ({
+  field: { name, onChange, value },
+  id,
+  label,
+}: RadioButtonProps) => {
+  return (
+    <div className='flex gap-6 items-center'>
+      <input
+        name={name}
+        id={id}
+        type='radio'
+        value={label}
+        checked={value === label}
+        onChange={onChange}
+      />
+      <label htmlFor={id}>{label}</label>
+    </div>
+  );
+};

@@ -1,4 +1,5 @@
 export type Estagiario = {
+  [index: string]: string | boolean;
   nome: string;
   email: string;
   telefone: string;
@@ -11,5 +12,5 @@ export type Estagiario = {
   matricula: string;
   curso: string;
   semestre: string;
-  estagioObrigatorio: false;
+  estagioObrigatorio: string | boolean;
 };

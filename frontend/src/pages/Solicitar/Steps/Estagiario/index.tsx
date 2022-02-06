@@ -1,13 +1,18 @@
-import { FormikErrors, FormikTouched } from 'formik';
+import { Field, FormikErrors, FormikTouched, FormikValues } from 'formik';
 import React, { Component } from 'react';
 
-import { RadioInput, TextInput } from '../../../../components';
+import {
+  RadioButton,
+  RadioButtonGroup,
+  TextInput,
+} from '../../../../components';
 
-import { Estagiario } from '../../../../models';
+import { Solicitacao } from '../../../../models';
 
 type EstagiarioProps = {
-  errors: FormikErrors<Estagiario>;
-  touched: FormikTouched<Estagiario>;
+  errors: FormikErrors<Solicitacao>;
+  touched: FormikTouched<Solicitacao>;
+  values?: Solicitacao;
 };
 
 export default class EstagiarioStep extends Component<EstagiarioProps> {
@@ -19,70 +24,50 @@ export default class EstagiarioStep extends Component<EstagiarioProps> {
             ESTAGIÁRIO
           </h2>
         </div>
-        <div className='grid grid-cols-12 gap-8 items-center mt-8'>
-          <TextInput
-            label='Nome'
-            name='estagiario.nome'
-            placeholder='Nome completo'
-            inputSpan='col-span-3'
-          />
-          <TextInput
-            label='Endereço'
-            name='estagiario.endereco'
-            inputSpan='col-span-3'
-          />
-          <TextInput
-            label='Cidade'
-            name='estagiario.cidade'
-            inputSpan='col-span-3'
-          />
-          <TextInput
-            label='Matrícula Nº'
-            name='estagiario.matricula'
-            placeholder='xxxxxxxxxxx'
-            inputSpan='col-span-3'
-          />
-          <TextInput
-            label='E-mail'
-            name='estagiario.email'
-            inputSpan='col-span-3'
-          />
-          <TextInput
-            label='Bairro'
-            name='estagiario.bairro'
-            inputSpan='col-span-3'
-          />
-          <TextInput label='UF' name='estagiario.uf' inputSpan='col-span-3' />
-          <TextInput
-            label='Curso'
-            name='estagiario.curso'
-            inputSpan='col-span-3'
-          />
-          <TextInput
-            label='Telefone'
-            name='estagiario.telefone'
-            placeholder='(55) 9999-9999'
-            inputSpan='col-span-3'
-          />
-          <TextInput label='CEP' name='estagiario.cep' inputSpan='col-span-3' />
-          <TextInput
-            label='Campus'
-            name='estagiario.campus'
-            inputSpan='col-span-3'
-          />
-          <TextInput
-            label='Semestre'
-            name='estagiario.semestre'
-            inputSpan='col-span-3'
-          />
+        <div className='grid grid-cols-12 gap-4 items-center mt-8'>
+          {[
+            ['Nome', 'nome', 'Nome completo', '3'],
+            ['Endereço', 'endereco', '', '3'],
+            ['Cidade', 'cidade', '', '3'],
+            ['Matrícula Nº', 'matricula', '**********', '3'],
+            ['E-mail', 'email', '', '3'],
+            ['Bairro', 'bairro', '', '3'],
+            ['UF', 'uf', '', '3'],
+            ['Curso', 'curso', '', '3'],
+            ['Telefone', 'telefone', '( )', '3'],
+            ['CEP', 'cep', '', '3'],
+            ['Campus', 'campus', '', '3'],
+            ['Semestre', 'semestre', '', '3'],
+          ].map(([label, name, ph, span]) => (
+            <TextInput
+              key={name}
+              label={label}
+              name={`estagiario.${name}`}
+              placeholder={ph !== '' ? ph : label}
+              inputSpan={`col-span-${span}`}
+              errors={this.props.errors}
+              touched={this.props.touched}
+            />
+          ))}
           <div className='col-span-6 justify-start'>
-            <RadioInput
-              label='Estágio Curricular'
-              name='estagiario.estagioObrigatorio'
+            <RadioButtonGroup
+              label='Estágio Obrigatório : '
+              error={this.props.errors.estagiario?.estagioObrigatorio}
+              touched={this.props.touched.estagiario?.estagioObrigatorio}
             >
-              <option value='obrigatorio'>Obrigatório</option>
-              <option value='naoObrigatorio'>Não Obrigatório</option>
-            </RadioInput>
+              <Field
+                component={RadioButton}
+                name='estagiario.estagioObrigatorio'
+                id='estagiario.estagioObrigatorio1'
+                label='Obrigatório'
+              />
+              <Field
+                component={RadioButton}
+                name='estagiario.estagioObrigatorio'
+                id='estagiario.estagioObrigatorio2'
+                label='Não obrigatório'
+              />
+            </RadioButtonGroup>
           </div>
         </div>
       </>

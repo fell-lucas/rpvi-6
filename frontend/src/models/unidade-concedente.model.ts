@@ -1,4 +1,5 @@
 export type UnidadeConcedente = {
+  [index: string]: string;
   razaoSocial: string;
   telefone: string;
   endereco: string;

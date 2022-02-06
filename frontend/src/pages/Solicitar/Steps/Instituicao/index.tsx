@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 
 import { TextInput } from '../../../../components';
 
-import { Instituicao } from '../../../../models';
+import { Solicitacao } from '../../../../models';
 
 type InstituicaoProps = {
-  errors: FormikErrors<Instituicao>;
-  touched: FormikTouched<Instituicao>;
+  errors: FormikErrors<Solicitacao>;
+  touched: FormikTouched<Solicitacao>;
 };
 
 export default class InstituicaoStep extends Component<InstituicaoProps> {
@@ -20,69 +20,42 @@ export default class InstituicaoStep extends Component<InstituicaoProps> {
           </h2>
         </div>
         <div className='grid grid-cols-12 gap-8 items-center mt-8'>
-          <TextInput
-            start
-            label='Razão Social'
-            name='instituicao.razaoSocial'
-            inputSpan='col-span-6'
-          />
-          <TextInput
-            label='Telefone'
-            name='instituicao.telefone'
-            placeholder='(55) 9999-9999'
-            inputSpan='col-span-4'
-          />
-          <TextInput
-            label='Endereço'
-            name='instituicao.endereco'
-            inputSpan='col-span-3'
-          />
-          <TextInput
-            label='Bairro'
-            name='instituicao.bairro'
-            inputSpan='col-span-2'
-          />
-          <TextInput
-            label='CEP'
-            name='instituicao.cep'
-            inputSpan='col-span-4'
-          />
-          <TextInput
-            label='Cidade'
-            name='instituicao.cidade'
-            inputSpan='col-span-3'
-          />
-          <TextInput label='UF' name='instituicao.uf' inputSpan='col-span-2' />
-          <TextInput
-            label='CNPJ'
-            name='instituicao.cnpj'
-            inputSpan='col-span-4'
-          />
-          <TextInput
-            start
-            label='Nome do Representante Legal'
-            name='instituicao.representanteLegal'
-            labelSpan='col-span-2'
-            inputSpan='col-span-5'
-          />
-          <TextInput
-            label='Cargo'
-            name='instituicao.cargoRepresentante'
-            placeholder='Cargo do Representante Legal'
-            inputSpan='col-span-4'
-          />
-          <TextInput
-            start
-            label='Nome do Orientador de Estágio'
-            name='instituicao.orientadorEstagio'
-            labelSpan='col-span-2'
-            inputSpan='col-span-5'
-          />
-          <TextInput
-            label='Campus'
-            name='instituicao.campus'
-            inputSpan='col-span-4'
-          />
+          {[
+            ['Razão Social', 'razaoSocial', 'Nome completo', '6'],
+            ['Telefone', 'telefone', '( )', '4'],
+            ['Endereço', 'endereco', '', '3'],
+            ['Bairro', 'bairro', '', '2'],
+            ['CEP', 'cep', '', '4'],
+            ['Cidade', 'cidade', '', '3'],
+            ['UF', 'uf', '', '2'],
+            ['CNPJ', 'cnpj', '', '4'],
+            ['Nome do Representante Legal', 'representanteLegal', '', '5', '2'],
+            [
+              'Cargo',
+              'cargoRepresentante',
+              'Cargo do Representante Legal',
+              '4',
+            ],
+            [
+              'Nome do Orientador de Estágio',
+              'orientadorEstagio',
+              '',
+              '5',
+              '2',
+            ],
+            ['Campus', 'campus', '', '4'],
+          ].map(([label, name, ph, span, labelSpan]) => (
+            <TextInput
+              key={name}
+              label={label}
+              name={`instituicao.${name}`}
+              placeholder={ph !== '' ? ph : label}
+              inputSpan={`col-span-${span}`}
+              labelSpan={`${labelSpan ? 'col-span-' + labelSpan : ''}`}
+              errors={this.props.errors}
+              touched={this.props.touched}
+            />
+          ))}
         </div>
       </>
     );

@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 
 import { TextInput } from '../../../../components';
 
-import { UnidadeConcedente } from '../../../../models';
+import { Solicitacao } from '../../../../models';
 
 type UnidadeConcedenteProps = {
-  errors: FormikErrors<UnidadeConcedente>;
-  touched: FormikTouched<UnidadeConcedente>;
+  errors: FormikErrors<Solicitacao>;
+  touched: FormikTouched<Solicitacao>;
 };
 
 export default class UnidadeConcedenteStep extends Component<UnidadeConcedenteProps> {
