@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { TextInput } from '..';
+import TextInput from '.';
 
 test('renders text input', () => {
   render(
