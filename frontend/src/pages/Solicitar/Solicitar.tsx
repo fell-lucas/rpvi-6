@@ -1,3 +1,6 @@
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
 import {
   Form,
   Formik,
@@ -161,31 +164,59 @@ class Solicitar extends Component<Props, State> {
             }}
           >
             {({ values, errors, touched, handleSubmit, isSubmitting }) => (
-              <div className='text-center flex flex-col justify-between flex-1 h-full px-12 pt-8 gap-8'>
+              <div
+                className={classNames(
+                  'text-center',
+                  'flex',
+                  'flex-col',
+                  'justify-between',
+                  'flex-1',
+                  'h-full',
+                  'px-12',
+                  'pt-8',
+                  'gap-8'
+                )}
+              >
                 <Form
                   onSubmit={handleSubmit}
-                  className='flex-1 flex flex-col h-full justify-between'
+                  className={classNames(
+                    'flex-1',
+                    'flex',
+                    'flex-col',
+                    'h-full',
+                    'justify-between'
+                  )}
                 >
+                  <button
+                    type='button'
+                    className={classNames(
+                      'absolute',
+                      'text-primary',
+                      'text-4xl'
+                    )}
+                    onClick={handleBack}
+                  >
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                  </button>
                   {renderStep(this.state.step, errors, touched, values)}
-                  <div className='grid grid-cols-6 mt-8'>
-                    <Button type='button' outlined onClick={handleBack}>
-                      Voltar
-                    </Button>
+                  <div className={classNames('grid', 'grid-cols-6', 'mt-8')}>
                     <div className='col-span-4'></div>
-                    <Button disabled={isSubmitting} type='submit'>
-                      {isSubmitting ? (
-                        <Spinner
-                          className='m-auto'
-                          fadeIn='none'
-                          color='#FFF'
-                          name='double-bounce'
-                        />
-                      ) : this.state.step !== steps.length - 1 ? (
-                        'Próximo'
-                      ) : (
-                        'Enviar'
-                      )}
-                    </Button>
+                    <div className='col-span-2'>
+                      <Button disabled={isSubmitting} type='submit'>
+                        {isSubmitting ? (
+                          <Spinner
+                            className='m-auto'
+                            fadeIn='none'
+                            color='#FFF'
+                            name='double-bounce'
+                          />
+                        ) : this.state.step !== steps.length - 1 ? (
+                          'Próximo'
+                        ) : (
+                          'Enviar'
+                        )}
+                      </Button>
+                    </div>
                   </div>
                 </Form>
               </div>
