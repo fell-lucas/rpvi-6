@@ -1,27 +1,20 @@
 import {
   Form,
   Formik,
-  FormikConfig,
   FormikErrors,
   FormikHelpers,
   FormikTouched,
-  FormikValues,
 } from 'formik';
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router';
 import Spinner from 'react-spinkit';
 import Swal from 'sweetalert2';
-import { ValidationError } from 'yup';
 
 import { Button, LandingCard, ProgressBar } from '../../components';
 
 import { HomeRoute } from '..';
-import {
-  Estagiario,
-  Instituicao,
-  Solicitacao,
-  UnidadeConcedente,
-} from '../../models';
+import { Solicitacao } from '../../models';
+import { api, endpoints } from '../../services';
 import EstagiarioStep from './Steps/Estagiario';
 import { estagiarioInitialValues } from './Steps/Estagiario/initial-values';
 import InstituicaoStep from './Steps/Instituicao';
@@ -106,26 +99,27 @@ class Solicitar extends Component<Props, State> {
               } as Solicitacao
             }
             validationSchema={validationsSchemas[this.state.step]}
-            onSubmit={(
+            onSubmit={async (
               values: Solicitacao,
               { setSubmitting }: FormikHelpers<Solicitacao>
             ) => {
-              console.log(values);
-
               if (this.state.step !== steps.length - 1) {
                 setSubmitting(false);
                 this.setState({ step: this.state.step + 1 });
                 return;
               }
-              setTimeout(() => {
-                Swal.fire({
-                  title: 'Error!',
-                  text: 'Do you want to continue',
-                  icon: 'error',
-                  confirmButtonText: 'Cool',
-                });
-                setSubmitting(false);
-              }, 500);
+
+              try {
+                const response = await api.post(
+                  endpoints.solicitacoes,
+                  JSON.stringify(values),
+                  { headers: { 'Content-Type': 'application/json' } }
+                );
+                console.log(response);
+              } catch (error) {
+                console.log(error);
+              }
+              setSubmitting(false);
             }}
           >
             {({ values, errors, touched, handleSubmit, isSubmitting }) => (
@@ -135,7 +129,6 @@ class Solicitar extends Component<Props, State> {
                   className='flex-1 flex flex-col h-full justify-between'
                 >
                   {renderStep(this.state.step, errors, touched, values)}
-                  {console.log(errors)}
                   <div className='grid grid-cols-6 mt-8'>
                     <Button type='button' outlined onClick={handleBack}>
                       Voltar
