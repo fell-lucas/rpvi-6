@@ -96,7 +96,7 @@ class Solicitar extends Component<Props, State> {
 
     return (
       <>
-        <ProgressBar items={3} active={this.state.step + 1} />
+        <ProgressBar items={steps.length} active={this.state.step + 1} />
         <LandingCard>
           <Formik
             enableReinitialize
@@ -104,11 +104,16 @@ class Solicitar extends Component<Props, State> {
             validationSchema={validationsSchemas[this.state.step]}
             onSubmit={(
               values: Solicitacao,
-              { setSubmitting, resetForm }: FormikHelpers<Solicitacao>
+              {
+                setSubmitting,
+                resetForm,
+                setTouched,
+              }: FormikHelpers<Solicitacao>
             ) => {
               setSubmitting(false);
               if (this.state.step !== steps.length - 1) {
                 this.setState({ step: this.state.step + 1 });
+                setTouched({});
                 return;
               }
               Swal.fire({

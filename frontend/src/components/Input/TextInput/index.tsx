@@ -12,17 +12,18 @@ type InputProps = {
   start?: boolean;
   inputSpan?: string;
   labelSpan?: string;
-  errors?: FormikErrors<Solicitacao>;
-  touched?: FormikTouched<Solicitacao>;
+  errors?: FormikErrors<{ [x: string]: string }>;
+  touched?: FormikTouched<{ [x: string]: string }>;
 };
 
 export default class TextInput extends Component<InputProps> {
   render() {
     const p = this.props;
-    const [step, fieldname] = this.props.name.split('.');
-    const errors = this.props.errors?.[step]?.[fieldname];
-    const touched = this.props.touched?.[step]?.[fieldname];
-    const hasError = Boolean(errors) && touched;
+    const fieldname = this.props.name.split('.')[1];
+    const errors = this.props.errors?.[fieldname];
+    const touched = this.props.touched?.[fieldname];
+    const hasError = !!errors && touched;
+
     return (
       <>
         <label
@@ -50,7 +51,7 @@ export default class TextInput extends Component<InputProps> {
               'p-3': !hasError,
             })}
           >
-            {hasError && this.props.errors?.[step]?.[fieldname]}
+            {hasError && this.props.errors?.[fieldname]}
           </small>
           <Field
             name={p.name}
