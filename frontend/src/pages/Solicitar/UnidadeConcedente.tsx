@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 
 import { Button } from '../../components';
-import { RadioInput, TextInput } from '../../components/Input';
+import { TextInput } from '../../components/Input';
 import LandingCard from '../../components/LandingCard/LandingCard';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 
-import { HomeRoute } from '..';
 import { EstagiarioRoute } from './Estagiario';
 import { InstituicaoRoute } from './Instituicao';
-import './Solicitar.css';
 
 export const UnidadeConcedenteRoute = '/solicitar/unidade-concedente';
 
@@ -18,19 +16,16 @@ export default class UnidadeConcedente extends Component {
       <>
         <ProgressBar items={3} active={2} />
         <LandingCard>
-          <div className='formHeader'>
+          <div className='text-center flex flex-col justify-between gap-8'>
             <div>
               <h1>TERMO DE COMPROMISSO DE ESTÁGIO - TCE</h1>
               <hr />
-              <h2>UNIDADE CONCEDENTE/SETOR DA UNIPAMPA</h2>
+              <h2 className='text-primary'>
+                UNIDADE CONCEDENTE/SETOR DA UNIPAMPA
+              </h2>
             </div>
-            <div className='inputGroup'>
-              <div
-                style={{
-                  gridColumn: 'span 2 / 3',
-                  justifyContent: 'flex-start !important',
-                }}
-              >
+            <div className='font-bold grid grid-cols-3 gap-4'>
+              <div className='col-span-2 justify-start'>
                 <TextInput start label='Razão Social' name='ucRazao' />
               </div>
               <TextInput
@@ -44,12 +39,7 @@ export default class UnidadeConcedente extends Component {
               <TextInput label='Cidade' name='ucCidade' />
               <TextInput label='UF' name='ucUF' />
               <TextInput label='CNPJ' name='ucCNPJ' />
-              <div
-                style={{
-                  gridColumn: 'span 2 / 3',
-                  justifyContent: 'flex-start !important',
-                }}
-              >
+              <div className='col-span-2 justify-start'>
                 <TextInput
                   start
                   label='Nome do Supervisor de Estágio'
@@ -61,12 +51,7 @@ export default class UnidadeConcedente extends Component {
                 name='ucSupervisorCargo'
                 placeholder='Cargo do Supervisor de Estágio'
               />
-              <div
-                style={{
-                  gridColumn: 'span 2 / 3',
-                  justifyContent: 'flex-start !important',
-                }}
-              >
+              <div className='col-span-2 justify-start'>
                 <TextInput
                   start
                   label='Nome do Representante Legal'
@@ -79,7 +64,7 @@ export default class UnidadeConcedente extends Component {
                 placeholder='Cargo do Representante Legal'
               />
             </div>
-            <div className='endButtons'>
+            <div className='grid grid-cols-3'>
               <Button link={EstagiarioRoute} type='filled'>
                 Voltar
               </Button>

@@ -9,18 +9,16 @@ import React, { Component } from 'react';
 
 import logo from '../../assets/guri-dtic-logo.png';
 
-import './HeaderGuri.css';
-
 export default class HeaderGuri extends Component {
   render() {
     return (
-      <div className='header'>
+      <div className='bg-bg1 flex mt-6 p-2 px-10 items-center justify-items-stretch text-primary'>
         <img src={logo} alt='logo guri' width={886} height={109} />
-        <div style={{ flexGrow: 100 }}></div>
-        <div className='rightMenu'>
-          <div className='userMenu'>
+        <div className='flex-grow'></div>
+        <div className='flex flex-col gap-6'>
+          <div className='flex justify-evenly bg-primary rounded-2xl p-2 text-white'>
             <span>00:00:00</span>
-            <div className='inline-block userItem'>
+            <div className='inline-block border-x-2 px-3'>
               <FontAwesomeIcon icon={faUser} />
               &nbsp;****************
             </div>
@@ -29,17 +27,17 @@ export default class HeaderGuri extends Component {
               &nbsp;Sair
             </div>
           </div>
-          <div className='accessibilityMenu'>
-            <div className='accessibilityText'>
-              <span style={{ fontSize: 'calc(1.5vmin)' }}>
+          <div className='flex items-baseline gap-8'>
+            <div>
+              <span className='cursor-pointer text-sm'>
                 <b>A-</b>
               </span>
               &nbsp;&nbsp;
-              <span>
+              <span className='cursor-pointer'>
                 <b>A</b>
               </span>
               &nbsp;&nbsp;
-              <span style={{ fontSize: 'calc(5px + 2vmin)' }}>
+              <span className='cursor-pointer text-2xl'>
                 <b>A+</b>
               </span>
             </div>

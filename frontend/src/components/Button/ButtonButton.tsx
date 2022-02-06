@@ -13,7 +13,9 @@ export default class Button extends Component<ButtonProps> {
     const buttonClass = `${this.props.type ?? 'outlined'}Button`;
     return (
       <Link to={this.props.link}>
-        <button className={`${buttonClass} button`}>
+        <button
+          className={`${buttonClass} font-bold box-border rounded-lg p-2 w-full text-xl`}
+        >
           {this.props.children}
         </button>
       </Link>
