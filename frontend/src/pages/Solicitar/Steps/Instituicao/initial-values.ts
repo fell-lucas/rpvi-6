@@ -1,16 +1,16 @@
 import { Instituicao } from '../../../../models';
 
 export const instituicaoInitialValues = {
-  razaoSocial: '',
-  telefone: '',
-  endereco: '',
-  bairro: '',
-  cep: '',
-  cidade: '',
-  uf: '',
-  cnpj: '',
-  representanteLegal: '',
-  cargoRepresentante: '',
-  orientadorEstagio: '',
-  campus: '',
+  razaoSocial: 'a',
+  telefone: 'a',
+  endereco: 'a',
+  bairro: 'a',
+  cep: 'a',
+  cidade: 'a',
+  uf: 'a',
+  cnpj: 'a',
+  representanteLegal: 'a',
+  cargoRepresentante: 'a',
+  orientadorEstagio: 'a',
+  campus: 'a',
 } as Instituicao;

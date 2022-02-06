@@ -19,7 +19,7 @@ export default class InstituicaoStep extends Component<InstituicaoProps> {
             INSTITUIÇÃO DE ENSINO
           </h2>
         </div>
-        <div className='grid grid-cols-12 gap-8 items-center mt-8'>
+        <div className='grid grid-cols-12 gap-4 items-center mt-8'>
           {[
             ['Razão Social', 'razaoSocial', 'Nome completo', '6'],
             ['Telefone', 'telefone', '( )', '4'],

@@ -19,75 +19,43 @@ export default class UnidadeConcedenteStep extends Component<UnidadeConcedentePr
             UNIDADE CONCEDENTE / SETOR DA UNIPAMPA
           </h2>
         </div>
-        <div className='grid grid-cols-12 gap-8 items-center mt-8'>
-          <TextInput
-            start
-            label='Razão Social'
-            name='unidadeConcedente.razaoSocial'
-            inputSpan='col-span-6'
-          />
-          <TextInput
-            label='Telefone'
-            name='unidadeConcedente.telefone'
-            placeholder='(55) 9999-9999'
-            inputSpan='col-span-4'
-          />
-          <TextInput
-            label='Endereço'
-            name='unidadeConcedente.endereco'
-            inputSpan='col-span-3'
-          />
-          <TextInput
-            label='Bairro'
-            name='unidadeConcedente.bairro'
-            inputSpan='col-span-2'
-          />
-          <TextInput
-            label='CEP'
-            name='unidadeConcedente.cep'
-            inputSpan='col-span-4'
-          />
-          <TextInput
-            label='Cidade'
-            name='unidadeConcedente.cidade'
-            inputSpan='col-span-3'
-          />
-          <TextInput
-            label='UF'
-            name='unidadeConcedente.uf'
-            inputSpan='col-span-2'
-          />
-          <TextInput
-            label='CNPJ'
-            name='unidadeConcedente.cnpj'
-            inputSpan='col-span-4'
-          />
-          <TextInput
-            start
-            label='Nome do Supervisor de Estágio'
-            name='unidadeConcedente.supervisorEstagio'
-            labelSpan='col-span-2'
-            inputSpan='col-span-5'
-          />
-          <TextInput
-            label='Cargo'
-            name='unidadeConcedente.cargoSupervisor'
-            placeholder='Cargo do Supervisor de Estágio'
-            inputSpan='col-span-4'
-          />
-          <TextInput
-            start
-            label='Nome do Representante Legal'
-            name='unidadeConcedente.representanteLegal'
-            labelSpan='col-span-2'
-            inputSpan='col-span-5'
-          />
-          <TextInput
-            label='Cargo'
-            name='unidadeConcedente.cargoRepresentante'
-            placeholder='Cargo do Representante Legal'
-            inputSpan='col-span-4'
-          />
+        <div className='grid grid-cols-12 gap-4 items-center mt-8'>
+          {[
+            ['Razão Social', 'razaoSocial', 'Nome completo', '6'],
+            ['Telefone', 'telefone', '( )', '4'],
+            ['Endereço', 'endereco', '', '3'],
+            ['Bairro', 'bairro', '', '2'],
+            ['CEP', 'cep', '', '4'],
+            ['Cidade', 'cidade', '', '3'],
+            ['UF', 'uf', '', '2'],
+            ['CNPJ', 'cnpj', '', '4'],
+            [
+              'Nome do Supervisor de Estágio',
+              'supervisorEstagio',
+              '',
+              '5',
+              '2',
+            ],
+            ['Cargo', 'cargoSupervisor', 'Cargo do Supervisor de Estágio', '4'],
+            ['Nome do Representante Legal', 'representanteLegal', '', '5', '2'],
+            [
+              'Cargo',
+              'cargoRepresentante',
+              'Cargo do Representante Legal',
+              '4',
+            ],
+          ].map(([label, name, ph, span, labelSpan]) => (
+            <TextInput
+              key={name}
+              label={label}
+              name={`unidadeConcedente.${name}`}
+              placeholder={ph !== '' ? ph : label}
+              inputSpan={`col-span-${span}`}
+              labelSpan={`${labelSpan ? 'col-span-' + labelSpan : ''}`}
+              errors={this.props.errors}
+              touched={this.props.touched}
+            />
+          ))}
         </div>
       </>
     );
