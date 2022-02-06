@@ -1,6 +1,5 @@
+import classNames from 'classnames';
 import React, { Component, Fragment } from 'react';
-
-import './ProgressBar.css';
 
 type ProgressBarProps = {
   items: number;
@@ -11,15 +10,7 @@ type ProgressBarProps = {
 export default class ProgressBar extends Component<ProgressBarProps> {
   render() {
     if (this.props.hide) {
-      return (
-        <div className='progressBar'>
-          <div
-            title='hiddenProgressBar'
-            className='progressItem'
-            style={{ background: 'var(--primary)' }}
-          ></div>
-        </div>
-      );
+      return <div className='py-4'></div>;
     }
     let items: JSX.Element[] = [];
     for (let index = 0; index < this.props.items; index++) {
@@ -27,13 +18,30 @@ export default class ProgressBar extends Component<ProgressBarProps> {
       items.push(
         <Fragment key={`ProgressBar_${index}`}>
           <div
-            className={`progressItem ${isActive ? 'progressItemActive' : ''}`}
+            className={classNames(
+              'flex',
+              'text-primary',
+              'w-10',
+              'h-10',
+              'items-center',
+              'rounded-full',
+              'justify-center',
+              'first:ml-12',
+              { 'bg-white': isActive, 'bg-inactive': !isActive }
+            )}
           >
             {index + 1}
           </div>
           {this.props.items - 1 !== index && (
             <div
-              className={`line ${isActive ? 'progressItemActive' : ''}`}
+              className={classNames(
+                'bg-gray',
+                'absolute',
+                'top-1/2',
+                'w-20',
+                'h-1',
+                { 'bg-white': isActive, 'bg-inactive': !isActive }
+              )}
               style={{
                 left: `calc(2.5rem + ${index * 7.5}rem + 3rem)`,
               }}
@@ -42,6 +50,19 @@ export default class ProgressBar extends Component<ProgressBarProps> {
         </Fragment>
       );
     }
-    return <div className='progressBar'>{items}</div>;
+    return (
+      <div
+        className={classNames(
+          'flex',
+          'relative',
+          'gap-20',
+          'py-4',
+          'justify-start',
+          'w-full'
+        )}
+      >
+        {items}
+      </div>
+    );
   }
 }

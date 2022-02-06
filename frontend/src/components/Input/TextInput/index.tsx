@@ -1,7 +1,9 @@
+import classNames from 'classnames';
 import { Field, FormikErrors, FormikTouched } from 'formik';
 import React, { Component } from 'react';
 
 import { Solicitacao } from '../../../models';
+import { colSpan } from '../../../utils/helpers';
 
 type InputProps = {
   name: string;
@@ -24,30 +26,39 @@ export default class TextInput extends Component<InputProps> {
     return (
       <>
         <label
-          className={`pb-6 flex-shrink-0 text-left ${
-            this.props.labelSpan ?? ''
-          } `}
+          className={classNames(
+            'pt-6',
+            'flex-shrink-0',
+            'text-left',
+            colSpan(p.labelSpan)
+          )}
           htmlFor={p.name}
         >
-          {p.label}:{' '}
+          {`${p.label}: `}
         </label>
-        <div className={`w-full flex flex-col ${this.props.inputSpan ?? ''}`}>
-          <Field
-            name={p.name}
-            id={p.name}
-            className={`${hasError ? 'border-red-600' : ''} w-full ${
-              this.props.inputSpan ?? ''
-            }`}
-            type='text'
-            placeholder={p.placeholder ?? p.label}
-          />
+        <div
+          className={classNames(
+            'w-full',
+            'flex',
+            'flex-col',
+            colSpan(p.inputSpan)
+          )}
+        >
           <small
-            className={`text-left text-xs text-red-600 ${
-              hasError ? 'p-1' : 'p-3'
-            }`}
+            className={classNames('text-left', 'text-xs', 'text-red-600', {
+              'p-1': hasError,
+              'p-3': !hasError,
+            })}
           >
             {hasError && this.props.errors?.[step]?.[fieldname]}
           </small>
+          <Field
+            name={p.name}
+            id={p.name}
+            className={classNames('w-full', { 'border-red-600': hasError })}
+            type='text'
+            placeholder={p.placeholder ?? p.label}
+          />
         </div>
       </>
     );

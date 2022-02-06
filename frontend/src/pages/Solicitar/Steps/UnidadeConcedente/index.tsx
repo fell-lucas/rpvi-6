@@ -50,8 +50,8 @@ export default class UnidadeConcedenteStep extends Component<UnidadeConcedentePr
               label={label}
               name={`unidadeConcedente.${name}`}
               placeholder={ph !== '' ? ph : label}
-              inputSpan={`col-span-${span}`}
-              labelSpan={`${labelSpan ? 'col-span-' + labelSpan : ''}`}
+              inputSpan={span}
+              labelSpan={labelSpan}
               errors={this.props.errors}
               touched={this.props.touched}
             />

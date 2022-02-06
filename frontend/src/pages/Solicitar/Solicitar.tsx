@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 import { Button, LandingCard, ProgressBar } from '../../components';
 
 import { HomeRoute } from '..';
-import { Solicitacao } from '../../models';
+import { Estagiario, Solicitacao } from '../../models';
 import { api, endpoints } from '../../services';
 import EstagiarioStep from './Steps/Estagiario';
 import { estagiarioInitialValues } from './Steps/Estagiario/initial-values';
@@ -44,6 +44,12 @@ const validationsSchemas = [
   validationSchemaUnidade,
   validationSchemaInstituicao,
 ];
+
+const initialValues = {
+  estagiario: estagiarioInitialValues,
+  instituicao: instituicaoInitialValues,
+  unidadeConcedente: unidadeInitialValues,
+} as Solicitacao;
 
 class Solicitar extends Component<Props, State> {
   state = {
@@ -91,35 +97,67 @@ class Solicitar extends Component<Props, State> {
         <LandingCard>
           <Formik
             enableReinitialize
-            initialValues={
-              {
-                estagiario: estagiarioInitialValues,
-                instituicao: instituicaoInitialValues,
-                unidadeConcedente: unidadeInitialValues,
-              } as Solicitacao
-            }
+            initialValues={initialValues}
             validationSchema={validationsSchemas[this.state.step]}
-            onSubmit={async (
+            onSubmit={(
               values: Solicitacao,
-              { setSubmitting }: FormikHelpers<Solicitacao>
+              { setSubmitting, resetForm }: FormikHelpers<Solicitacao>
             ) => {
+              setSubmitting(false);
               if (this.state.step !== steps.length - 1) {
-                setSubmitting(false);
                 this.setState({ step: this.state.step + 1 });
                 return;
               }
-
-              try {
-                const response = await api.post(
-                  endpoints.solicitacoes,
-                  JSON.stringify(values),
-                  { headers: { 'Content-Type': 'application/json' } }
-                );
-                console.log(response);
-              } catch (error) {
-                console.log(error);
-              }
-              setSubmitting(false);
+              Swal.fire({
+                icon: 'warning',
+                title: 'Atenção! Esta ação não poderá ser desfeita.',
+                text: 'Confira os dados antes de enviar.',
+                showCancelButton: true,
+                confirmButtonText: 'Enviar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#009045',
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                  setSubmitting(true);
+                  try {
+                    const mapEstagiario = (estagiario: Estagiario) => {
+                      return {
+                        ...estagiario,
+                        estagioObrigatorio:
+                          estagiario.estagioObrigatorio === 'Obrigatório',
+                      };
+                    };
+                    const response = await api.post(
+                      endpoints.solicitacoes,
+                      JSON.stringify({
+                        ...values,
+                        estagiario: mapEstagiario(values.estagiario),
+                      }),
+                      { headers: { 'Content-Type': 'application/json' } }
+                    );
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Sucesso! Sua solicitação foi enviada.',
+                      text: 'Por favor, aguarde enquanto analisamos. Retornaremos o mais rápido possível.',
+                      confirmButtonText: 'Ok',
+                      confirmButtonColor: '#009045',
+                    });
+                    console.log(response);
+                  } catch (error) {
+                    console.log(error);
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Erro. Algo deu errado com a sua solicitação.',
+                      text: 'Por favor, tente novamente. Estamos trabalhando à todo o vapor para arrumar as coisas por aqui.',
+                      confirmButtonText: 'Ok',
+                      confirmButtonColor: '#009045',
+                    });
+                  } finally {
+                    resetForm();
+                    setSubmitting(false);
+                  }
+                }
+              });
             }}
           >
             {({ values, errors, touched, handleSubmit, isSubmitting }) => (

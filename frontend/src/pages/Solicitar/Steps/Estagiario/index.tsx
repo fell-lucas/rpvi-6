@@ -44,7 +44,7 @@ export default class EstagiarioStep extends Component<EstagiarioProps> {
               label={label}
               name={`estagiario.${name}`}
               placeholder={ph !== '' ? ph : label}
-              inputSpan={`col-span-${span}`}
+              inputSpan={span}
               errors={this.props.errors}
               touched={this.props.touched}
             />
