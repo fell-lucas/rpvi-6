@@ -1,13 +1,23 @@
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Solicitacao } from "./solicitacao.entity";
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Solicitation } from './solicitation.entity';
 
 @Entity()
-export class UnidadeConcedente {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class Unit {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @OneToOne(type => Solicitacao, solicitacao => solicitacao.unidadeConcedente, { onDelete: "CASCADE" })
-  solicitacao!: Solicitacao
+  @OneToOne(
+    (type) => Solicitation,
+    (solicitation) => solicitation.unidadeConcedente,
+    { onDelete: 'CASCADE' },
+  )
+  solicitacao!: Solicitation;
 
   @Column()
   razaoSocial: string;
