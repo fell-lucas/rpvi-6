@@ -7,7 +7,7 @@ module.exports = {
         secondary: '#1bb55c',
         bg1: '#f4f4f4',
         bg2: '#fafafa',
-        'bg-inactive': '#c4c4c4',
+        inactive: '#c4c4c4',
         'gray-text': '#263238',
       },
     },

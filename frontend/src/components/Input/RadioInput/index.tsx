@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { FieldAttributes } from 'formik';
 import React, { InputHTMLAttributes, ReactNode } from 'react';
 
@@ -21,9 +22,10 @@ export const RadioButtonGroup = ({
         {children}
       </div>
       <small
-        className={`text-left text-xs text-red-600 ${
-          !!error && touched ? 'p-1' : 'p-3'
-        }`}
+        className={classNames('text-left', 'text-xs', 'text-red-600', {
+          'p-1': !!error && touched,
+          'p-3': !(!!error && touched),
+        })}
       >
         {!!error && touched && error}
       </small>

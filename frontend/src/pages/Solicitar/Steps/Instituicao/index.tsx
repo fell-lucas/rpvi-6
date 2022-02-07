@@ -50,10 +50,10 @@ export default class InstituicaoStep extends Component<InstituicaoProps> {
               label={label}
               name={`instituicao.${name}`}
               placeholder={ph !== '' ? ph : label}
-              inputSpan={`col-span-${span}`}
-              labelSpan={`${labelSpan ? 'col-span-' + labelSpan : ''}`}
-              errors={this.props.errors}
-              touched={this.props.touched}
+              inputSpan={span}
+              labelSpan={labelSpan}
+              errors={this.props.errors.instituicao}
+              touched={this.props.touched.instituicao}
             />
           ))}
         </div>

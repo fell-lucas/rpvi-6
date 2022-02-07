@@ -1,8 +1,12 @@
+import classNames from 'classnames';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import user from '../../assets/user-empty.png';
-import { Button, LandingCard, ProgressBar } from '../../components';
+import emptyFile from '../../assets/file-empty.svg';
+import multipleFiles from '../../assets/file-multiple.svg';
+import writtenFile from '../../assets/file-written.svg';
+import logo from '../../assets/unipampa.png';
+import { LandingCard, ProgressBar } from '../../components';
 
 import { SolicitarRoute } from '../Solicitar/Solicitar';
 
@@ -13,20 +17,57 @@ export default class Home extends Component {
       <>
         <ProgressBar hide items={3} active={1} />
         <LandingCard>
-          <div className='flex flex-1 h-full items-center justify-center'>
-            <div className='flex flex-col items-center justify-center flex-1 gap-6'>
-              <img src={user} alt='user_pic' />
-              <h1>Bem vindo, Usuário</h1>
-              <h3>usuario.aluno@unipampa.edu.br</h3>
+          <div
+            className={classNames(
+              'flex',
+              'flex-1',
+              'flex-col',
+              'h-full',
+              'items-center',
+              'justify-center'
+            )}
+          >
+            <div
+              className={classNames(
+                'flex',
+                'flex-col',
+                'items-center',
+                'justify-center',
+                'flex-1',
+                'gap-6'
+              )}
+            >
+              <img src={logo} width='80%' alt='unipampa_logo' />
             </div>
-            <div className='flex flex-col gap-4 flex-1'>
+            <div className={classNames('flex', 'gap-12', 'flex-1', 'mt-8')}>
               {[
-                [SolicitarRoute, 'Solicitar Termo de Compromisso de Estágio'],
-                ['/acompanhar', 'Acompanhar Processo'],
-                ['/relatorio', 'Submeter Relatório'],
-              ].map(([url, desc]) => (
+                [
+                  SolicitarRoute,
+                  'Solicitar Termo de Compromisso de Estágio',
+                  emptyFile,
+                ],
+                ['/acompanhar', 'Acompanhar Processo', writtenFile],
+                ['/relatorio', 'Submeter Relatórios', multipleFiles],
+              ].map(([url, desc, img]) => (
                 <Link to={url} key={url}>
-                  <Button outlined>{desc}</Button>
+                  <div
+                    className={classNames(
+                      'w-72',
+                      'items-center',
+                      'flex',
+                      'justify-center',
+                      'flex-col',
+                      'gap-8',
+                      'border-2',
+                      'p-4',
+                      'border-black',
+                      'rounded-lg',
+                      'h-60'
+                    )}
+                  >
+                    <img src={img} />
+                    <p className={classNames('text-center')}>{desc}</p>
+                  </div>
                 </Link>
               ))}
             </div>

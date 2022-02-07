@@ -1,3 +1,6 @@
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
 import {
   Form,
   Formik,
@@ -13,7 +16,7 @@ import Swal from 'sweetalert2';
 import { Button, LandingCard, ProgressBar } from '../../components';
 
 import { HomeRoute } from '..';
-import { Solicitacao } from '../../models';
+import { Estagiario, Solicitacao } from '../../models';
 import { api, endpoints } from '../../services';
 import EstagiarioStep from './Steps/Estagiario';
 import { estagiarioInitialValues } from './Steps/Estagiario/initial-values';
@@ -44,6 +47,12 @@ const validationsSchemas = [
   validationSchemaUnidade,
   validationSchemaInstituicao,
 ];
+
+const initialValues = {
+  estagiario: estagiarioInitialValues,
+  instituicao: instituicaoInitialValues,
+  unidadeConcedente: unidadeInitialValues,
+} as Solicitacao;
 
 class Solicitar extends Component<Props, State> {
   state = {
@@ -87,67 +96,132 @@ class Solicitar extends Component<Props, State> {
 
     return (
       <>
-        <ProgressBar items={3} active={this.state.step + 1} />
+        <ProgressBar items={steps.length} active={this.state.step + 1} />
         <LandingCard>
           <Formik
             enableReinitialize
-            initialValues={
-              {
-                estagiario: estagiarioInitialValues,
-                instituicao: instituicaoInitialValues,
-                unidadeConcedente: unidadeInitialValues,
-              } as Solicitacao
-            }
+            initialValues={initialValues}
             validationSchema={validationsSchemas[this.state.step]}
-            onSubmit={async (
+            onSubmit={(
               values: Solicitacao,
-              { setSubmitting }: FormikHelpers<Solicitacao>
+              {
+                setSubmitting,
+                resetForm,
+                setTouched,
+              }: FormikHelpers<Solicitacao>
             ) => {
+              setSubmitting(false);
               if (this.state.step !== steps.length - 1) {
-                setSubmitting(false);
                 this.setState({ step: this.state.step + 1 });
+                setTouched({});
                 return;
               }
-
-              try {
-                const response = await api.post(
-                  endpoints.solicitacoes,
-                  JSON.stringify(values),
-                  { headers: { 'Content-Type': 'application/json' } }
-                );
-                console.log(response);
-              } catch (error) {
-                console.log(error);
-              }
-              setSubmitting(false);
+              Swal.fire({
+                icon: 'warning',
+                title: 'Atenção! Esta ação não poderá ser desfeita.',
+                text: 'Confira os dados antes de enviar.',
+                showCancelButton: true,
+                confirmButtonText: 'Enviar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#009045',
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                  setSubmitting(true);
+                  try {
+                    const mapEstagiario = (estagiario: Estagiario) => {
+                      return {
+                        ...estagiario,
+                        estagioObrigatorio:
+                          estagiario.estagioObrigatorio === 'Obrigatório',
+                      };
+                    };
+                    const response = await api.post(
+                      endpoints.solicitacoes,
+                      JSON.stringify({
+                        ...values,
+                        estagiario: mapEstagiario(values.estagiario),
+                      }),
+                      { headers: { 'Content-Type': 'application/json' } }
+                    );
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Sucesso! Sua solicitação foi enviada.',
+                      text: 'Por favor, aguarde enquanto analisamos. Retornaremos o mais rápido possível.',
+                      confirmButtonText: 'Ok',
+                      confirmButtonColor: '#009045',
+                    });
+                    console.log(response);
+                  } catch (error) {
+                    console.log(error);
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Erro. Algo deu errado com a sua solicitação.',
+                      text: 'Por favor, tente novamente. Estamos trabalhando à todo o vapor para arrumar as coisas por aqui.',
+                      confirmButtonText: 'Ok',
+                      confirmButtonColor: '#009045',
+                    });
+                  } finally {
+                    resetForm();
+                    setSubmitting(false);
+                  }
+                }
+              });
             }}
           >
             {({ values, errors, touched, handleSubmit, isSubmitting }) => (
-              <div className='text-center flex flex-col justify-between flex-1 h-full px-12 pt-8 gap-8'>
+              <div
+                className={classNames(
+                  'text-center',
+                  'flex',
+                  'flex-col',
+                  'justify-between',
+                  'flex-1',
+                  'h-full',
+                  'px-12',
+                  'pt-8',
+                  'gap-8'
+                )}
+              >
                 <Form
                   onSubmit={handleSubmit}
-                  className='flex-1 flex flex-col h-full justify-between'
+                  className={classNames(
+                    'flex-1',
+                    'flex',
+                    'flex-col',
+                    'h-full',
+                    'justify-between'
+                  )}
                 >
+                  <button
+                    type='button'
+                    className={classNames(
+                      'absolute',
+                      'text-primary',
+                      'text-4xl'
+                    )}
+                    onClick={handleBack}
+                  >
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                  </button>
                   {renderStep(this.state.step, errors, touched, values)}
-                  <div className='grid grid-cols-6 mt-8'>
-                    <Button type='button' outlined onClick={handleBack}>
-                      Voltar
-                    </Button>
+                  <div className={classNames('grid', 'grid-cols-6', 'mt-8')}>
                     <div className='col-span-4'></div>
-                    <Button disabled={isSubmitting} type='submit'>
-                      {isSubmitting ? (
-                        <Spinner
-                          className='m-auto'
-                          fadeIn='none'
-                          color='#FFF'
-                          name='double-bounce'
-                        />
-                      ) : this.state.step !== steps.length - 1 ? (
-                        'Próximo'
-                      ) : (
-                        'Enviar'
-                      )}
-                    </Button>
+                    <div className='col-span-2'>
+                      <Button disabled={isSubmitting} type='submit'>
+                        {isSubmitting ? (
+                          <Spinner
+                            className='m-auto'
+                            fadeIn='none'
+                            color='#FFF'
+                            name='double-bounce'
+                          />
+                        ) : this.state.step !== steps.length - 1 ? (
+                          'Próximo'
+                        ) : (
+                          'Enviar'
+                        )}
+                      </Button>
+                    </div>
                   </div>
                 </Form>
               </div>

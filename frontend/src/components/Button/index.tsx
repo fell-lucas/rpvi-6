@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { ButtonHTMLAttributes, Component } from 'react';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -7,14 +8,22 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 export default class Button extends Component<ButtonProps> {
   render() {
     const { outlined, ...rest } = this.props;
-    const custom = `${
-      outlined ? 'text-primary bg-transparent' : 'text-white bg-primary '
-    }`;
     return (
       <button
         type='button'
         {...rest}
-        className={`font-bold box-border rounded-lg p-2 w-full text-xl border-2 border-primary ${custom}`}
+        className={classNames(
+          'font-bold',
+          'box-border',
+          'rounded-lg',
+          'p-2',
+          'w-full',
+          'text-xl',
+          'border-2',
+          'border-primary',
+          { 'text-primary bg-transparent': outlined },
+          { 'text-white bg-primary': !outlined }
+        )}
       >
         {this.props.children}
       </button>

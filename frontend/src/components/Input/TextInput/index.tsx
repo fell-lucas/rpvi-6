@@ -1,7 +1,9 @@
+import classNames from 'classnames';
 import { Field, FormikErrors, FormikTouched } from 'formik';
 import React, { Component } from 'react';
 
 import { Solicitacao } from '../../../models';
+import { colSpan } from '../../../utils/helpers';
 
 type InputProps = {
   name: string;
@@ -10,44 +12,54 @@ type InputProps = {
   start?: boolean;
   inputSpan?: string;
   labelSpan?: string;
-  errors?: FormikErrors<Solicitacao>;
-  touched?: FormikTouched<Solicitacao>;
+  errors?: FormikErrors<{ [x: string]: string }>;
+  touched?: FormikTouched<{ [x: string]: string }>;
 };
 
 export default class TextInput extends Component<InputProps> {
   render() {
     const p = this.props;
-    const [step, fieldname] = this.props.name.split('.');
-    const errors = this.props.errors?.[step]?.[fieldname];
-    const touched = this.props.touched?.[step]?.[fieldname];
-    const hasError = Boolean(errors) && touched;
+    const fieldname = this.props.name.split('.')[1];
+    const errors = this.props.errors?.[fieldname];
+    const touched = this.props.touched?.[fieldname];
+    const hasError = !!errors && touched;
+
     return (
       <>
         <label
-          className={`pb-6 flex-shrink-0 text-left ${
-            this.props.labelSpan ?? ''
-          } `}
+          className={classNames(
+            'pt-6',
+            'flex-shrink-0',
+            'text-left',
+            colSpan(p.labelSpan)
+          )}
           htmlFor={p.name}
         >
-          {p.label}:{' '}
+          {`${p.label}: `}
         </label>
-        <div className={`w-full flex flex-col ${this.props.inputSpan ?? ''}`}>
+        <div
+          className={classNames(
+            'w-full',
+            'flex',
+            'flex-col',
+            colSpan(p.inputSpan)
+          )}
+        >
+          <small
+            className={classNames('text-left', 'text-xs', 'text-red-600', {
+              'p-1': hasError,
+              'p-3': !hasError,
+            })}
+          >
+            {hasError && this.props.errors?.[fieldname]}
+          </small>
           <Field
             name={p.name}
             id={p.name}
-            className={`${hasError ? 'border-red-600' : ''} w-full ${
-              this.props.inputSpan ?? ''
-            }`}
+            className={classNames('w-full', { 'border-red-600': hasError })}
             type='text'
             placeholder={p.placeholder ?? p.label}
           />
-          <small
-            className={`text-left text-xs text-red-600 ${
-              hasError ? 'p-1' : 'p-3'
-            }`}
-          >
-            {hasError && this.props.errors?.[step]?.[fieldname]}
-          </small>
         </div>
       </>
     );

@@ -44,9 +44,9 @@ export default class EstagiarioStep extends Component<EstagiarioProps> {
               label={label}
               name={`estagiario.${name}`}
               placeholder={ph !== '' ? ph : label}
-              inputSpan={`col-span-${span}`}
-              errors={this.props.errors}
-              touched={this.props.touched}
+              inputSpan={span}
+              errors={this.props.errors.estagiario}
+              touched={this.props.touched.estagiario}
             />
           ))}
           <div className='col-span-6 justify-start'>
