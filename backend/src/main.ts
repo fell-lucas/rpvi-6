@@ -11,6 +11,7 @@ async function bootstrap() {
     origin: [
       'http://127.0.0.1',
       'http://localhost',
+      'http://localhost:3000',
       'http://localhost:3001',
       'https://rpvi-6-front.vercel.app',
     ],
