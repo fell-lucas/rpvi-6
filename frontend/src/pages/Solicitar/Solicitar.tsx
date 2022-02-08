@@ -189,6 +189,7 @@ class SolicitarPage extends Component<Props, State> {
                 >
                   <button
                     type='button'
+                    data-testid='solicitacao_back'
                     className={classNames(
                       'absolute',
                       'text-primary',

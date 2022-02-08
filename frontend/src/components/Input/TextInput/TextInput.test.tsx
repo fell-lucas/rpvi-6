@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { Formik } from 'formik';
 import { BrowserRouter } from 'react-router-dom';
 
 import TextInput from '.';
@@ -6,19 +7,11 @@ import TextInput from '.';
 test('renders text input', () => {
   render(
     <BrowserRouter>
-      <TextInput label='abc' name='abc' />
+      <Formik initialValues={{}} onSubmit={() => {}}>
+        <TextInput label='label' name='name' />
+      </Formik>
     </BrowserRouter>
   );
-  const elem = screen.getByText(/abc/i);
-  expect(elem).toBeInTheDocument();
-});
-
-test('renders start text input', () => {
-  render(
-    <BrowserRouter>
-      <TextInput start label='abc' name='abc' />
-    </BrowserRouter>
-  );
-  const elem = screen.getByText(/abc/i);
+  const elem = screen.getByText(/label/i);
   expect(elem).toBeInTheDocument();
 });
