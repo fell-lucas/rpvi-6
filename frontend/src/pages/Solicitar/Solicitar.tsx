@@ -1,3 +1,4 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -16,8 +17,9 @@ import Swal from 'sweetalert2';
 import { Button, LandingCard, ProgressBar } from '../../components';
 
 import { HomeRoute } from '..';
-import { Estagiario, Solicitacao } from '../../models';
+import { Solicitacao } from '../../models';
 import { api, endpoints } from '../../services';
+import { mapEstagiario } from '../../utils';
 import EstagiarioStep from './Steps/Estagiario';
 import { estagiarioInitialValues } from './Steps/Estagiario/initial-values';
 import InstituicaoStep from './Steps/Instituicao';
@@ -29,7 +31,6 @@ import {
   validationSchemaInstituicao,
   validationSchemaUnidade,
 } from './Steps/validation-schema';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 export const SolicitarRoute = '/solicitar';
 
@@ -129,13 +130,6 @@ class SolicitarPage extends Component<Props, State> {
                 if (result.isConfirmed) {
                   setSubmitting(true);
                   try {
-                    const mapEstagiario = (estagiario: Estagiario) => {
-                      return {
-                        ...estagiario,
-                        estagioObrigatorio:
-                          estagiario.estagioObrigatorio === 'Obrigatório',
-                      };
-                    };
                     const response = await api.post(
                       endpoints.solicitacoes,
                       JSON.stringify({
@@ -151,6 +145,7 @@ class SolicitarPage extends Component<Props, State> {
                       confirmButtonText: 'Ok',
                       confirmButtonColor: '#009045',
                     });
+                    resetForm();
                     console.log(response);
                   } catch (error) {
                     console.log(error);
@@ -162,7 +157,6 @@ class SolicitarPage extends Component<Props, State> {
                       confirmButtonColor: '#009045',
                     });
                   } finally {
-                    resetForm();
                     setSubmitting(false);
                   }
                 }
@@ -238,6 +232,6 @@ const Solicitar = () => {
   const navigation = useNavigate();
 
   return <SolicitarPage navigation={navigation}></SolicitarPage>;
-}
+};
 
-export default Solicitar
+export default Solicitar;
