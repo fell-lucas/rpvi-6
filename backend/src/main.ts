@@ -12,6 +12,7 @@ async function bootstrap() {
       'http://localhost',
       'https://rpvi-6-front.vercel.app/',
     ],
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
   });
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
