@@ -1,3 +1,4 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   faAdjust,
   faPowerOff,
@@ -40,11 +41,11 @@ export default class HeaderGuri extends Component {
           >
             <span>00:00:00</span>
             <div className={classNames('inline-block', 'border-x-2', 'px-3')}>
-              <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon icon={faUser as IconProp} />
               &nbsp;****************
             </div>
             <div className={classNames('inline-block')}>
-              <FontAwesomeIcon icon={faPowerOff} />
+              <FontAwesomeIcon icon={faPowerOff as IconProp} />
               &nbsp;Sair
             </div>
           </div>
@@ -63,11 +64,11 @@ export default class HeaderGuri extends Component {
               </span>
             </div>
             <div className={classNames('inline-block')}>
-              <FontAwesomeIcon icon={faAdjust} />
+              <FontAwesomeIcon icon={faAdjust as IconProp} />
               &nbsp;<b>Contraste</b>
             </div>
             <div className={classNames('inline-block')}>
-              <FontAwesomeIcon icon={faSitemap} />
+              <FontAwesomeIcon icon={faSitemap as IconProp} />
               &nbsp;<b>Mapa do Site</b>
             </div>
           </div>

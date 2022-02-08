@@ -29,6 +29,7 @@ import {
   validationSchemaInstituicao,
   validationSchemaUnidade,
 } from './Steps/validation-schema';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 export const SolicitarRoute = '/solicitar';
 
@@ -201,7 +202,7 @@ class Solicitar extends Component<Props, State> {
                     )}
                     onClick={handleBack}
                   >
-                    <FontAwesomeIcon icon={faArrowLeft} />
+                    <FontAwesomeIcon icon={faArrowLeft as IconProp} />
                   </button>
                   {renderStep(this.state.step, errors, touched, values)}
                   <div className={classNames('grid', 'grid-cols-6', 'mt-8')}>
