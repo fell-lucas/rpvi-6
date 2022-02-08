@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 
 type ProgressBarProps = {
   items: number;

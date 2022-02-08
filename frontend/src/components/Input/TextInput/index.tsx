@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import { Field, FormikErrors, FormikTouched } from 'formik';
-import React, { Component } from 'react';
+import { Component } from 'react';
 
-import { Solicitacao } from '../../../models';
 import { colSpan } from '../../../utils/helpers';
 
 type InputProps = {

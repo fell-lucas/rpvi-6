@@ -36,6 +36,9 @@
     "format": "npx prettier --write ."
   },
   "eslintConfig": {
+    "rules": {
+      "no-template-curly-in-string": "off"
+    },
     "extends": [
       "react-app",
       "react-app/jest"

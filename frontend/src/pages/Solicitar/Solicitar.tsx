@@ -8,7 +8,7 @@ import {
   FormikHelpers,
   FormikTouched,
 } from 'formik';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router';
 import Spinner from 'react-spinkit';
 import Swal from 'sweetalert2';
@@ -55,7 +55,7 @@ const initialValues = {
   unidadeConcedente: unidadeInitialValues,
 } as Solicitacao;
 
-class Solicitar extends Component<Props, State> {
+class SolicitarPage extends Component<Props, State> {
   state = {
     step: 0,
     isSubmitting: false,
@@ -234,8 +234,10 @@ class Solicitar extends Component<Props, State> {
   }
 }
 
-export default () => {
+const Solicitar = () => {
   const navigation = useNavigate();
 
-  return <Solicitar navigation={navigation}></Solicitar>;
-};
+  return <SolicitarPage navigation={navigation}></SolicitarPage>;
+}
+
+export default Solicitar

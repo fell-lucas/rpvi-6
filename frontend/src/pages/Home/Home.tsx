@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import emptyFile from '../../assets/file-empty.svg';
@@ -65,7 +65,7 @@ export default class Home extends Component {
                       'h-60'
                     )}
                   >
-                    <img src={img} />
+                    <img src={img} alt={`${img}_icon`} />
                     <p className={classNames('text-center')}>{desc}</p>
                   </div>
                 </Link>

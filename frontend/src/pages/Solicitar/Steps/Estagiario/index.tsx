@@ -1,5 +1,5 @@
 import { Field, FormikErrors, FormikTouched } from 'formik';
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import {
   RadioButton,

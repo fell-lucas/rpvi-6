@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import logo from '../../assets/guri-dtic-logo.png';
 

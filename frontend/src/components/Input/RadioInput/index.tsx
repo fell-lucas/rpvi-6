@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FieldAttributes } from 'formik';
-import React, { InputHTMLAttributes, ReactNode } from 'react';
+import { InputHTMLAttributes, ReactNode } from 'react';
 
 type RadioButtonGroupProps = {
   error?: string;
