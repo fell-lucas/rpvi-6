@@ -49,7 +49,7 @@ export default class Home extends Component {
                 ['/acompanhar', 'Acompanhar Processo', writtenFile],
                 ['/relatorio', 'Submeter Relatórios', multipleFiles],
               ].map(([url, desc, img]) => (
-                <Link to={url} key={url}>
+                <Link to={url} key={url} data-testid={`btn_${url}`}>
                   <div
                     className={classNames(
                       'w-72',
