@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HeaderGuri from './components/HeaderGuri';
 import {
   Acompanhar,
+  AcompanharDetails,
   AcompanharRoute,
   Home,
   HomeRoute,
@@ -27,6 +28,10 @@ ReactDOM.render(
           <Route path={HomeRoute} element={<Home />} />
           <Route path={SolicitarRoute} element={<Solicitar />} />
           <Route path={AcompanharRoute} element={<Acompanhar />} />
+          <Route
+            path={`${AcompanharRoute}/:id`}
+            element={<AcompanharDetails />}
+          />
         </Routes>
       </div>
     </BrowserRouter>

@@ -28,8 +28,17 @@ export default function SolicitacaoItem({
         className={classNames(
           'flex items-center my-2 px-2 w-52 justify-center rounded-xl shadow-2xl',
           { 'bg-amber-400': status === SolicitacaoStatus.InProgress },
-          { 'bg-green-700': status === SolicitacaoStatus.Approved },
-          { 'bg-red-700': status === SolicitacaoStatus.Rejected }
+          {
+            'bg-green-700':
+              status === SolicitacaoStatus.Approved ||
+              status === SolicitacaoStatus.TerminatedApproved,
+          },
+          {
+            'bg-red-700':
+              status === SolicitacaoStatus.Rejected ||
+              status === SolicitacaoStatus.TerminatedRejected,
+          },
+          { 'bg-blue-700': status === SolicitacaoStatus.ChangeRequested }
         )}
       >
         <span className='font-bold'>{SolicitacaoStatus.toString(status)}</span>

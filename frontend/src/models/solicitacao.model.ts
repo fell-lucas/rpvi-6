@@ -18,6 +18,9 @@ export enum SolicitacaoStatus {
   InProgress = 'IN_PROGRESS',
   Approved = 'APPROVED',
   Rejected = 'REJECTED',
+  ChangeRequested = 'CHANGE_REQUESTED',
+  TerminatedApproved = 'TERMINATED_APPROVED',
+  TerminatedRejected = 'TERMINATED_REJECTED',
 }
 
 export namespace SolicitacaoStatus {
