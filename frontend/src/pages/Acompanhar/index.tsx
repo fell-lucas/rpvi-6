@@ -2,8 +2,14 @@ import useAxios, { configure } from 'axios-hooks';
 import classNames from 'classnames';
 import Spinner from 'react-spinkit';
 
-import { LandingCard, ProgressBar, SolicitacaoItem } from '../../components';
+import {
+  Button,
+  LandingCard,
+  ProgressBar,
+  SolicitacaoItem,
+} from '../../components';
 
+import { Solicitacao } from '../../models';
 import { api, endpoints } from '../../services';
 
 export const AcompanharRoute = '/acompanhar';
@@ -11,8 +17,10 @@ export const AcompanharRoute = '/acompanhar';
 configure({ axios: api });
 
 export default function Acompanhar() {
-  const [{ data, loading, error }, refetch] = useAxios(endpoints.solicitacoes);
-  console.log(data);
+  const [{ data, loading, error }, refetch] = useAxios<Solicitacao[]>(
+    endpoints.solicitacoes
+  );
+  console.log(data, loading, error);
 
   return (
     <>
@@ -41,9 +49,29 @@ export default function Acompanhar() {
               color='#009045'
               name='double-bounce'
             />
+          ) : error ? (
+            <div className='m-auto flex flex-col items-center gap-4'>
+              <h2 className='text-xl text-red-700'>
+                Algo deu errado ao recuperar as informações.
+              </h2>
+              <div>
+                <Button onClick={() => refetch()}>Tentar novamente</Button>
+              </div>
+            </div>
+          ) : data !== undefined ? (
+            <div className='flex flex-col w-full h-full gap-2'>
+              {data.map((solicitacao) => (
+                <SolicitacaoItem
+                  name={solicitacao.estagiario.nome}
+                  status={solicitacao.status}
+                />
+              ))}
+            </div>
           ) : (
-            <div className='w-full h-full'>
-              <SolicitacaoItem />
+            <div className='m-auto flex flex-col items-center gap-4'>
+              <h2 className='text-xl text-gray-500'>
+                Nenhuma solicitação cadastrada!
+              </h2>
             </div>
           )}
         </div>
