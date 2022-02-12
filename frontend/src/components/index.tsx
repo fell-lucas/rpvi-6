@@ -4,6 +4,7 @@ import { RadioButton, RadioButtonGroup } from './Input/RadioInput';
 import TextInput from './Input/TextInput';
 import LandingCard from './LandingCard';
 import ProgressBar from './ProgressBar/ProgressBar';
+import SolicitacaoItem from './SolicitacaoItem';
 
 export {
   ProgressBar,
@@ -13,4 +14,5 @@ export {
   RadioButtonGroup,
   RadioButton,
   HeaderGuri,
+  SolicitacaoItem,
 };

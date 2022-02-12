@@ -4,8 +4,14 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import HeaderGuri from './components/HeaderGuri';
-import { Home, HomeRoute } from './pages';
-import Solicitar, { SolicitarRoute } from './pages/Solicitar/Solicitar';
+import {
+  Acompanhar,
+  AcompanharRoute,
+  Home,
+  HomeRoute,
+  Solicitar,
+  SolicitarRoute,
+} from './pages';
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -20,6 +26,7 @@ ReactDOM.render(
         <Routes>
           <Route path={HomeRoute} element={<Home />} />
           <Route path={SolicitarRoute} element={<Solicitar />} />
+          <Route path={AcompanharRoute} element={<Acompanhar />} />
         </Routes>
       </div>
     </BrowserRouter>
