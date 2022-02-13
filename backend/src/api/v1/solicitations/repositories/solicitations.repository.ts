@@ -20,6 +20,14 @@ export class SolicitationsRepository extends Repository<Solicitation> {
     query.leftJoinAndSelect('solicitation.estagiario', 'intern');
     query.leftJoinAndSelect('solicitation.unidadeConcedente', 'unit');
 
+    query.select([
+      'solicitation.id',
+      'intern.nome',
+      'institution.razaoSocial',
+      'unit.razaoSocial',
+      'solicitation.status',
+      'solicitation.updated_at',
+    ]);
     if (status) {
       query.andWhere('solicitation.status = :status', { status });
     }

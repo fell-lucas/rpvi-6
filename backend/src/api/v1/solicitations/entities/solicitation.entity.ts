@@ -3,12 +3,14 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Institution } from './institution.entity';
 import { Intern } from './intern.entity';
+import { Observation } from './observations.entity';
 import { SolicitationStatus } from './solicitation-status.enum';
 import { Unit } from './unit.entity';
 
@@ -31,6 +33,12 @@ export class Solicitation {
   })
   @JoinColumn()
   instituicao: Institution;
+
+  @OneToMany(() => Observation, (observacao) => observacao.solicitacao, {
+    eager: true,
+    cascade: true,
+  })
+  observacoes: Observation[];
 
   @Column()
   status: SolicitationStatus;

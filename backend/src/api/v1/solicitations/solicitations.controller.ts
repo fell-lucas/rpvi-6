@@ -12,6 +12,8 @@ import { SolicitationsService } from './solicitations.service';
 import { CreateSolicitationDto } from './dto/create-solicitation.dto';
 import { UpdateSolicitationDto } from './dto/update-solicitation.dto';
 import { FindAllSolicitationsFilterDto } from './dto/find-solicitations-filter.dto';
+import { CreateObservationDto } from './dto/create-observation.dto';
+import { UpdateObservationDto } from './dto/update-observation.dto';
 
 @Controller('api/v1/solicitacoes')
 export class SolicitationsController {
@@ -20,6 +22,28 @@ export class SolicitationsController {
   @Post()
   create(@Body() createSolicitationDto: CreateSolicitationDto) {
     return this.solicitationsService.create(createSolicitationDto);
+  }
+
+  @Post('observations/:id')
+  createObservation(
+    @Body() createObservationDto: CreateObservationDto,
+    @Param('id') id: string,
+  ) {
+    return this.solicitationsService.createObservation(
+      createObservationDto,
+      id,
+    );
+  }
+
+  @Patch('observation/:id')
+  updateObservation(
+    @Body() updateObservationDto: UpdateObservationDto,
+    @Param('id') id: string,
+  ) {
+    return this.solicitationsService.updateObservation(
+      updateObservationDto,
+      id,
+    );
   }
 
   @Get()
