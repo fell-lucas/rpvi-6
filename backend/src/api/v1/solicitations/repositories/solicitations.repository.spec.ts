@@ -24,6 +24,10 @@ describe('Solicitations Repository', () => {
         .spyOn(Repository.prototype, 'createQueryBuilder')
         .mockReturnValue(SelectQueryBuilder.prototype);
       jest.spyOn(SelectQueryBuilder.prototype, 'andWhere').mockReturnThis();
+      jest.spyOn(SelectQueryBuilder.prototype, 'select').mockReturnThis();
+      jest.spyOn(SelectQueryBuilder.prototype, 'take').mockReturnThis();
+      jest.spyOn(SelectQueryBuilder.prototype, 'skip').mockReturnThis();
+      jest.spyOn(SelectQueryBuilder.prototype, 'orderBy').mockReturnThis();
       jest
         .spyOn(SelectQueryBuilder.prototype, 'leftJoinAndSelect')
         .mockReturnThis(); // the same goes for setParameter, skip and take methods  ;
@@ -35,6 +39,7 @@ describe('Solicitations Repository', () => {
         await solicitationsRepository.findAllSolicitations({
           search: 'SomeSearch',
           status: SolicitationStatus.APPROVED,
+          page: 1,
         });
       expect(foundSolicitations).toEqual([mockSolicitation]);
     });

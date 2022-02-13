@@ -3,6 +3,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -11,54 +13,25 @@ import {
 import { Solicitation } from './solicitation.entity';
 
 @Entity()
-export class Institution {
+export class Observation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(
+  @ManyToOne(
     (type) => Solicitation,
-    (solicitation) => solicitation.instituicao,
+    (solicitation) => solicitation.observacoes,
     {
       onDelete: 'CASCADE',
     },
   )
+  @JoinColumn()
   solicitacao!: Solicitation;
 
   @Column()
-  razaoSocial: string;
+  observacao: string;
 
   @Column()
-  telefone: string;
-
-  @Column()
-  endereco: string;
-
-  @Column()
-  bairro: string;
-
-  @Column()
-  cep: string;
-
-  @Column()
-  cidade: string;
-
-  @Column()
-  uf: string;
-
-  @Column()
-  cnpj: string;
-
-  @Column()
-  representanteLegal: string;
-
-  @Column()
-  cargoRepresentante: string;
-
-  @Column()
-  orientadorEstagio: string;
-
-  @Column()
-  campus: string;
+  resolved: boolean;
 
   @CreateDateColumn()
   created_at: Date;

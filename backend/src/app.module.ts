@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SolicitationsModule } from './api/v1/solicitations/solicitations.module';
@@ -10,4 +11,4 @@ import { typeOrmConfig } from './config/typeorm.config';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

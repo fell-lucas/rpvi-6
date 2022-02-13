@@ -1,6 +1,6 @@
-/* istanbul ignore file */
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
+/* istanbul ignore next */
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
   host: process.env.DB_HOST,
