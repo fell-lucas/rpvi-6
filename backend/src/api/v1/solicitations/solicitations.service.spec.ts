@@ -117,6 +117,7 @@ describe('SolicitationsService', () => {
 
       observationsRepository.createObservation.mockResolvedValue('someValue');
       solicitationsRepository.findOne.mockResolvedValue(mockSolicitation);
+      solicitationsRepository.save.mockResolvedValue(mockSolicitation);
       const result = await solicitationsService.createObservation(null, null);
       expect(result).toEqual('someValue');
     });
@@ -124,12 +125,17 @@ describe('SolicitationsService', () => {
 
   describe('updateObservation', () => {
     it('calls ObservationsRepository.update and returns the result', async () => {
-      const mockObservation = { observation: 'Test', resolved: false };
+      const mockObservation = {
+        observation: 'Test',
+        resolved: false,
+        solicitacao: { status: 'APPROVED' },
+      };
       const mockUpdateValue = {
         resolved: true,
       };
 
       observationsRepository.findOne.mockResolvedValue(mockObservation);
+      solicitationsRepository.save.mockResolvedValue({});
       const result = await solicitationsService.updateObservation(
         mockUpdateValue as UpdateObservationDto,
         'someId',
@@ -144,6 +150,7 @@ describe('SolicitationsService', () => {
       };
 
       observationsRepository.findOne.mockResolvedValue(null);
+      solicitationsRepository.save.mockResolvedValue({});
       expect(
         solicitationsService.updateObservation(
           mockUpdateValue as UpdateObservationDto,

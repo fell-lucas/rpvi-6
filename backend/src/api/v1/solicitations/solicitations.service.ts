@@ -12,6 +12,7 @@ import { ObservationsRepository } from './repositories/observations.repository';
 import { CreateObservationDto } from './dto/create-observation.dto';
 import { Observation } from './entities/observations.entity';
 import { UpdateObservationDto } from './dto/update-observation.dto';
+import { SolicitationStatus } from './entities/solicitation-status.enum';
 
 @Injectable()
 export class SolicitationsService {
@@ -42,17 +43,24 @@ export class SolicitationsService {
       solicitationId,
     );
 
-    return this.observationsRepository.createObservation(
+    const createdObservation = this.observationsRepository.createObservation(
       createObservationDto,
       solicitation,
     );
+
+    solicitation.status = SolicitationStatus.CHANGE_REQUESTED;
+    await this.solicitationsRepository.save(solicitation);
+
+    return createdObservation;
   }
 
   async updateObservation(
     updateSolicitationDto: UpdateObservationDto,
     id: string,
   ): Promise<Observation> {
-    const observation = await this.observationsRepository.findOne(id);
+    const observation = await this.observationsRepository.findOne(id, {
+      relations: ['solicitacao'],
+    });
 
     if (!observation) {
       throw new NotFoundException(
@@ -63,7 +71,14 @@ export class SolicitationsService {
     const { resolved } = updateSolicitationDto;
     observation.resolved = resolved;
 
+    if (resolved) {
+      observation.solicitacao.status = SolicitationStatus.IN_PROGRESS;
+      await this.solicitationsRepository.save(observation.solicitacao);
+    }
+
     await this.observationsRepository.save(observation);
+
+    observation['solicitacao'] = undefined;
     return observation;
   }
 
