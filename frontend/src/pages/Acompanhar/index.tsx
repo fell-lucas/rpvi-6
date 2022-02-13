@@ -2,8 +2,8 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAxios, { configure } from 'axios-hooks';
+import ContentLoader from 'react-content-loader';
 import { Link } from 'react-router-dom';
-import Spinner from 'react-spinkit';
 
 import {
   Button,
@@ -48,12 +48,14 @@ export default function Acompanhar() {
           </div>
 
           {loading ? (
-            <Spinner
-              className='m-auto w-16 h-16'
-              fadeIn='none'
-              color='#009045'
-              name='double-bounce'
-            />
+            <ContentLoader className='h-full w-full' speed={0.5}>
+              <rect x='0' y='0' rx='8' ry='8' width='100%' height='50' />
+              <rect x='0' y='70' rx='8' ry='8' width='100%' height='50' />
+              <rect x='0' y='140' rx='8' ry='8' width='100%' height='50' />
+              <rect x='0' y='210' rx='8' ry='8' width='100%' height='50' />
+              <rect x='0' y='280' rx='8' ry='8' width='100%' height='50' />
+              <rect x='0' y='350' rx='8' ry='8' width='100%' height='50' />
+            </ContentLoader>
           ) : error ? (
             <div className='m-auto flex flex-col items-center gap-4'>
               <h2 className='text-xl text-red-700'>

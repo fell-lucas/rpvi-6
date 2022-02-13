@@ -2,10 +2,10 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAxios, { configure } from 'axios-hooks';
-import { Field, Formik } from 'formik';
+import { Formik } from 'formik';
+import ContentLoader from 'react-content-loader';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import Spinner from 'react-spinkit';
 
 import {
   Button,
@@ -29,7 +29,7 @@ export default function AcompanharDetails() {
     `${endpoints.solicitacoes}/${id}`
   );
 
-  console.log(data);
+  const handleApprove = () => {};
 
   return (
     <>
@@ -54,12 +54,21 @@ export default function AcompanharDetails() {
           </div>
 
           {loading ? (
-            <Spinner
-              className='m-auto w-16 h-16'
-              fadeIn='none'
-              color='#009045'
-              name='double-bounce'
-            />
+            <ContentLoader className='w-full h-full' speed={0.5}>
+              <rect x='0' y='50' rx='10' ry='10' width='300' height='40' />
+              <rect x='0' y='120' rx='10' ry='10' width='440' height='40' />
+              <rect x='500' y='120' rx='10' ry='10' width='440' height='40' />
+              <rect x='1000' y='120' rx='10' ry='10' width='400' height='40' />
+              <rect x='0' y='180' rx='10' ry='10' width='440' height='40' />
+              <rect x='500' y='180' rx='10' ry='10' width='440' height='40' />
+              <rect x='1000' y='180' rx='10' ry='10' width='400' height='40' />
+              <rect x='0' y='240' rx='10' ry='10' width='440' height='40' />
+              <rect x='500' y='240' rx='10' ry='10' width='440' height='40' />
+              <rect x='1000' y='240' rx='10' ry='10' width='400' height='40' />
+              <rect x='0' y='300' rx='10' ry='10' width='440' height='40' />
+              <rect x='500' y='300' rx='10' ry='10' width='440' height='40' />
+              <rect x='1000' y='300' rx='10' ry='10' width='400' height='40' />
+            </ContentLoader>
           ) : error ? (
             <div className='m-auto flex flex-col items-center gap-4'>
               <h2 className='text-xl text-red-700'>
@@ -347,7 +356,9 @@ export default function AcompanharDetails() {
                   </div>
                   <div className='col-span-6'></div>
                   <div className='col-span-3'>
-                    <Button outlined>Aprovar</Button>
+                    <Button outlined onClick={() => handleApprove()}>
+                      Aprovar
+                    </Button>
                   </div>
                 </div>
               </Formik>
