@@ -26,7 +26,7 @@ export default function SolicitacaoItem({
       </div>
       <div
         className={classNames(
-          'flex items-center my-2 px-2 w-52 justify-center rounded-xl shadow-2xl',
+          'flex items-center my-2 px-2 w-1/6 justify-center rounded-xl shadow-2xl',
           { 'bg-amber-400': status === SolicitacaoStatus.InProgress },
           {
             'bg-green-700':

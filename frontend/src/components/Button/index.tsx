@@ -7,12 +7,13 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export default class Button extends Component<ButtonProps> {
   render() {
-    const { outlined, ...rest } = this.props;
+    const { outlined, className, ...rest } = this.props;
     return (
       <button
         type='button'
         {...rest}
         className={classNames(
+          className,
           'font-bold',
           'box-border',
           'rounded-lg',
