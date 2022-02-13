@@ -38,7 +38,7 @@ export default function Acompanhar() {
       setPage(page);
     }
     console.log(page);
-  }, [page]);
+  }, [page, isValidPage, setSearchParams]);
 
   const handlePageSelect = (incrementBy: number) => {
     setSearchParams({ page: `${Number(page) + incrementBy}` });
