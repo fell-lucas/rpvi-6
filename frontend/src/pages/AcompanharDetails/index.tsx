@@ -32,8 +32,11 @@ export default function AcompanharDetails() {
   const navigate = useNavigate();
 
   const [{ data, loading, error }, refetch] = useAxios<Solicitacao>(
-    `${endpoints.solicitacoes}/${id}`
+    `${endpoints.solicitacoes}/${id}`,
+    { useCache: false }
   );
+
+  console.log(data);
 
   const handleApprove = async () => {
     const { isConfirmed } = await Swal.fire(warningAlert);
@@ -93,6 +96,7 @@ export default function AcompanharDetails() {
               {Array.from({ length: 6 }, (_, x) => x * 350).map((y1) => {
                 return [
                   <rect
+                    key={`rect_${y1 + 1}`}
                     x='0'
                     y={50 + y1}
                     rx='10'
@@ -104,6 +108,7 @@ export default function AcompanharDetails() {
                     return Array.from({ length: 4 }, (_, x) => x * 60).map(
                       (y2) => (
                         <rect
+                          key={`rect_${y1 + x1 + y2}`}
                           x={x1}
                           y={120 + y2 + y1}
                           rx='10'

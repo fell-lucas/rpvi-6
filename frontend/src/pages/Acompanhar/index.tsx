@@ -2,8 +2,9 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAxios, { configure } from 'axios-hooks';
+import { useEffect, useState } from 'react';
 import ContentLoader from 'react-content-loader';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import {
   Button,
@@ -21,10 +22,35 @@ export const AcompanharRoute = '/acompanhar';
 configure({ axios: api });
 
 export default function Acompanhar() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState(searchParams.get('page'));
+
+  const isValidPage = !(
+    page === null ||
+    isNaN(Number(page)) ||
+    Number(page) < 1
+  );
+
+  useEffect(() => {
+    if (!isValidPage) {
+      const page = '1';
+      setSearchParams({ page });
+      setPage(page);
+    }
+    console.log(page);
+  }, [page]);
+
+  const handlePageSelect = (incrementBy: number) => {
+    setSearchParams({ page: `${Number(page) + incrementBy}` });
+    setPage(`${Number(page) + incrementBy}`);
+  };
+
   const [{ data, loading, error }, refetch] = useAxios<Solicitacao[]>(
-    endpoints.solicitacoes,
+    `${endpoints.solicitacoes}?page=${page}`,
     { useCache: false }
   );
+
+  console.log(data);
 
   return (
     <>
@@ -55,7 +81,15 @@ export default function Acompanhar() {
               foregroundColor='#d6d6d6'
             >
               {Array.from({ length: 10 }, (_, x) => x * 70).map((y) => (
-                <rect x='0' y={y} rx='8' ry='8' width='100%' height='50' />
+                <rect
+                  key={`rect_${y}`}
+                  x='0'
+                  y={y}
+                  rx='8'
+                  ry='8'
+                  width='100%'
+                  height='50'
+                />
               ))}
             </ContentLoader>
           ) : error ? (
@@ -67,7 +101,7 @@ export default function Acompanhar() {
                 <Button onClick={() => refetch()}>Tentar novamente</Button>
               </div>
             </div>
-          ) : data !== undefined ? (
+          ) : data !== undefined && data.length !== 0 ? (
             <div className='flex flex-col w-full h-full gap-2'>
               {data.map((solicitacao) => (
                 <Link
@@ -80,11 +114,33 @@ export default function Acompanhar() {
                   />
                 </Link>
               ))}
+              <div className='grid grid-cols-12 w-full'>
+                {Number(page) - 1 > 0 ? (
+                  <Button
+                    onClick={() => handlePageSelect(-1)}
+                    outlined
+                    className='col-span-2'
+                  >
+                    Página anterior
+                  </Button>
+                ) : (
+                  <div className='col-span-2'></div>
+                )}
+                <div className='col-span-8'></div>
+                {data?.length === 10 && (
+                  <Button
+                    onClick={() => handlePageSelect(1)}
+                    className='col-span-2'
+                  >
+                    Próxima página
+                  </Button>
+                )}
+              </div>
             </div>
           ) : (
             <div className='m-auto flex flex-col items-center gap-4'>
               <h2 className='text-xl text-gray-500'>
-                Nenhuma solicitação cadastrada!
+                Nenhuma solicitação encontrada!
               </h2>
             </div>
           )}
