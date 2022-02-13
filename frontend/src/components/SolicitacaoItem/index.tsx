@@ -15,11 +15,11 @@ export default function SolicitacaoItem({
   name,
 }: SolicitacaoItemProps) {
   return (
-    <div className='bg-gradient-to-r flex flex-1 from-primary to-secondary w-full rounded-xl p-2 justify-between text-white'>
+    <div className='hover:scale-95 transition-transform hover:opacity-90 bg-gradient-to-r flex flex-1 from-primary to-secondary w-full rounded-xl p-2 justify-between text-white'>
       <div className='flex items-center justify-center ml-6 gap-4'>
         <FontAwesomeIcon
           icon={faUserCircle as IconDefinition}
-          size='3x'
+          size='2x'
           color='lightgray'
         />
         <span className='text-lg font-bold'>{name}</span>

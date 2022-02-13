@@ -14,16 +14,9 @@ export default class Button extends Component<ButtonProps> {
         {...rest}
         className={classNames(
           className,
-          'font-bold',
-          'box-border',
-          'rounded-lg',
-          'p-2',
-          'w-full',
-          'text-xl',
-          'border-2',
-          'border-primary',
-          { 'text-primary bg-transparent': outlined },
-          { 'text-white bg-primary': !outlined }
+          'font-bold box-border rounded-lg p-2 w-full text-lg border border-primary hover:border-secondary transition-all active:scale-95',
+          { 'text-primary bg-transparent hover:text-secondary': outlined },
+          { 'text-white bg-primary hover:bg-secondary': !outlined }
         )}
       >
         {this.props.children}
