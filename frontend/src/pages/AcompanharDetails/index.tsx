@@ -3,9 +3,12 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAxios, { configure } from 'axios-hooks';
 import { Formik } from 'formik';
+import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import Spinner from 'react-spinkit';
+import Swal from 'sweetalert2';
 
 import {
   Button,
@@ -17,19 +20,47 @@ import {
 } from '../../components';
 
 import { AcompanharRoute } from '..';
-import { Solicitacao } from '../../models';
+import { Solicitacao, SolicitacaoStatus } from '../../models';
 import { api, endpoints } from '../../services';
+import { errorAlert, warningAlert } from '../../utils/swal-alerts';
 
 configure({ axios: api });
 
 export default function AcompanharDetails() {
   const { id } = useParams();
+  const [approveLoading, setApproveloading] = useState(false);
+  const navigate = useNavigate();
 
   const [{ data, loading, error }, refetch] = useAxios<Solicitacao>(
     `${endpoints.solicitacoes}/${id}`
   );
 
-  const handleApprove = () => {};
+  const handleApprove = async () => {
+    const { isConfirmed } = await Swal.fire(warningAlert);
+    if (!isConfirmed) {
+      return;
+    }
+    setApproveloading(true);
+    const solicitacao = {
+      status: SolicitacaoStatus.Approved,
+    } as Solicitacao;
+    try {
+      await api.patch(`${endpoints.solicitacoes}/${id}`, solicitacao);
+      setApproveloading(false);
+      await Swal.fire({
+        icon: 'success',
+        title: 'Sucesso! Solicitação aprovada.',
+        text: 'O TCE agora pode ser gerado.',
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#009045',
+      });
+      navigate(AcompanharRoute);
+    } catch (error) {
+      setApproveloading(false);
+      console.log(error);
+      Swal.fire(errorAlert);
+    }
+  };
 
   return (
     <>
@@ -54,7 +85,11 @@ export default function AcompanharDetails() {
           </div>
 
           {loading ? (
-            <ContentLoader className='w-full h-full' speed={0.5}>
+            <ContentLoader
+              className='w-full h-full'
+              speed={0.5}
+              foregroundColor='#d6d6d6'
+            >
               <rect x='0' y='50' rx='10' ry='10' width='300' height='40' />
               <rect x='0' y='120' rx='10' ry='10' width='440' height='40' />
               <rect x='500' y='120' rx='10' ry='10' width='440' height='40' />
@@ -357,7 +392,16 @@ export default function AcompanharDetails() {
                   <div className='col-span-6'></div>
                   <div className='col-span-3'>
                     <Button outlined onClick={() => handleApprove()}>
-                      Aprovar
+                      {approveLoading ? (
+                        <Spinner
+                          className='m-auto'
+                          fadeIn='none'
+                          color='#009045'
+                          name='double-bounce'
+                        />
+                      ) : (
+                        'Aprovar'
+                      )}
                     </Button>
                   </div>
                 </div>

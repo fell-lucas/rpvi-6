@@ -20,6 +20,7 @@ import { HomeRoute } from '..';
 import { Solicitacao } from '../../models';
 import { api, endpoints } from '../../services';
 import { mapEstagiario } from '../../utils';
+import { warningAlert } from '../../utils/swal-alerts';
 import EstagiarioStep from './Steps/Estagiario';
 import { estagiarioInitialValues } from './Steps/Estagiario/initial-values';
 import InstituicaoStep from './Steps/Instituicao';
@@ -118,19 +119,11 @@ class SolicitarPage extends Component<Props, State> {
                 setTouched({});
                 return;
               }
-              Swal.fire({
-                icon: 'warning',
-                title: 'Atenção! Esta ação não poderá ser desfeita.',
-                text: 'Confira os dados antes de enviar.',
-                showCancelButton: true,
-                confirmButtonText: 'Enviar',
-                cancelButtonText: 'Cancelar',
-                confirmButtonColor: '#009045',
-              }).then(async (result) => {
+              Swal.fire(warningAlert).then(async (result) => {
                 if (result.isConfirmed) {
                   setSubmitting(true);
                   try {
-                    const response = await api.post(
+                    await api.post(
                       endpoints.solicitacoes,
                       JSON.stringify({
                         ...values,
@@ -146,7 +139,6 @@ class SolicitarPage extends Component<Props, State> {
                       confirmButtonColor: '#009045',
                     });
                     resetForm();
-                    console.log(response);
                   } catch (error) {
                     console.log(error);
                     Swal.fire({

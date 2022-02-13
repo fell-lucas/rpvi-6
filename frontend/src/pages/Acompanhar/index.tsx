@@ -22,7 +22,8 @@ configure({ axios: api });
 
 export default function Acompanhar() {
   const [{ data, loading, error }, refetch] = useAxios<Solicitacao[]>(
-    endpoints.solicitacoes
+    endpoints.solicitacoes,
+    { useCache: false }
   );
 
   return (
@@ -48,7 +49,11 @@ export default function Acompanhar() {
           </div>
 
           {loading ? (
-            <ContentLoader className='h-full w-full' speed={0.5}>
+            <ContentLoader
+              className='h-full w-full'
+              speed={0.5}
+              foregroundColor='#d6d6d6'
+            >
               <rect x='0' y='0' rx='8' ry='8' width='100%' height='50' />
               <rect x='0' y='70' rx='8' ry='8' width='100%' height='50' />
               <rect x='0' y='140' rx='8' ry='8' width='100%' height='50' />
