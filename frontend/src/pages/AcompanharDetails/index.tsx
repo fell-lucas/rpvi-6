@@ -90,19 +90,32 @@ export default function AcompanharDetails() {
               speed={0.5}
               foregroundColor='#d6d6d6'
             >
-              <rect x='0' y='50' rx='10' ry='10' width='300' height='40' />
-              <rect x='0' y='120' rx='10' ry='10' width='440' height='40' />
-              <rect x='500' y='120' rx='10' ry='10' width='440' height='40' />
-              <rect x='1000' y='120' rx='10' ry='10' width='400' height='40' />
-              <rect x='0' y='180' rx='10' ry='10' width='440' height='40' />
-              <rect x='500' y='180' rx='10' ry='10' width='440' height='40' />
-              <rect x='1000' y='180' rx='10' ry='10' width='400' height='40' />
-              <rect x='0' y='240' rx='10' ry='10' width='440' height='40' />
-              <rect x='500' y='240' rx='10' ry='10' width='440' height='40' />
-              <rect x='1000' y='240' rx='10' ry='10' width='400' height='40' />
-              <rect x='0' y='300' rx='10' ry='10' width='440' height='40' />
-              <rect x='500' y='300' rx='10' ry='10' width='440' height='40' />
-              <rect x='1000' y='300' rx='10' ry='10' width='400' height='40' />
+              {Array.from({ length: 6 }, (_, x) => x * 350).map((y1) => {
+                return [
+                  <rect
+                    x='0'
+                    y={50 + y1}
+                    rx='10'
+                    ry='10'
+                    width='300'
+                    height='40'
+                  />,
+                  ...Array.from({ length: 6 }, (_, x) => x * 500).map((x1) => {
+                    return Array.from({ length: 4 }, (_, x) => x * 60).map(
+                      (y2) => (
+                        <rect
+                          x={x1}
+                          y={120 + y2 + y1}
+                          rx='10'
+                          ry='10'
+                          width='440'
+                          height='40'
+                        />
+                      )
+                    );
+                  }),
+                ];
+              })}
             </ContentLoader>
           ) : error ? (
             <div className='m-auto flex flex-col items-center gap-4'>

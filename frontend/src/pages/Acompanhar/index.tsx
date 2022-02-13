@@ -54,12 +54,9 @@ export default function Acompanhar() {
               speed={0.5}
               foregroundColor='#d6d6d6'
             >
-              <rect x='0' y='0' rx='8' ry='8' width='100%' height='50' />
-              <rect x='0' y='70' rx='8' ry='8' width='100%' height='50' />
-              <rect x='0' y='140' rx='8' ry='8' width='100%' height='50' />
-              <rect x='0' y='210' rx='8' ry='8' width='100%' height='50' />
-              <rect x='0' y='280' rx='8' ry='8' width='100%' height='50' />
-              <rect x='0' y='350' rx='8' ry='8' width='100%' height='50' />
+              {Array.from({ length: 10 }, (_, x) => x * 70).map((y) => (
+                <rect x='0' y={y} rx='8' ry='8' width='100%' height='50' />
+              ))}
             </ContentLoader>
           ) : error ? (
             <div className='m-auto flex flex-col items-center gap-4'>
