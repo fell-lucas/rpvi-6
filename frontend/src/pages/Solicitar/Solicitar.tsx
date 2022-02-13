@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 
 import { Button, LandingCard, ProgressBar } from '../../components';
 
-import { HomeRoute } from '..';
+import { AcompanharRoute, HomeRoute } from '..';
 import { Solicitacao } from '../../models';
 import { api, endpoints } from '../../services';
 import { mapEstagiario } from '../../utils';
@@ -107,11 +107,7 @@ class SolicitarPage extends Component<Props, State> {
             validationSchema={validationsSchemas[this.state.step]}
             onSubmit={(
               values: Solicitacao,
-              {
-                setSubmitting,
-                resetForm,
-                setTouched,
-              }: FormikHelpers<Solicitacao>
+              { setSubmitting, setTouched }: FormikHelpers<Solicitacao>
             ) => {
               setSubmitting(false);
               if (this.state.step !== steps.length - 1) {
@@ -128,18 +124,19 @@ class SolicitarPage extends Component<Props, State> {
                       JSON.stringify({
                         ...values,
                         estagiario: mapEstagiario(values.estagiario),
-                      }),
-                      { headers: { 'Content-Type': 'application/json' } }
+                      })
                     );
-                    Swal.fire({
+                    setSubmitting(false);
+                    await Swal.fire({
                       icon: 'success',
                       title: 'Sucesso! Sua solicitação foi enviada.',
                       text: 'Por favor, aguarde enquanto analisamos. Retornaremos o mais rápido possível.',
                       confirmButtonText: 'Ok',
                       confirmButtonColor: '#009045',
                     });
-                    resetForm();
+                    this.props.navigation(AcompanharRoute);
                   } catch (error) {
+                    setSubmitting(false);
                     console.log(error);
                     Swal.fire({
                       icon: 'error',
@@ -148,8 +145,6 @@ class SolicitarPage extends Component<Props, State> {
                       confirmButtonText: 'Ok',
                       confirmButtonColor: '#009045',
                     });
-                  } finally {
-                    setSubmitting(false);
                   }
                 }
               });
