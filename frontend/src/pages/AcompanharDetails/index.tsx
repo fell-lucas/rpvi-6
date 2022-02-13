@@ -1,6 +1,5 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAxios, { configure } from 'axios-hooks';
 import { Formik } from 'formik';
 import { useState } from 'react';
@@ -12,6 +11,7 @@ import Swal from 'sweetalert2';
 
 import {
   Button,
+  IconButton,
   LandingCard,
   ProgressBar,
   RadioButton,
@@ -73,13 +73,10 @@ export default function AcompanharDetails() {
           <div className='flex items-end w-full mb-8'>
             <div className='w-1/3'>
               <Link to={AcompanharRoute}>
-                <button
-                  type='button'
+                <IconButton
+                  icon={faArrowLeft as IconDefinition}
                   data-testid={`acompanhamentos_${id}_back`}
-                  className='text-primary text-4xl'
-                >
-                  <FontAwesomeIcon icon={faArrowLeft as IconProp} />
-                </button>
+                />
               </Link>
             </div>
             <h2 className='font-bold text-2xl w-2/3 text-right border-b-gray-400 border-b pb-3'>
@@ -88,12 +85,8 @@ export default function AcompanharDetails() {
           </div>
 
           {loading ? (
-            <ContentLoader
-              className='w-full h-full'
-              speed={0.5}
-              foregroundColor='#d6d6d6'
-            >
-              {Array.from({ length: 6 }, (_, x) => x * 350).map((y1) => {
+            <ContentLoader className='w-full h-full' foregroundColor='#d6d6d6'>
+              {Array.from({ length: 6 }, (_, x) => x * 400).map((y1) => {
                 return [
                   <rect
                     key={`rect_${y1 + 1}`}
@@ -105,7 +98,7 @@ export default function AcompanharDetails() {
                     height='40'
                   />,
                   ...Array.from({ length: 6 }, (_, x) => x * 500).map((x1) => {
-                    return Array.from({ length: 4 }, (_, x) => x * 60).map(
+                    return Array.from({ length: 5 }, (_, x) => x * 60).map(
                       (y2) => (
                         <rect
                           key={`rect_${y1 + x1 + y2}`}

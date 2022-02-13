@@ -1,5 +1,6 @@
 import Button from './Button';
 import HeaderGuri from './HeaderGuri';
+import IconButton from './IconButton';
 import { RadioButton, RadioButtonGroup } from './Input/RadioInput';
 import TextInput from './Input/TextInput';
 import LandingCard from './LandingCard';
@@ -15,4 +16,5 @@ export {
   RadioButton,
   HeaderGuri,
   SolicitacaoItem,
+  IconButton,
 };

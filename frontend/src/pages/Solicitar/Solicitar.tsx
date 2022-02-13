@@ -1,6 +1,5 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import {
   Form,
@@ -14,7 +13,7 @@ import { NavigateFunction, useNavigate } from 'react-router';
 import Spinner from 'react-spinkit';
 import Swal from 'sweetalert2';
 
-import { Button, LandingCard, ProgressBar } from '../../components';
+import { Button, IconButton, LandingCard, ProgressBar } from '../../components';
 
 import { AcompanharRoute, HomeRoute } from '..';
 import { Solicitacao } from '../../models';
@@ -166,26 +165,14 @@ class SolicitarPage extends Component<Props, State> {
               >
                 <Form
                   onSubmit={handleSubmit}
-                  className={classNames(
-                    'flex-1',
-                    'flex',
-                    'flex-col',
-                    'h-full',
-                    'justify-between'
-                  )}
+                  className='flex-1 flex flex-col h-full justify-between'
                 >
-                  <button
-                    type='button'
+                  <IconButton
                     data-testid='solicitacao_back'
-                    className={classNames(
-                      'absolute',
-                      'text-primary',
-                      'text-4xl'
-                    )}
+                    className='absolute'
                     onClick={handleBack}
-                  >
-                    <FontAwesomeIcon icon={faArrowLeft as IconProp} />
-                  </button>
+                    icon={faArrowLeft as IconDefinition}
+                  />
                   {renderStep(this.state.step, errors, touched, values)}
                   <div className={classNames('grid', 'grid-cols-6', 'mt-8')}>
                     <div className='col-span-4'></div>

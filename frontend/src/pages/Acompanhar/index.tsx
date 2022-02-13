@@ -1,6 +1,5 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAxios, { configure } from 'axios-hooks';
 import { useEffect, useState } from 'react';
 import ContentLoader from 'react-content-loader';
@@ -8,6 +7,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 
 import {
   Button,
+  IconButton,
   LandingCard,
   ProgressBar,
   SolicitacaoItem,
@@ -37,7 +37,6 @@ export default function Acompanhar() {
       setSearchParams({ page });
       setPage(page);
     }
-    console.log(page);
   }, [page, isValidPage, setSearchParams]);
 
   const handlePageSelect = (incrementBy: number) => {
@@ -50,8 +49,6 @@ export default function Acompanhar() {
     { useCache: false }
   );
 
-  console.log(data);
-
   return (
     <>
       <ProgressBar hide items={0} active={0} />
@@ -60,13 +57,7 @@ export default function Acompanhar() {
           <div className='flex items-end w-full mb-8'>
             <div className='w-1/3'>
               <Link to={HomeRoute}>
-                <button
-                  type='button'
-                  data-testid='acompanhamentos_back'
-                  className='text-primary text-4xl'
-                >
-                  <FontAwesomeIcon icon={faArrowLeft as IconProp} />
-                </button>
+                <IconButton icon={faArrowLeft as IconDefinition} />
               </Link>
             </div>
             <h2 className='font-bold text-2xl w-2/3 text-right border-b-gray-400 border-b pb-3'>
@@ -75,12 +66,8 @@ export default function Acompanhar() {
           </div>
 
           {loading ? (
-            <ContentLoader
-              className='h-full w-full'
-              speed={0.5}
-              foregroundColor='#d6d6d6'
-            >
-              {Array.from({ length: 10 }, (_, x) => x * 70).map((y) => (
+            <ContentLoader className='h-full w-full' foregroundColor='#d6d6d6'>
+              {Array.from({ length: 10 }, (_, x) => x * 80).map((y) => (
                 <rect
                   key={`rect_${y}`}
                   x='0'
@@ -88,7 +75,7 @@ export default function Acompanhar() {
                   rx='8'
                   ry='8'
                   width='100%'
-                  height='50'
+                  height='60'
                 />
               ))}
             </ContentLoader>
