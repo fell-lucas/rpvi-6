@@ -46,8 +46,6 @@ export const RadioButton = ({
   label,
   disabled,
 }: RadioButtonProps) => {
-  console.log(disabled);
-
   return (
     <div className='flex gap-6 items-center'>
       <input

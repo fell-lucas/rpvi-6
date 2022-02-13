@@ -391,7 +391,11 @@ export default function AcompanharDetails() {
                   </div>
                   <div className='col-span-6'></div>
                   <div className='col-span-3'>
-                    <Button outlined onClick={() => handleApprove()}>
+                    <Button
+                      disabled={approveLoading}
+                      outlined
+                      onClick={() => handleApprove()}
+                    >
                       {approveLoading ? (
                         <Spinner
                           className='m-auto'
