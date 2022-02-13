@@ -1,10 +1,12 @@
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { UpdateObservationDto } from './dto/update-observation.dto';
 import { UpdateSolicitationDto } from './dto/update-solicitation.dto';
 import { SolicitationStatus } from './entities/solicitation-status.enum';
 import { getMockForGet } from './mock/mock-solicitation.handler';
 import { InstitutionsRepository } from './repositories/institution.repository';
 import { InternsRepository } from './repositories/interns.repository';
+import { ObservationsRepository } from './repositories/observations.repository';
 import { SolicitationsRepository } from './repositories/solicitations.repository';
 import { UnitsRepository } from './repositories/units.repository';
 import { SolicitationsService } from './solicitations.service';
@@ -25,6 +27,11 @@ const mockInstitutionsRepository = () => ({
 const mockUnitsRepository = () => ({
   delete: jest.fn(),
 });
+const mockObservationsRepository = () => ({
+  createObservation: jest.fn(),
+  findOne: jest.fn(),
+  save: jest.fn(),
+});
 
 describe('SolicitationsService', () => {
   let solicitationsService: SolicitationsService;
@@ -32,6 +39,7 @@ describe('SolicitationsService', () => {
   let internsRepository;
   let institutionsRepository;
   let unitsRepository;
+  let observationsRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -53,6 +61,10 @@ describe('SolicitationsService', () => {
           provide: UnitsRepository,
           useFactory: mockUnitsRepository,
         },
+        {
+          provide: ObservationsRepository,
+          useFactory: mockObservationsRepository,
+        },
       ],
     }).compile();
 
@@ -61,6 +73,7 @@ describe('SolicitationsService', () => {
     internsRepository = module.get(InternsRepository);
     institutionsRepository = module.get(InstitutionsRepository);
     unitsRepository = module.get(UnitsRepository);
+    observationsRepository = module.get(ObservationsRepository);
   });
 
   describe('findOne', () => {
@@ -95,6 +108,48 @@ describe('SolicitationsService', () => {
       solicitationsRepository.createSolicitation.mockResolvedValue('someValue');
       const result = await solicitationsService.create(null);
       expect(result).toEqual('someValue');
+    });
+  });
+
+  describe('createObservation', () => {
+    it('calls ObservationsRepository.createObservation and returns the result', async () => {
+      const mockSolicitation = getMockForGet({});
+
+      observationsRepository.createObservation.mockResolvedValue('someValue');
+      solicitationsRepository.findOne.mockResolvedValue(mockSolicitation);
+      const result = await solicitationsService.createObservation(null, null);
+      expect(result).toEqual('someValue');
+    });
+  });
+
+  describe('updateObservation', () => {
+    it('calls ObservationsRepository.update and returns the result', async () => {
+      const mockObservation = { observation: 'Test', resolved: false };
+      const mockUpdateValue = {
+        resolved: true,
+      };
+
+      observationsRepository.findOne.mockResolvedValue(mockObservation);
+      const result = await solicitationsService.updateObservation(
+        mockUpdateValue as UpdateObservationDto,
+        'someId',
+      );
+      expect(result).toEqual(mockObservation);
+      expect(result.resolved).toBeTruthy();
+    });
+
+    it('calls ObservationsRepository.findOne and handles an error', async () => {
+      const mockUpdateValue = {
+        resolved: true,
+      };
+
+      observationsRepository.findOne.mockResolvedValue(null);
+      expect(
+        solicitationsService.updateObservation(
+          mockUpdateValue as UpdateObservationDto,
+          'someId',
+        ),
+      ).rejects.toThrow(NotFoundException);
     });
   });
 
