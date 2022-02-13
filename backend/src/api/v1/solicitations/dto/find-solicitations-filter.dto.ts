@@ -1,4 +1,4 @@
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsInt, IsOptional, IsString, Min } from 'class-validator';
 import { SolicitationStatus } from '../entities/solicitation-status.enum';
 
 export class FindAllSolicitationsFilterDto {
@@ -9,4 +9,8 @@ export class FindAllSolicitationsFilterDto {
   @IsOptional()
   @IsString()
   search?: string;
+
+  @IsOptional()
+  @IsString()
+  page?: number;
 }

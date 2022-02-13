@@ -12,7 +12,7 @@ export class SolicitationsRepository extends Repository<Solicitation> {
   async findAllSolicitations(
     filterDto: FindAllSolicitationsFilterDto,
   ): Promise<Solicitation[]> {
-    const { status, search } = filterDto;
+    const { status, search, page } = filterDto;
     const query = this.createQueryBuilder('solicitation');
 
     // query.where({ user });
@@ -31,6 +31,14 @@ export class SolicitationsRepository extends Repository<Solicitation> {
       );
     }
 
+    if (page) {
+      const skipCount = page * 10 - 10;
+      query.skip(skipCount);
+    }
+
+    query.take(10);
+
+    query.orderBy('solicitation.updated_at', 'DESC');
     const tasks = await query.getMany();
     return tasks;
   }
