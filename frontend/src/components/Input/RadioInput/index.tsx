@@ -37,16 +37,19 @@ type RadioButtonProps = {
   field: FieldAttributes<InputHTMLAttributes<HTMLInputElement>>;
   id: string;
   label: string;
+  disabled: boolean;
 };
 
 export const RadioButton = ({
   field: { name, onChange, value },
   id,
   label,
+  disabled,
 }: RadioButtonProps) => {
   return (
     <div className='flex gap-6 items-center'>
       <input
+        disabled={disabled}
         name={name}
         id={id}
         type='radio'

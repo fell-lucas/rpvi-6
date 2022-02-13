@@ -1,5 +1,6 @@
 export type Instituicao = {
   [index: string]: string;
+  id: string;
   razaoSocial: string;
   telefone: string;
   endereco: string;

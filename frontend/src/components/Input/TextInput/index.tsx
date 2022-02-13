@@ -13,6 +13,8 @@ type InputProps = {
   labelSpan?: string;
   errors?: FormikErrors<{ [x: string]: string }>;
   touched?: FormikTouched<{ [x: string]: string }>;
+  disabled?: boolean;
+  value?: string;
 };
 
 export default class TextInput extends Component<InputProps> {
@@ -53,8 +55,10 @@ export default class TextInput extends Component<InputProps> {
             {hasError && this.props.errors?.[fieldname]}
           </small>
           <Field
+            disabled={p.disabled}
             name={p.name}
             id={p.name}
+            value={p.value}
             className={classNames('w-full', { 'border-red-600': hasError })}
             type='text'
             placeholder={p.placeholder ?? p.label}
