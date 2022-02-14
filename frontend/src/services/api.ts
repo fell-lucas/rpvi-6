@@ -8,6 +8,7 @@ export const api = axios.create({
 
 export const endpoints = {
   solicitacoes: '/api/v1/solicitacoes',
+  auth: '/api/v1/auth',
 };
 
 configure({ axios });

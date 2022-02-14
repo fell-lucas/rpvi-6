@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { HeaderGuri } from './components';
@@ -13,8 +12,20 @@ import {
   SolicitarRoute,
 } from './pages';
 
+const setToken = (userToken: string) =>
+  sessionStorage.setItem('token', JSON.stringify(userToken));
+
+const getToken = () => {
+  const tokenString = sessionStorage.getItem('token');
+  if (!tokenString) {
+    return;
+  }
+  const userToken = JSON.parse(tokenString);
+  return userToken.token;
+};
+
 export default function App() {
-  const [token, setToken] = useState('');
+  const token = getToken();
   if (!token) {
     return (
       <div className='App'>

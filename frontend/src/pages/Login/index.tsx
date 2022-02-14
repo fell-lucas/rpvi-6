@@ -5,9 +5,10 @@ import * as yup from 'yup';
 import { Button, LandingCard, ProgressBar, TextInput } from '../../components';
 
 import { User } from '../../models';
+import { api, endpoints } from '../../services';
 
 interface LoginProps {
-  setToken: React.Dispatch<React.SetStateAction<string>>;
+  setToken: Function;
 }
 
 const userValidation = yup.object({
@@ -34,8 +35,13 @@ export default function Login({ setToken }: LoginProps) {
           </div>
           <Formik
             initialValues={initialValues}
-            onSubmit={(values: User, formikHelpers: FormikHelpers<User>) => {
+            onSubmit={async (
+              values: User,
+              formikHelpers: FormikHelpers<User>
+            ) => {
               try {
+                const response = await api.post(`${endpoints.auth}/signin`);
+                console.log(response);
               } catch (error) {
                 console.log(error);
               }
