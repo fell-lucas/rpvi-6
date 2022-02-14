@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 
 import useUser from '../../hooks/useUser';
 import { UserRole } from '../../models';
+import { capitalizeFirstLetter } from '../../utils';
 
 export default function UserInfo() {
   const { user, isUserLoading } = useUser();
@@ -42,7 +43,7 @@ export default function UserInfo() {
                 { 'bg-lime-700': user?.role === UserRole.ORIENTADOR }
               )}
             >
-              Aluno
+              {capitalizeFirstLetter(user?.role)}
             </div>
             <p className='truncate w-44'>{user !== undefined && user.name}</p>
           </div>
