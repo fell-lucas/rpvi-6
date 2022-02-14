@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { configure } from 'axios-hooks';
 
 export const api = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -12,5 +11,3 @@ export const endpoints = {
   solicitacoes: '/api/v1/solicitacoes',
   auth: '/auth',
 };
-
-configure({ axios });
