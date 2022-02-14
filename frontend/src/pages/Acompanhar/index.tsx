@@ -25,6 +25,11 @@ export default function Acompanhar() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get('page'));
 
+  const [{ data, loading, error }, refetch] = useAxios<SolicitacaoList>(
+    `${endpoints.solicitacoes}?page=${page}`,
+    { useCache: false }
+  );
+
   const isValidPage = !(
     page === null ||
     isNaN(Number(page)) ||
@@ -43,11 +48,6 @@ export default function Acompanhar() {
     setSearchParams({ page: `${Number(page) + incrementBy}` });
     setPage(`${Number(page) + incrementBy}`);
   };
-
-  const [{ data, loading, error }, refetch] = useAxios<SolicitacaoList>(
-    `${endpoints.solicitacoes}?page=${page}`,
-    { useCache: false }
-  );
 
   return (
     <>
@@ -120,7 +120,7 @@ export default function Acompanhar() {
                   <div className='col-span-2'></div>
                 )}
                 <div className='col-span-8'></div>
-                {data.solicitations.length === 10 && (
+                {data.nextPage !== undefined && (
                   <Button
                     onClick={() => handlePageSelect(1)}
                     className='col-span-2'
