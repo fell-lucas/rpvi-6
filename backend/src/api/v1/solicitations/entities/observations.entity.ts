@@ -18,9 +18,10 @@ export class Observation {
   id: string;
 
   @ManyToOne(
-    (type) => Solicitation,
+    (_type) => Solicitation,
     (solicitation) => solicitation.observacoes,
     {
+      eager: false,
       onDelete: 'CASCADE',
     },
   )
@@ -29,6 +30,9 @@ export class Observation {
 
   @Column()
   observacao: string;
+
+  @Column()
+  nomeAutor: string;
 
   @Column()
   resolved: boolean;

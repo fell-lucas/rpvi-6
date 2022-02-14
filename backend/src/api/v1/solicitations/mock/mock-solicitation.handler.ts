@@ -46,6 +46,6 @@ export function getMockForGet(_req): Solicitation {
       representanteLegal: 'Representante',
       cargoRepresentante: 'Cargo',
     },
-    status: SolicitationStatus.IN_PROGRESS,
+    status: SolicitationStatus.IN_REVIEW,
   } as Solicitation;
 }

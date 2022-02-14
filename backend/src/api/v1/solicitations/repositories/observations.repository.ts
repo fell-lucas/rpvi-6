@@ -1,4 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
+import { User } from '../../auth/user.entity';
 import { CreateObservationDto } from '../dto/create-observation.dto';
 import { Intern } from '../entities/intern.entity';
 import { Observation } from '../entities/observations.entity';
@@ -9,6 +10,7 @@ export class ObservationsRepository extends Repository<Observation> {
   async createObservation(
     createObservationDto: CreateObservationDto,
     solicitation: Solicitation,
+    user: User,
   ): Promise<Observation> {
     const { observation } = createObservationDto;
 
@@ -16,6 +18,7 @@ export class ObservationsRepository extends Repository<Observation> {
       observacao: observation,
       solicitacao: solicitation,
       resolved: false,
+      nomeAutor: user.name,
     });
 
     await this.save(observationObject);
