@@ -1,13 +1,16 @@
 import { HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { getRepository, Repository } from 'typeorm';
+import { User } from '../auth/user.entity';
 import { CreateObservationDto } from './dto/create-observation.dto';
 import { CreateSolicitationDto } from './dto/create-solicitation.dto';
 import { UpdateObservationDto } from './dto/update-observation.dto';
 import { UpdateSolicitationDto } from './dto/update-solicitation.dto';
 import { Solicitation } from './entities/solicitation.entity';
-import { getMockForGet } from './mock/mock-solicitation.handler';
+import { MockSolicitation } from './mock/mock-solicitation.handler';
+import { MockUser } from './mock/mock-user.handler';
 import { InstitutionsRepository } from './repositories/institution.repository';
 import { InternsRepository } from './repositories/interns.repository';
 import { ObservationsRepository } from './repositories/observations.repository';
@@ -25,10 +28,12 @@ const mockObservationsRepository = () => ({});
 describe('SolicitacoesController', () => {
   let solicitationController: SolicitationsController;
   let solicitationsService: SolicitationsService;
-  let mockSolicitation;
+  let mockSolicitation: Solicitation;
+  let mockUser: User;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [PassportModule],
       controllers: [SolicitationsController],
       providers: [
         SolicitationsService,
@@ -55,9 +60,10 @@ describe('SolicitacoesController', () => {
       ],
     }).compile();
 
-    mockSolicitation = getMockForGet({});
+    mockSolicitation = MockSolicitation({});
     solicitationController = module.get(SolicitationsController);
     solicitationsService = module.get(SolicitationsService);
+    mockUser = MockUser({});
   });
 
   describe('findAll', () => {
@@ -66,7 +72,7 @@ describe('SolicitacoesController', () => {
         .fn()
         .mockResolvedValue([mockSolicitation]);
 
-      const result = await solicitationController.findAll({});
+      const result = await solicitationController.findAll({}, mockUser);
 
       expect(result).toEqual([mockSolicitation]);
       expect(solicitationsService.findAll).toHaveBeenCalled();
@@ -79,11 +85,11 @@ describe('SolicitacoesController', () => {
         .fn()
         .mockResolvedValue(mockSolicitation);
 
-      const result = await solicitationController.findOne('1');
+      const result = await solicitationController.findOne('1', mockUser);
 
       expect(result).toBe(mockSolicitation);
       expect(solicitationsService.findOne).toHaveBeenCalled();
-      expect(solicitationsService.findOne).toHaveBeenCalledWith('1');
+      expect(solicitationsService.findOne).toHaveBeenCalledWith('1', mockUser);
     });
 
     it('findOne should return 404 when not found', async () => {
@@ -91,7 +97,7 @@ describe('SolicitacoesController', () => {
         .fn()
         .mockResolvedValue(new NotFoundException());
       try {
-        await solicitationController.findOne('1');
+        await solicitationController.findOne('1', mockUser);
       } catch (e) {
         expect(e).toEqual(new NotFoundException());
       }
@@ -106,11 +112,12 @@ describe('SolicitacoesController', () => {
 
       const result = await solicitationController.create(
         {} as CreateSolicitationDto,
+        mockUser,
       );
 
       expect(result).toBe(mockSolicitation);
       expect(solicitationsService.create).toHaveBeenCalled();
-      expect(solicitationsService.create).toHaveBeenCalledWith({});
+      expect(solicitationsService.create).toHaveBeenCalledWith({}, mockUser);
     });
   });
 
@@ -121,6 +128,7 @@ describe('SolicitacoesController', () => {
       const result = await solicitationController.createObservation(
         {} as CreateObservationDto,
         '1',
+        mockUser,
       );
 
       expect(result).toStrictEqual({});
@@ -128,6 +136,7 @@ describe('SolicitacoesController', () => {
       expect(solicitationsService.createObservation).toHaveBeenCalledWith(
         {},
         '1',
+        mockUser,
       );
     });
   });
@@ -173,11 +182,16 @@ describe('SolicitacoesController', () => {
       const result = await solicitationController.update(
         '1',
         {} as UpdateSolicitationDto,
+        mockUser,
       );
 
       expect(result).toBe(mockSolicitation);
       expect(solicitationsService.update).toHaveBeenCalled();
-      expect(solicitationsService.update).toHaveBeenCalledWith('1', {});
+      expect(solicitationsService.update).toHaveBeenCalledWith(
+        '1',
+        {},
+        mockUser,
+      );
     });
 
     it('update should return 404 when not found', async () => {
@@ -185,7 +199,11 @@ describe('SolicitacoesController', () => {
         .fn()
         .mockResolvedValue(new NotFoundException());
       try {
-        await solicitationController.update('1', {} as UpdateSolicitationDto);
+        await solicitationController.update(
+          '1',
+          {} as UpdateSolicitationDto,
+          mockUser,
+        );
       } catch (e) {
         expect(e).toEqual(new NotFoundException());
       }
@@ -196,11 +214,11 @@ describe('SolicitacoesController', () => {
     it('delete should return expected deleted value', async () => {
       solicitationsService.delete = jest.fn().mockResolvedValue(undefined);
 
-      const result = await solicitationController.delete('1');
+      const result = await solicitationController.delete('1', mockUser);
 
       expect(result).toBeUndefined();
       expect(solicitationsService.delete).toHaveBeenCalled();
-      expect(solicitationsService.delete).toHaveBeenCalledWith('1');
+      expect(solicitationsService.delete).toHaveBeenCalledWith('1', mockUser);
     });
 
     it('delete should return 404 when not found', async () => {
@@ -208,7 +226,7 @@ describe('SolicitacoesController', () => {
         throw new NotFoundException();
       });
       try {
-        await solicitationController.delete('1');
+        await solicitationController.delete('1', mockUser);
       } catch (e) {
         expect(e).toEqual(new NotFoundException());
       }
