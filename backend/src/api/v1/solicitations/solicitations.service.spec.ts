@@ -1,9 +1,14 @@
 import { NotFoundException } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
+import { UserRole } from '../auth/user-role.enum';
+import { User } from '../auth/user.entity';
 import { UpdateObservationDto } from './dto/update-observation.dto';
 import { UpdateSolicitationDto } from './dto/update-solicitation.dto';
 import { SolicitationStatus } from './entities/solicitation-status.enum';
-import { getMockForGet } from './mock/mock-solicitation.handler';
+import { Solicitation } from './entities/solicitation.entity';
+import { MockSolicitation } from './mock/mock-solicitation.handler';
+import { MockUser } from './mock/mock-user.handler';
 import { InstitutionsRepository } from './repositories/institution.repository';
 import { InternsRepository } from './repositories/interns.repository';
 import { ObservationsRepository } from './repositories/observations.repository';
@@ -40,9 +45,12 @@ describe('SolicitationsService', () => {
   let institutionsRepository;
   let unitsRepository;
   let observationsRepository;
+  let mockUser: User;
+  let mockSolicitation: Solicitation;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [PassportModule],
       providers: [
         SolicitationsService,
         {
@@ -74,12 +82,12 @@ describe('SolicitationsService', () => {
     institutionsRepository = module.get(InstitutionsRepository);
     unitsRepository = module.get(UnitsRepository);
     observationsRepository = module.get(ObservationsRepository);
+    mockUser = MockUser({});
+    mockSolicitation = MockSolicitation({});
   });
 
   describe('findOne', () => {
     it('calls SolicitationsRepository.findOne and returns de results', async () => {
-      const mockSolicitation = getMockForGet({});
-
       solicitationsRepository.findOne.mockResolvedValue(mockSolicitation);
       const result = await solicitationsService.findOne('someId');
       expect(result).toEqual(mockSolicitation);
@@ -98,7 +106,7 @@ describe('SolicitationsService', () => {
       solicitationsRepository.findAllSolicitations.mockResolvedValue(
         'someValue',
       );
-      const result = await solicitationsService.findAll({});
+      const result = await solicitationsService.findAll({}, mockUser, 1, 1);
       expect(result).toEqual('someValue');
     });
   });
@@ -106,19 +114,22 @@ describe('SolicitationsService', () => {
   describe('create', () => {
     it('calls SolicitationsRepository.create and returns the result', async () => {
       solicitationsRepository.createSolicitation.mockResolvedValue('someValue');
-      const result = await solicitationsService.create(null);
+      const result = await solicitationsService.create(null, mockUser);
       expect(result).toEqual('someValue');
     });
   });
 
   describe('createObservation', () => {
     it('calls ObservationsRepository.createObservation and returns the result', async () => {
-      const mockSolicitation = getMockForGet({});
-
+      mockUser.role = UserRole.INTERFACE;
       observationsRepository.createObservation.mockResolvedValue('someValue');
       solicitationsRepository.findOne.mockResolvedValue(mockSolicitation);
       solicitationsRepository.save.mockResolvedValue(mockSolicitation);
-      const result = await solicitationsService.createObservation(null, null);
+      const result = await solicitationsService.createObservation(
+        null,
+        '1',
+        mockUser,
+      );
       expect(result).toEqual('someValue');
     });
   });
@@ -133,9 +144,11 @@ describe('SolicitationsService', () => {
       const mockUpdateValue = {
         resolved: true,
       };
+      mockSolicitation.observacoes[0].resolved = true;
 
       observationsRepository.findOne.mockResolvedValue(mockObservation);
       solicitationsRepository.save.mockResolvedValue({});
+      solicitationsRepository.findOne.mockResolvedValue(mockSolicitation);
       const result = await solicitationsService.updateObservation(
         mockUpdateValue as UpdateObservationDto,
         'someId',
@@ -162,7 +175,6 @@ describe('SolicitationsService', () => {
 
   describe('update', () => {
     it('calls SolicitationsRepository.update and returns the result', async () => {
-      const mockSolicitation = getMockForGet({});
       const mockUpdateValue = {
         estagiario: {
           nome: 'someName',
@@ -180,6 +192,7 @@ describe('SolicitationsService', () => {
       const result = await solicitationsService.update(
         'someId',
         mockUpdateValue as UpdateSolicitationDto,
+        mockUser,
       );
       expect(result).toEqual(mockSolicitation);
       expect(result.estagiario.nome).toEqual('someName');
@@ -190,11 +203,11 @@ describe('SolicitationsService', () => {
 
   describe('delete', () => {
     it('calls SolicitationsRepository.delete and not throws error', async () => {
-      const mockSolicitation = getMockForGet({});
-
       solicitationsRepository.findOne.mockResolvedValue(mockSolicitation);
 
-      expect(await solicitationsService.delete('someId')).toBeUndefined();
+      expect(
+        await solicitationsService.delete('someId', mockUser),
+      ).toBeUndefined();
     });
   });
 });
