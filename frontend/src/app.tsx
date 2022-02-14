@@ -12,20 +12,25 @@ import {
   SolicitarRoute,
 } from './pages';
 
-const setToken = (userToken: string) =>
-  sessionStorage.setItem('token', JSON.stringify(userToken));
+import { useToken } from './hooks';
+import { api } from './services';
 
-const getToken = () => {
-  const tokenString = sessionStorage.getItem('token');
-  if (!tokenString) {
-    return;
-  }
-  const userToken = JSON.parse(tokenString);
-  return userToken.token;
-};
+api.interceptors.request.use(
+  async (config) => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      config.headers = {
+        authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      };
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 export default function App() {
-  const token = getToken();
+  const { token, setToken } = useToken();
+
   if (!token) {
     return (
       <div className='App'>

@@ -14,7 +14,7 @@ import {
 } from '../../components';
 
 import { HomeRoute } from '..';
-import { Solicitacao } from '../../models';
+import { SolicitacaoList } from '../../models';
 import { api, endpoints } from '../../services';
 
 export const AcompanharRoute = '/acompanhar';
@@ -44,7 +44,7 @@ export default function Acompanhar() {
     setPage(`${Number(page) + incrementBy}`);
   };
 
-  const [{ data, loading, error }, refetch] = useAxios<Solicitacao[]>(
+  const [{ data, loading, error }, refetch] = useAxios<SolicitacaoList>(
     `${endpoints.solicitacoes}?page=${page}`,
     { useCache: false }
   );
@@ -93,9 +93,9 @@ export default function Acompanhar() {
                 </Button>
               </div>
             </div>
-          ) : data !== undefined && data.length !== 0 ? (
+          ) : data !== undefined && data.solicitations.length !== 0 ? (
             <div className='flex flex-col w-full h-full gap-2'>
-              {data.map((solicitacao) => (
+              {data.solicitations.map((solicitacao) => (
                 <Link
                   key={solicitacao.id}
                   to={`${AcompanharRoute}/${solicitacao.id}`}
@@ -120,7 +120,7 @@ export default function Acompanhar() {
                   <div className='col-span-2'></div>
                 )}
                 <div className='col-span-8'></div>
-                {data?.length === 10 && (
+                {data.solicitations.length === 10 && (
                   <Button
                     onClick={() => handlePageSelect(1)}
                     className='col-span-2'

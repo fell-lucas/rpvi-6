@@ -1,5 +1,6 @@
 import { Form, Formik, FormikHelpers } from 'formik';
 import PropTypes from 'prop-types';
+import Spinner from 'react-spinkit';
 import * as yup from 'yup';
 
 import { Button, LandingCard, ProgressBar, TextInput } from '../../components';
@@ -40,15 +41,18 @@ export default function Login({ setToken }: LoginProps) {
               formikHelpers: FormikHelpers<User>
             ) => {
               try {
-                const response = await api.post(`${endpoints.auth}/signin`);
-                console.log(response);
+                const { data } = await api.post(
+                  `${endpoints.auth}/signin`,
+                  JSON.stringify(values)
+                );
+                setToken(data.accessToken);
               } catch (error) {
                 console.log(error);
               }
             }}
             validationSchema={userValidation}
           >
-            {({ errors, touched, handleSubmit }) => (
+            {({ errors, touched, handleSubmit, isSubmitting }) => (
               <Form
                 className='grid grid-cols-6 col-span-6 items-center'
                 onSubmit={handleSubmit}
@@ -74,7 +78,18 @@ export default function Login({ setToken }: LoginProps) {
                 </div>
                 <div className='col-span-2'></div>
                 <div className='col-span-2 mt-6'>
-                  <Button type='submit'>ENTRAR</Button>
+                  <Button disabled={isSubmitting} type='submit'>
+                    {isSubmitting ? (
+                      <Spinner
+                        className='m-auto'
+                        fadeIn='none'
+                        color='#FFF'
+                        name='double-bounce'
+                      />
+                    ) : (
+                      'ENTRAR'
+                    )}
+                  </Button>
                 </div>
               </Form>
             )}
