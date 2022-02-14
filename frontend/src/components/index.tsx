@@ -3,7 +3,7 @@ import HeaderGuri from './HeaderGuri';
 import IconButton from './IconButton';
 import { RadioButton, RadioButtonGroup } from './Input/RadioInput';
 import TextInput from './Input/TextInput';
-import LandingCard from './LandingCard';
+import { LandingCard } from './LandingCard';
 import ProgressBar from './ProgressBar/ProgressBar';
 import SolicitacaoItem from './SolicitacaoItem';
 

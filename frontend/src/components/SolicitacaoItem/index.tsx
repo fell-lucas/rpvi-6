@@ -27,7 +27,7 @@ export default function SolicitacaoItem({
       <div
         className={classNames(
           'flex items-center my-2 px-2 w-1/6 justify-center rounded-xl shadow-2xl',
-          { 'bg-amber-400': status === SolicitacaoStatus.InProgress },
+          { 'bg-blue-500': status === SolicitacaoStatus.InReview },
           {
             'bg-green-700':
               status === SolicitacaoStatus.Approved ||
@@ -38,7 +38,7 @@ export default function SolicitacaoItem({
               status === SolicitacaoStatus.Rejected ||
               status === SolicitacaoStatus.TerminatedRejected,
           },
-          { 'bg-blue-700': status === SolicitacaoStatus.ChangeRequested }
+          { 'bg-amber-500': status === SolicitacaoStatus.ChangeRequested }
         )}
       >
         <span className='font-bold'>{SolicitacaoStatus.toString(status)}</span>

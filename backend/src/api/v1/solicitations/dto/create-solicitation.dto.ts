@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 import { InstitutionDto } from './institution.dto';
 import { InternDto } from './intern.dto';
 import { UnitDto } from './unit.dto';

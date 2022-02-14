@@ -1,7 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { User } from '../../auth/user.entity';
 import { CreateObservationDto } from '../dto/create-observation.dto';
-import { Intern } from '../entities/intern.entity';
 import { Observation } from '../entities/observations.entity';
 import { Solicitation } from '../entities/solicitation.entity';
 

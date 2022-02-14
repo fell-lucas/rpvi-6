@@ -41,9 +41,6 @@ const mockObservationsRepository = () => ({
 describe('SolicitationsService', () => {
   let solicitationsService: SolicitationsService;
   let solicitationsRepository;
-  let internsRepository;
-  let institutionsRepository;
-  let unitsRepository;
   let observationsRepository;
   let mockUser: User;
   let mockSolicitation: Solicitation;
@@ -78,9 +75,6 @@ describe('SolicitationsService', () => {
 
     solicitationsService = module.get(SolicitationsService);
     solicitationsRepository = module.get(SolicitationsRepository);
-    internsRepository = module.get(InternsRepository);
-    institutionsRepository = module.get(InstitutionsRepository);
-    unitsRepository = module.get(UnitsRepository);
     observationsRepository = module.get(ObservationsRepository);
     mockUser = MockUser({});
     mockSolicitation = MockSolicitation({});

@@ -5,7 +5,6 @@ import { UserRole } from '../../auth/user-role.enum';
 import { User } from '../../auth/user.entity';
 import { CreateSolicitationDto } from '../dto/create-solicitation.dto';
 import { SolicitationStatus } from '../entities/solicitation-status.enum';
-import { Solicitation } from '../entities/solicitation.entity';
 import { MockSolicitation } from '../mock/mock-solicitation.handler';
 import { MockUser } from '../mock/mock-user.handler';
 import { SolicitationsRepository } from './solicitations.repository';

@@ -15,7 +15,7 @@ export type Solicitacao = {
 };
 
 export enum SolicitacaoStatus {
-  InProgress = 'IN_PROGRESS',
+  InReview = 'IN_REVIEW',
   Approved = 'APPROVED',
   Rejected = 'REJECTED',
   ChangeRequested = 'CHANGE_REQUESTED',
@@ -26,9 +26,5 @@ export enum SolicitacaoStatus {
 export namespace SolicitacaoStatus {
   export function toString(status: SolicitacaoStatus): string {
     return status.replace('_', ' ');
-  }
-
-  export function fromString(status: string): SolicitacaoStatus {
-    return (SolicitacaoStatus as any)[status];
   }
 }

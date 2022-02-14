@@ -14,7 +14,7 @@ import {
 } from '../../components';
 
 import { HomeRoute } from '..';
-import { Solicitacao } from '../../models';
+import { SolicitacaoList } from '../../models';
 import { api, endpoints } from '../../services';
 
 export const AcompanharRoute = '/acompanhar';
@@ -24,6 +24,11 @@ configure({ axios: api });
 export default function Acompanhar() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get('page'));
+
+  const [{ data, loading, error }, refetch] = useAxios<SolicitacaoList>(
+    `${endpoints.solicitacoes}?page=${page}`,
+    { useCache: false }
+  );
 
   const isValidPage = !(
     page === null ||
@@ -43,11 +48,6 @@ export default function Acompanhar() {
     setSearchParams({ page: `${Number(page) + incrementBy}` });
     setPage(`${Number(page) + incrementBy}`);
   };
-
-  const [{ data, loading, error }, refetch] = useAxios<Solicitacao[]>(
-    `${endpoints.solicitacoes}?page=${page}`,
-    { useCache: false }
-  );
 
   return (
     <>
@@ -85,12 +85,17 @@ export default function Acompanhar() {
                 Algo deu errado ao recuperar as informações.
               </h2>
               <div>
-                <Button onClick={() => refetch()}>Tentar novamente</Button>
+                <Button
+                  data-testid='acompanhar_refetch'
+                  onClick={() => refetch()}
+                >
+                  Tentar novamente
+                </Button>
               </div>
             </div>
-          ) : data !== undefined && data.length !== 0 ? (
+          ) : data !== undefined && data.solicitations.length !== 0 ? (
             <div className='flex flex-col w-full h-full gap-2'>
-              {data.map((solicitacao) => (
+              {data.solicitations.map((solicitacao) => (
                 <Link
                   key={solicitacao.id}
                   to={`${AcompanharRoute}/${solicitacao.id}`}
@@ -107,6 +112,7 @@ export default function Acompanhar() {
                     onClick={() => handlePageSelect(-1)}
                     outlined
                     className='col-span-2'
+                    data-testid='acompanhar_prev'
                   >
                     Página anterior
                   </Button>
@@ -114,10 +120,11 @@ export default function Acompanhar() {
                   <div className='col-span-2'></div>
                 )}
                 <div className='col-span-8'></div>
-                {data?.length === 10 && (
+                {data.nextPage !== undefined && (
                   <Button
                     onClick={() => handlePageSelect(1)}
                     className='col-span-2'
+                    data-testid='acompanhar_next'
                   >
                     Próxima página
                   </Button>

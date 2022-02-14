@@ -20,7 +20,7 @@ type InputProps = {
 export default class TextInput extends Component<InputProps> {
   render() {
     const p = this.props;
-    const fieldname = this.props.name.split('.')[1];
+    const fieldname = this.props.name.split('.')[1] ?? this.props.name;
     const errors = this.props.errors?.[fieldname];
     const touched = this.props.touched?.[fieldname];
     const hasError = !!errors && touched;
@@ -60,7 +60,7 @@ export default class TextInput extends Component<InputProps> {
             id={p.name}
             value={p.value}
             className={classNames('w-full', { 'border-red-600': hasError })}
-            type='text'
+            type={p.name === 'password' ? 'password' : 'text'}
             placeholder={p.placeholder ?? p.label}
           />
         </div>

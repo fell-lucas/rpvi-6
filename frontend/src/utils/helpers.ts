@@ -16,3 +16,8 @@ export const colSpan = (span?: string) =>
     'col-span-11': span === '11',
     'col-span-12': span === '12',
   });
+
+export const capitalizeFirstLetter = (string?: string) => {
+  if (string)
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+};

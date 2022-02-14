@@ -1,40 +1,14 @@
 /* istanbul ignore file */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import HeaderGuri from './components/HeaderGuri';
-import {
-  Acompanhar,
-  AcompanharDetails,
-  AcompanharRoute,
-  Home,
-  HomeRoute,
-  Solicitar,
-  SolicitarRoute,
-} from './pages';
-
+import App from './app';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <div className='App'>
-        <div style={{ width: '100%' }}>
-          <HeaderGuri />
-        </div>
-        <Routes>
-          <Route path={HomeRoute} element={<Home />} />
-          <Route path={SolicitarRoute} element={<Solicitar />} />
-          <Route path={AcompanharRoute} element={<Acompanhar />} />
-          <Route
-            path={`${AcompanharRoute}/:id`}
-            element={<AcompanharDetails />}
-          />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
