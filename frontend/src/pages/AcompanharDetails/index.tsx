@@ -36,8 +36,6 @@ export default function AcompanharDetails() {
     { useCache: false }
   );
 
-  console.log(data);
-
   const handleApprove = async () => {
     const { isConfirmed } = await Swal.fire(warningAlert);
     if (!isConfirmed) {

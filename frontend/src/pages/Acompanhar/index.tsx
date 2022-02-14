@@ -85,7 +85,12 @@ export default function Acompanhar() {
                 Algo deu errado ao recuperar as informações.
               </h2>
               <div>
-                <Button onClick={() => refetch()}>Tentar novamente</Button>
+                <Button
+                  data-testid='acompanhar_refetch'
+                  onClick={() => refetch()}
+                >
+                  Tentar novamente
+                </Button>
               </div>
             </div>
           ) : data !== undefined && data.length !== 0 ? (
@@ -107,6 +112,7 @@ export default function Acompanhar() {
                     onClick={() => handlePageSelect(-1)}
                     outlined
                     className='col-span-2'
+                    data-testid='acompanhar_prev'
                   >
                     Página anterior
                   </Button>
@@ -118,6 +124,7 @@ export default function Acompanhar() {
                   <Button
                     onClick={() => handlePageSelect(1)}
                     className='col-span-2'
+                    data-testid='acompanhar_next'
                   >
                     Próxima página
                   </Button>

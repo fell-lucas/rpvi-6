@@ -27,8 +27,4 @@ export namespace SolicitacaoStatus {
   export function toString(status: SolicitacaoStatus): string {
     return status.replace('_', ' ');
   }
-
-  export function fromString(status: string): SolicitacaoStatus {
-    return (SolicitacaoStatus as any)[status];
-  }
 }
