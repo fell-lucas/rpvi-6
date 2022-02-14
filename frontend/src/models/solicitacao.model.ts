@@ -15,7 +15,7 @@ export type Solicitacao = {
 };
 
 export enum SolicitacaoStatus {
-  InProgress = 'IN_PROGRESS',
+  InReview = 'IN_REVIEW',
   Approved = 'APPROVED',
   Rejected = 'REJECTED',
   ChangeRequested = 'CHANGE_REQUESTED',
