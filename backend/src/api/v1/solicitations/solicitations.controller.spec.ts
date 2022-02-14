@@ -1,8 +1,6 @@
-import { HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
-import { getRepository, Repository } from 'typeorm';
 import { User } from '../auth/user.entity';
 import { CreateObservationDto } from './dto/create-observation.dto';
 import { CreateSolicitationDto } from './dto/create-solicitation.dto';

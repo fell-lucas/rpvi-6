@@ -1,11 +1,4 @@
-import {
-  IsEmail,
-  IsString,
-  Matches,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
-import { AuthCredentialsDto } from './auth-credentials.dto';
+import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class AuthCredentialsSignInDto {
   @IsEmail()
