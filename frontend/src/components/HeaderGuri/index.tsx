@@ -32,10 +32,16 @@ export default function HeaderGuri({ isLoginPage = false }: HeaderProps) {
             <FontAwesomeIcon icon={faUser as IconProp} />
             &nbsp;****************
           </div>
-          <div className={classNames('inline-block')}>
+          <button
+            onClick={() => {
+              sessionStorage.removeItem('token');
+              window.location.reload();
+            }}
+            className={classNames('inline-block')}
+          >
             <FontAwesomeIcon icon={faPowerOff as IconProp} />
             &nbsp;Sair
-          </div>
+          </button>
         </div>
 
         <div className={classNames('flex', 'items-baseline', 'gap-8')}>
