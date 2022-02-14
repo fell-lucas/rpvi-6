@@ -1,12 +1,14 @@
 import { Form, Formik, FormikHelpers } from 'formik';
 import PropTypes from 'prop-types';
 import Spinner from 'react-spinkit';
+import Swal from 'sweetalert2';
 import * as yup from 'yup';
 
 import { Button, LandingCard, ProgressBar, TextInput } from '../../components';
 
 import { User } from '../../models';
 import { api, endpoints } from '../../services';
+import { errorAlert } from '../../utils/swal-alerts';
 
 interface LoginProps {
   setToken: Function;
@@ -48,6 +50,7 @@ export default function Login({ setToken }: LoginProps) {
                 setToken(data.accessToken);
               } catch (error) {
                 console.log(error);
+                Swal.fire(errorAlert);
               }
             }}
             validationSchema={userValidation}
