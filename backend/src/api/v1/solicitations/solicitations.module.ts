@@ -8,6 +8,7 @@ import { UnitsRepository } from './repositories/units.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SolicitationsRepository } from './repositories/solicitations.repository';
 import { ObservationsRepository } from './repositories/observations.repository';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ObservationsRepository } from './repositories/observations.repository';
       UnitsRepository,
       ObservationsRepository,
     ]),
+    AuthModule,
   ],
   controllers: [SolicitationsController],
   providers: [SolicitationsService],

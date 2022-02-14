@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateSolicitationDto } from './dto/create-solicitation.dto';
 import { UpdateSolicitationDto } from './dto/update-solicitation.dto';
@@ -13,6 +17,9 @@ import { CreateObservationDto } from './dto/create-observation.dto';
 import { Observation } from './entities/observations.entity';
 import { UpdateObservationDto } from './dto/update-observation.dto';
 import { SolicitationStatus } from './entities/solicitation-status.enum';
+import { User } from '../auth/user.entity';
+import { SolicitationsResponse } from './dto/solicitations-response.dto';
+import { UserRole } from '../auth/user-role.enum';
 
 @Injectable()
 export class SolicitationsService {
@@ -29,23 +36,28 @@ export class SolicitationsService {
     private observationsRepository: ObservationsRepository,
   ) {}
 
-  create(createSolicitationDto: CreateSolicitationDto): Promise<Solicitation> {
+  create(
+    createSolicitationDto: CreateSolicitationDto,
+    user: User,
+  ): Promise<Solicitation> {
     return this.solicitationsRepository.createSolicitation(
       createSolicitationDto,
+      user,
     );
   }
 
   async createObservation(
     createObservationDto: CreateObservationDto,
     solicitationId: string,
+    user: User,
   ): Promise<Observation> {
-    const solicitation = await this.solicitationsRepository.findOne(
-      solicitationId,
-    );
+    if (user.role == UserRole.ALUNO) throw new UnauthorizedException();
+    const solicitation = await this.findOne(solicitationId);
 
     const createdObservation = this.observationsRepository.createObservation(
       createObservationDto,
       solicitation,
+      user,
     );
 
     solicitation.status = SolicitationStatus.CHANGE_REQUESTED;
@@ -72,7 +84,16 @@ export class SolicitationsService {
     observation.resolved = resolved;
 
     if (resolved) {
-      observation.solicitacao.status = SolicitationStatus.IN_PROGRESS;
+      let haveMore = false;
+      const solicitacao = await this.findOne(observation.solicitacao.id);
+
+      solicitacao.observacoes.forEach((obs) => {
+        if (!obs.resolved && obs.id !== observation.id) haveMore = true;
+      });
+
+      if (!haveMore)
+        observation.solicitacao.status = SolicitationStatus.IN_REVIEW;
+
       await this.solicitationsRepository.save(observation.solicitacao);
     }
 
@@ -84,12 +105,27 @@ export class SolicitationsService {
 
   async findAll(
     filterDto: FindAllSolicitationsFilterDto,
-  ): Promise<Solicitation[]> {
-    return await this.solicitationsRepository.findAllSolicitations(filterDto);
+    user: User,
+    page: number,
+    limit: number,
+  ): Promise<SolicitationsResponse> {
+    return await this.solicitationsRepository.findAllSolicitations(
+      filterDto,
+      user,
+      page,
+      limit,
+    );
   }
 
-  async findOne(id: string): Promise<Solicitation> {
-    const found = await this.solicitationsRepository.findOne(id);
+  async findOne(id: string, user?: User): Promise<Solicitation> {
+    let found;
+    if (user && user.role == UserRole.ALUNO) {
+      found = await this.solicitationsRepository.findOne(id, {
+        where: { user },
+      });
+    } else {
+      found = await this.solicitationsRepository.findOne(id);
+    }
 
     if (!found) {
       throw new NotFoundException(
@@ -103,8 +139,9 @@ export class SolicitationsService {
   async update(
     id: string,
     updateSolicitationDto: UpdateSolicitationDto,
+    user: User,
   ): Promise<Solicitation> {
-    const solicitation = await this.findOne(id);
+    const solicitation = await this.findOne(id, user);
 
     const { estagiario, instituicao, unidadeConcedente, status } =
       updateSolicitationDto;
@@ -127,8 +164,8 @@ export class SolicitationsService {
     return solicitation;
   }
 
-  async delete(id: string): Promise<void> {
-    const solicitation = await this.findOne(id);
+  async delete(id: string, user: User): Promise<void> {
+    const solicitation = await this.findOne(id, user);
     await this.solicitationsRepository.delete({ id });
 
     await this.internsRepository.delete(solicitation.estagiario);

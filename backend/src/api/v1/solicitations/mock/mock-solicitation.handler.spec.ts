@@ -48,7 +48,7 @@ describe('MockSolicitacao Tests', () => {
           representanteLegal: 'Representante',
           cargoRepresentante: 'Cargo',
         },
-        status: SolicitationStatus.IN_PROGRESS,
+        status: SolicitationStatus.IN_REVIEW,
       };
 
       expect(getMockForGet({})).toEqual(expected);

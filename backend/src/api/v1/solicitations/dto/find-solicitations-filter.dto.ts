@@ -9,8 +9,4 @@ export class FindAllSolicitationsFilterDto {
   @IsOptional()
   @IsString()
   search?: string;
-
-  @IsOptional()
-  @IsString()
-  page?: number;
 }
