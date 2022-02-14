@@ -1,14 +1,17 @@
 /* istanbul ignore file */
+import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from '../../auth/user.entity';
 import { Institution } from './institution.entity';
 import { Intern } from './intern.entity';
 import { Observation } from './observations.entity';
@@ -35,14 +38,21 @@ export class Solicitation {
   @JoinColumn()
   instituicao: Institution;
 
-  @OneToMany(() => Observation, (observacao) => observacao.solicitacao, {
+  @OneToMany((_type) => Observation, (observacao) => observacao.solicitacao, {
     eager: true,
-    cascade: true,
   })
   observacoes: Observation[];
 
   @Column()
   status: SolicitationStatus;
+
+  @ManyToOne((type) => User, (user) => user.solicitations, {
+    onDelete: 'CASCADE',
+    eager: false,
+  })
+  @JoinColumn()
+  @Exclude({ toPlainOnly: true })
+  user!: User;
 
   @CreateDateColumn()
   created_at: Date;

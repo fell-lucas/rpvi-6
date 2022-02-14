@@ -1,24 +1,41 @@
 import { EntityRepository, Repository } from 'typeorm';
+import { UserRole } from '../../auth/user-role.enum';
+import { User } from '../../auth/user.entity';
 import { CreateSolicitationDto } from '../dto/create-solicitation.dto';
 import { FindAllSolicitationsFilterDto } from '../dto/find-solicitations-filter.dto';
-import { Institution } from '../entities/institution.entity';
-import { Intern } from '../entities/intern.entity';
+import { SolicitationsResponse } from '../dto/solicitations-response.dto';
 import { SolicitationStatus } from '../entities/solicitation-status.enum';
 import { Solicitation } from '../entities/solicitation.entity';
-import { Unit } from '../entities/unit.entity';
 
 @EntityRepository(Solicitation)
 export class SolicitationsRepository extends Repository<Solicitation> {
   async findAllSolicitations(
     filterDto: FindAllSolicitationsFilterDto,
-  ): Promise<Solicitation[]> {
-    const { status, search, page } = filterDto;
+    user: User,
+    page: number,
+    limit: number,
+  ): Promise<SolicitationsResponse> {
+    const { status, search } = filterDto;
+    const { role, campus } = user;
+    let response: SolicitationsResponse = new SolicitationsResponse();
+    let count;
     const query = this.createQueryBuilder('solicitation');
 
-    // query.where({ user });
     query.leftJoinAndSelect('solicitation.instituicao', 'institution');
     query.leftJoinAndSelect('solicitation.estagiario', 'intern');
     query.leftJoinAndSelect('solicitation.unidadeConcedente', 'unit');
+
+    switch (role) {
+      case UserRole.ALUNO: {
+        query.where({ user });
+        break;
+      }
+      case UserRole.ORIENTADOR:
+      case UserRole.INTERFACE: {
+        query.where('institution.campus = :campus', { campus });
+        break;
+      }
+    }
 
     query.select([
       'solicitation.id',
@@ -39,20 +56,20 @@ export class SolicitationsRepository extends Repository<Solicitation> {
       );
     }
 
-    if (page) {
-      const skipCount = page * 10 - 10;
-      query.skip(skipCount);
-    }
-
-    query.take(10);
+    const skipCount = page * limit - limit;
+    query.skip(skipCount);
+    query.take(limit);
 
     query.orderBy('solicitation.updated_at', 'DESC');
-    const tasks = await query.getMany();
-    return tasks;
+    [response.solicitations, count] = await query.getManyAndCount();
+    response.nextPage = skipCount + limit >= count ? undefined : ++page;
+
+    return response;
   }
 
   async createSolicitation(
     createSolicitationDto: CreateSolicitationDto,
+    user: User,
   ): Promise<Solicitation> {
     const { estagiario, instituicao, unidadeConcedente } =
       createSolicitationDto;
@@ -61,7 +78,8 @@ export class SolicitationsRepository extends Repository<Solicitation> {
       estagiario,
       instituicao,
       unidadeConcedente,
-      status: SolicitationStatus.IN_PROGRESS,
+      status: SolicitationStatus.IN_REVIEW,
+      user,
     });
 
     await this.save(solicitation);
