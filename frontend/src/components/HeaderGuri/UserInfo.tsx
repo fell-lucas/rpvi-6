@@ -18,13 +18,13 @@ export default function UserInfo() {
       <div className='flex gap-2 items-center'>
         {isUserLoading ? (
           <>
-            <ContentLoader className='w-1/5 max-h-4' foregroundColor='#d6d6d6'>
+            <ContentLoader className='w-16 max-h-4' foregroundColor='#d6d6d6'>
               <rect rx='5' ry='5' width='100%' height='100%' />
             </ContentLoader>
-            <ContentLoader className='w-1/5 max-h-4' foregroundColor='#d6d6d6'>
+            <ContentLoader className='w-16 max-h-4' foregroundColor='#d6d6d6'>
               <rect rx='5' ry='5' width='100%' height='100%' />
             </ContentLoader>
-            <ContentLoader className='w-3/5 max-h-4' foregroundColor='#d6d6d6'>
+            <ContentLoader className='w-44 max-h-4' foregroundColor='#d6d6d6'>
               <rect rx='5' ry='5' width='100%' height='100%' />
             </ContentLoader>
           </>
