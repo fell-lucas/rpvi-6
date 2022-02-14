@@ -1,8 +1,8 @@
 import { SolicitationStatus } from '../entities/solicitation-status.enum';
-import { getMockForGet } from './mock-solicitation.handler';
+import { MockSolicitation } from './mock-solicitation.handler';
 
 describe('MockSolicitacao Tests', () => {
-  describe('getMockForGet', () => {
+  describe('MockSolicitation', () => {
     it('should return correct value', () => {
       const expected = {
         estagiario: {
@@ -49,9 +49,17 @@ describe('MockSolicitacao Tests', () => {
           cargoRepresentante: 'Cargo',
         },
         status: SolicitationStatus.IN_REVIEW,
+        observacoes: [
+          {
+            id: 'MockId',
+            observacao: 'Observation',
+            nomeAutor: 'Name',
+            resolved: false,
+          },
+        ],
       };
 
-      expect(getMockForGet({})).toEqual(expected);
+      expect(MockSolicitation({})).toEqual(expected);
     });
   });
 });

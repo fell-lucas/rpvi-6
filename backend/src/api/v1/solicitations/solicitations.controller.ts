@@ -23,7 +23,7 @@ import { User } from '../auth/user.entity';
 import { SolicitationsResponse } from './dto/solicitations-response.dto';
 
 @Controller('api/v1/solicitacoes')
-@UseGuards(AuthGuard())
+@UseGuards(AuthGuard('jwt'))
 export class SolicitationsController {
   constructor(private readonly solicitationsService: SolicitationsService) {}
 

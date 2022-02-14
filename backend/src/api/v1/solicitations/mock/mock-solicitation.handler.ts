@@ -1,7 +1,7 @@
 import { SolicitationStatus } from '../entities/solicitation-status.enum';
 import { Solicitation } from '../entities/solicitation.entity';
 
-export function getMockForGet(_req): Solicitation {
+export function MockSolicitation(_req): Solicitation {
   return {
     estagiario: {
       nome: 'Joao',
@@ -47,5 +47,13 @@ export function getMockForGet(_req): Solicitation {
       cargoRepresentante: 'Cargo',
     },
     status: SolicitationStatus.IN_REVIEW,
+    observacoes: [
+      {
+        id: 'MockId',
+        observacao: 'Observation',
+        nomeAutor: 'Name',
+        resolved: false,
+      },
+    ],
   } as Solicitation;
 }
