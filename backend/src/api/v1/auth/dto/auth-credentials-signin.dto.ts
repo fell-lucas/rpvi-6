@@ -1,4 +1,11 @@
-import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
+/* istanbul ignore file */
+import {
+  IsEmail,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class AuthCredentialsSignInDto {
   @IsEmail()

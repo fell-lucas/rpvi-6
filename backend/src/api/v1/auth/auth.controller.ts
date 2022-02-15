@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsSignInDto } from './dto/auth-credentials-signin.dto';
@@ -23,7 +24,7 @@ export class AuthController {
   }
 
   @Get('/active')
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   active(@GetUser() user: User): User {
     user.password = undefined;
     return user;
