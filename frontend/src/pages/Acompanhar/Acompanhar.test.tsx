@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react';
+import MockAdapter from 'axios-mock-adapter';
 import { BrowserRouter } from 'react-router-dom';
 
 import Acompanhar from '.';
 import { api, endpoints } from '../../services';
-
-var MockAdapter = require('axios-mock-adapter');
 
 const acompanhamentosMock = Array.from({ length: 10 }, (_, x) => ({
   id: '40d78f48-3a86-49e4-83ae-6de02a47e4fa' + x,
