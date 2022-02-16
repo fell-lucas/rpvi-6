@@ -49,7 +49,6 @@ export default function Login({ setToken }: LoginProps) {
                 );
                 setToken(data.accessToken);
               } catch (error) {
-                console.log(error);
                 Swal.fire(errorAlert);
               }
             }}
@@ -81,7 +80,11 @@ export default function Login({ setToken }: LoginProps) {
                 </div>
                 <div className='col-span-2'></div>
                 <div className='col-span-2 mt-6'>
-                  <Button disabled={isSubmitting} type='submit'>
+                  <Button
+                    disabled={isSubmitting}
+                    type='submit'
+                    data-testid='submit_login_button'
+                  >
                     {isSubmitting ? (
                       <Spinner
                         className='m-auto'

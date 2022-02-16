@@ -11,3 +11,18 @@ export const endpoints = {
   solicitacoes: '/api/v1/solicitacoes',
   auth: '/api/v1/auth',
 };
+
+/* istanbul ignore next */
+api.interceptors.request.use(
+  async (config) => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      config.headers = {
+        ...config.headers,
+        authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      };
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);

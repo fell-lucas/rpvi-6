@@ -55,6 +55,7 @@ export default class TextInput extends Component<InputProps> {
             {hasError && this.props.errors?.[fieldname]}
           </small>
           <Field
+            data-testid={`input_${p.name}`}
             disabled={p.disabled}
             name={p.name}
             id={p.name}

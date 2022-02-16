@@ -66,7 +66,11 @@ export default function Acompanhar() {
           </div>
 
           {loading ? (
-            <ContentLoader className='h-full w-full' foregroundColor='#d6d6d6'>
+            <ContentLoader
+              data-testid='loading_acompanhamentos'
+              className='h-full w-full'
+              foregroundColor='#d6d6d6'
+            >
               {Array.from({ length: 10 }, (_, x) => x * 80).map((y) => (
                 <rect
                   key={`rect_${y}`}
@@ -97,6 +101,7 @@ export default function Acompanhar() {
             <div className='flex flex-col w-full h-full gap-2'>
               {data.solicitations.map((solicitacao) => (
                 <Link
+                  data-testid={solicitacao.id}
                   key={solicitacao.id}
                   to={`${AcompanharRoute}/${solicitacao.id}`}
                 >

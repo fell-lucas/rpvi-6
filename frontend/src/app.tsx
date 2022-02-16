@@ -13,21 +13,6 @@ import {
 } from './pages';
 
 import { useToken } from './hooks';
-import { api } from './services';
-
-api.interceptors.request.use(
-  async (config) => {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      config.headers = {
-        ...config.headers,
-        authorization: `Bearer ${sessionStorage.getItem('token')}`,
-      };
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
 
 export default function App() {
   const { token, setToken } = useToken();

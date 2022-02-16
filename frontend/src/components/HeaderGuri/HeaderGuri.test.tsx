@@ -20,6 +20,8 @@ describe('header component', () => {
   Object.defineProperty(global, 'location', {
     value: { reload: jest.fn() },
   });
+  Object.defineProperty(global, 'scrollTo', { value: jest.fn() });
+
   test('renders guri header on login page', () => {
     render(
       <BrowserRouter>
