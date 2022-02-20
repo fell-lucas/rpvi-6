@@ -52,7 +52,7 @@ export default function AcompanharDetails() {
     try {
       await api.patch(`${endpoints.solicitacoes}/${id}`, solicitacao);
       setApproveloading(false);
-      await Swal.fire({
+      Swal.fire({
         icon: 'success',
         title: 'Sucesso! Solicitação aprovada.',
         text: 'O TCE agora pode ser gerado.',
@@ -153,7 +153,7 @@ export default function AcompanharDetails() {
                       JSON.stringify(solicitacao)
                     );
                     setSubmitting(false);
-                    await Swal.fire({
+                    Swal.fire({
                       icon: 'success',
                       title: 'Sucesso! Solicitação enviada para reanálise.',
                       text: 'Aguarde avaliação do Interface.',
