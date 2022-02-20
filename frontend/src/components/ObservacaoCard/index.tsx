@@ -1,3 +1,6 @@
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faCheck, faExclamation } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { ZonedDateTime } from 'temporal-polyfill';
 
@@ -17,29 +20,30 @@ export const ObservacaoCard = ({
       className={classNames(
         'border col-span-3 bg-white relative shadow-lg rounded-lg p-4 flex flex-col',
         {
-          'border-sky-400': resolved,
+          'border-green-400': resolved,
           'border-amber-400': !resolved,
         }
       )}
     >
-      <span
+      {!resolved && (
+        <span className='animate-ping -top-3 -right-3 absolute h-6 w-6 rounded-full opacity-75 bg-amber-400'></span>
+      )}
+      <FontAwesomeIcon
+        icon={
+          resolved
+            ? (faCheck as IconDefinition)
+            : (faExclamation as IconDefinition)
+        }
+        color='white'
+        size='sm'
         className={classNames(
-          'animate-ping -top-2 -right-2 absolute h-4 w-4 rounded-full opacity-75',
+          'absolute p-1 -top-3 -right-3 rounded-full h-4 w-4 bg-amber-500',
           {
-            'bg-sky-400': resolved,
+            'bg-green-400': resolved,
             'bg-amber-400': !resolved,
           }
         )}
-      ></span>
-      <span
-        className={classNames(
-          'absolute -top-2 -right-2 rounded-full h-4 w-4 bg-amber-500',
-          {
-            'bg-sky-400': resolved,
-            'bg-amber-400': !resolved,
-          }
-        )}
-      ></span>
+      />
       <h2 className='text-md'>
         {nomeAutor} <span className='text-gray-600'>escreveu:</span>
       </h2>
@@ -47,7 +51,7 @@ export const ObservacaoCard = ({
       <div className='flex justify-between'>
         <h2
           className={classNames('text-sm text-right text-gray-600 font-bold', {
-            'text-sky-500': resolved,
+            'text-green-500': resolved,
             'text-amber-500': !resolved,
           })}
         >
