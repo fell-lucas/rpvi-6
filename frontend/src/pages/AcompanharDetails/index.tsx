@@ -16,6 +16,7 @@ import { AcompanharRoute } from '..';
 import useUser from '../../hooks/useUser';
 import { Observacao, Solicitacao, SolicitacaoStatus } from '../../models';
 import { api, endpoints } from '../../services';
+import { colorAccordingToStatus, mapEstagiario } from '../../utils';
 import { errorAlert, warningAlert } from '../../utils/swal-alerts';
 import { EstagiarioTextInputs } from '../Solicitar/Steps/Estagiario/text-inputs';
 import { InstituicaoTextInputs } from '../Solicitar/Steps/Instituicao/text-inputs';
@@ -69,7 +70,12 @@ export default function AcompanharDetails() {
   return (
     <>
       <ProgressBar hide items={0} active={0} />
-      <LandingCard>
+      <LandingCard
+        className={classNames(
+          'border-2',
+          colorAccordingToStatus('border', data?.status)
+        )}
+      >
         <div className='flex flex-1 flex-col h-full items-center justify-center'>
           <div className='flex items-end w-full mb-8'>
             <div className='w-1/3'>
@@ -80,8 +86,16 @@ export default function AcompanharDetails() {
                 />
               </Link>
             </div>
-            <h2 className='font-bold text-2xl w-2/3 text-right border-b-gray-400 border-b pb-3'>
+            <h2 className='inline font-bold text-2xl w-2/3 text-right border-b-gray-400 border-b pb-3'>
               AVALIAR SOLICITAÇÃO
+            </h2>
+            <h2
+              className={classNames(
+                'ml-8 font-bold inline text-lg text-right pb-4 whitespace-nowrap',
+                colorAccordingToStatus('text', data?.status)
+              )}
+            >
+              {SolicitacaoStatus.toString(data?.status)}
             </h2>
           </div>
 
@@ -90,7 +104,8 @@ export default function AcompanharDetails() {
           ) : error ? (
             <div className='m-auto flex flex-col items-center gap-4'>
               <h2 className='text-xl text-red-700'>
-                Algo deu errado ao recuperar a solicitação.
+                Algo deu errado ao recuperar a solicitação. Tente efetuar login
+                novamente.
               </h2>
               <div>
                 <Button onClick={() => refetch()}>Tentar novamente</Button>
@@ -102,7 +117,56 @@ export default function AcompanharDetails() {
                 key={`edit_form_${id}`}
                 enableReinitialize
                 initialValues={initialValues(data)}
-                onSubmit={() => {}}
+                onSubmit={async (values: Solicitacao, { setSubmitting }) => {
+                  setSubmitting(false);
+                  if (
+                    data?.observacoes?.find((obs) => obs.resolved === false) !==
+                    undefined
+                  ) {
+                    const { isConfirmed } = await Swal.fire({
+                      icon: 'warning',
+                      title: 'Atenção! Ainda existem observações pendentes.',
+                      text: 'Deseja realmente enviar para reanálise?',
+                      showCancelButton: true,
+                      confirmButtonText: 'Enviar',
+                      cancelButtonText: 'Cancelar',
+                      confirmButtonColor: '#009045',
+                    });
+                    if (!isConfirmed) {
+                      return;
+                    }
+                  } else {
+                    const { isConfirmed } = await Swal.fire(warningAlert);
+                    if (!isConfirmed) {
+                      return;
+                    }
+                  }
+                  setSubmitting(true);
+                  const solicitacao = {
+                    ...values,
+                    estagiario: mapEstagiario(values.estagiario),
+                    status: SolicitacaoStatus.InReview,
+                  } as Solicitacao;
+                  try {
+                    await api.patch(
+                      `${endpoints.solicitacoes}/${id}`,
+                      JSON.stringify(solicitacao)
+                    );
+                    setSubmitting(false);
+                    await Swal.fire({
+                      icon: 'success',
+                      title: 'Sucesso! Solicitação enviada para reanálise.',
+                      text: 'Aguarde avaliação do Interface.',
+                      confirmButtonText: 'Ok',
+                      confirmButtonColor: '#009045',
+                    });
+                    navigate(AcompanharRoute);
+                  } catch (error) {
+                    setSubmitting(false);
+                    console.log(error);
+                    Swal.fire(errorAlert);
+                  }
+                }}
               >
                 {({ errors, touched, handleSubmit, isSubmitting }) => (
                   <div className='grid grid-cols-12 gap-4 items-center mt-8'>
@@ -130,6 +194,30 @@ export default function AcompanharDetails() {
                       touched={touched}
                       disabled={!canEdit}
                     />
+                    <div className='col-span-12'></div>
+                    <div className='col-span-9'></div>
+                    {isAluno &&
+                      data.status === SolicitacaoStatus.ChangeRequested && (
+                        <div className='col-span-3'>
+                          <Button
+                            disabled={isSubmitting}
+                            outlined
+                            onClick={() => handleSubmit()}
+                            type='submit'
+                          >
+                            {isSubmitting ? (
+                              <Spinner
+                                className='m-auto'
+                                fadeIn='none'
+                                color='#009045'
+                                name='double-bounce'
+                              />
+                            ) : (
+                              'Enviar para re-análise'
+                            )}
+                          </Button>
+                        </div>
+                      )}
                   </div>
                 )}
               </Formik>
@@ -177,14 +265,21 @@ export default function AcompanharDetails() {
                     </h2>
                     {data.observacoes?.length !== 0 ? (
                       data.observacoes?.map((obs) => (
-                        <ObservacaoCard key={obs.id} obs={obs} />
+                        <ObservacaoCard
+                          disabled={
+                            obs.resolved ||
+                            data.status !== SolicitacaoStatus.ChangeRequested
+                          }
+                          key={obs.id}
+                          obs={obs}
+                        />
                       ))
                     ) : (
                       <div className='col-span-12 text-gray-600 text-center py-4'>
                         Nenhum pedido de mudança feito.
                       </div>
                     )}
-                    {!isAluno && (
+                    {!isAluno ? (
                       <>
                         <h2 className='font-bold text-xl col-span-12'>
                           Nova Requisição de Mudança
@@ -218,26 +313,35 @@ export default function AcompanharDetails() {
                           </Button>
                         </div>
                       </>
+                    ) : (
+                      <>
+                        <div className='col-span-12'></div>
+                        <div className='col-span-3'></div>
+                      </>
                     )}
                     <div className='col-span-6'></div>
                     <div className='col-span-3'>
-                      {data?.status !== SolicitacaoStatus.Approved && !isAluno && (
-                        <Button
-                          disabled={approveLoading}
-                          outlined
-                          onClick={() => handleApprove()}
-                        >
-                          {approveLoading ? (
-                            <Spinner
-                              className='m-auto'
-                              fadeIn='none'
-                              color='#009045'
-                              name='double-bounce'
-                            />
-                          ) : (
-                            'Aprovar'
-                          )}
-                        </Button>
+                      {data?.status !== SolicitacaoStatus.Approved ? (
+                        !isAluno && (
+                          <Button
+                            disabled={approveLoading}
+                            outlined
+                            onClick={() => handleApprove()}
+                          >
+                            {approveLoading ? (
+                              <Spinner
+                                className='m-auto'
+                                fadeIn='none'
+                                color='#009045'
+                                name='double-bounce'
+                              />
+                            ) : (
+                              'Aprovar'
+                            )}
+                          </Button>
+                        )
+                      ) : (
+                        <></>
                       )}
                     </div>
                   </div>

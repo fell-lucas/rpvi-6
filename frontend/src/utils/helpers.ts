@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 
+import { SolicitacaoStatus } from '../models';
+
 export const colSpan = (span?: string) =>
   span &&
   classNames({
@@ -20,4 +22,29 @@ export const colSpan = (span?: string) =>
 export const capitalizeFirstLetter = (string?: string) => {
   if (string)
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+};
+
+export const colorAccordingToStatus = (
+  className: string,
+  status?: SolicitacaoStatus
+) => {
+  return status !== undefined
+    ? classNames(
+        { [`${className}-blue-500`]: status === SolicitacaoStatus.InReview },
+        {
+          [`${className}-green-500`]:
+            status === SolicitacaoStatus.Approved ||
+            status === SolicitacaoStatus.TerminatedApproved,
+        },
+        {
+          [`${className}-red-500`]:
+            status === SolicitacaoStatus.Rejected ||
+            status === SolicitacaoStatus.TerminatedRejected,
+        },
+        {
+          [`${className}-amber-500`]:
+            status === SolicitacaoStatus.ChangeRequested,
+        }
+      )
+    : '';
 };

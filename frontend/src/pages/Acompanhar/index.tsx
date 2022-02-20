@@ -90,7 +90,8 @@ export default function Acompanhar() {
           ) : error ? (
             <div className='m-auto flex flex-col items-center gap-4'>
               <h2 className='text-xl text-red-700'>
-                Algo deu errado ao recuperar as informações.
+                Algo deu errado ao recuperar as informações. Tente efetuar login
+                novamente.
               </h2>
               <div>
                 <Button

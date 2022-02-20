@@ -27,7 +27,15 @@ export enum SolicitacaoStatus {
 }
 
 export namespace SolicitacaoStatus {
-  export function toString(status: SolicitacaoStatus): string {
-    return status.replace('_', ' ');
+  export function toString(status?: SolicitacaoStatus): string {
+    const map = {
+      [SolicitacaoStatus.InReview]: 'EM ANÁLISE',
+      [SolicitacaoStatus.Approved]: 'APROVADO',
+      [SolicitacaoStatus.Rejected]: 'REJEITADO',
+      [SolicitacaoStatus.ChangeRequested]: 'MUDANÇA REQUISITADA',
+      [SolicitacaoStatus.TerminatedApproved]: 'TERMINADO APROVADO',
+      [SolicitacaoStatus.TerminatedRejected]: 'TERMINADO REJEITADO',
+    };
+    return status !== undefined ? map[status] : '';
   }
 }

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 
 import { SolicitacaoStatus } from '../../models';
+import { colorAccordingToStatus } from '../../utils';
 
 interface SolicitacaoItemProps {
   status: SolicitacaoStatus;
@@ -27,18 +28,7 @@ export default function SolicitacaoItem({
       <div
         className={classNames(
           'flex items-center my-2 px-2 w-1/6 justify-center rounded-xl shadow-2xl',
-          { 'bg-blue-500': status === SolicitacaoStatus.InReview },
-          {
-            'bg-green-700':
-              status === SolicitacaoStatus.Approved ||
-              status === SolicitacaoStatus.TerminatedApproved,
-          },
-          {
-            'bg-red-700':
-              status === SolicitacaoStatus.Rejected ||
-              status === SolicitacaoStatus.TerminatedRejected,
-          },
-          { 'bg-amber-500': status === SolicitacaoStatus.ChangeRequested }
+          colorAccordingToStatus('bg', status)
         )}
       >
         <span className='font-bold'>{SolicitacaoStatus.toString(status)}</span>
