@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Exclude } from 'class-transformer';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Solicitation } from '../solicitations/entities/solicitation.entity';
