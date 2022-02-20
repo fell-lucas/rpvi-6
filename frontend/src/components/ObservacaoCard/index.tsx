@@ -7,6 +7,7 @@ import Spinner from 'react-spinkit';
 import Swal from 'sweetalert2';
 import { ZonedDateTime } from 'temporal-polyfill';
 
+import useUser from '../../hooks/useUser';
 import { Observacao } from '../../models';
 import { api, endpoints } from '../../services';
 import { errorAlert, warningAlert } from '../../utils/swal-alerts';
@@ -22,7 +23,7 @@ export const ObservacaoCard = ({
 }: Props) => {
   const zdt = ZonedDateTime.from(created_at.toString() + '[America/Sao_Paulo]');
   const [fakeResolved, setFakeResolved] = useState(resolved);
-
+  const { isAluno } = useUser();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleResolve = async () => {
@@ -50,8 +51,8 @@ export const ObservacaoCard = ({
 
   return (
     <button
-      title={disabled || fakeResolved ? '' : 'Clique para resolver'}
-      disabled={disabled || fakeResolved}
+      title={disabled || fakeResolved || isAluno ? '' : 'Clique para resolver'}
+      disabled={disabled || fakeResolved || isAluno}
       onClick={() => handleResolve()}
       className={classNames('group flex flex-col flex-start col-span-3')}
     >

@@ -7,6 +7,7 @@ export interface Solicitacao {
     | UnidadeConcedente
     | SolicitacaoStatus
     | Observacao[]
+    | Date
     | undefined
     | string;
   id: string;
@@ -15,6 +16,8 @@ export interface Solicitacao {
   instituicao: Instituicao;
   unidadeConcedente: UnidadeConcedente;
   observacoes?: Observacao[];
+  created_at: Date | string;
+  updated_at: Date | string;
 }
 
 export enum SolicitacaoStatus {

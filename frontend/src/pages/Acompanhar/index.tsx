@@ -110,10 +110,7 @@ export default function Acompanhar() {
                   key={solicitacao.id}
                   to={`${AcompanharRoute}/${solicitacao.id}`}
                 >
-                  <SolicitacaoItem
-                    name={solicitacao.estagiario.nome}
-                    status={solicitacao.status}
-                  />
+                  <SolicitacaoItem solicitacao={solicitacao} />
                 </Link>
               ))}
               <div className='grid grid-cols-12 w-full'>

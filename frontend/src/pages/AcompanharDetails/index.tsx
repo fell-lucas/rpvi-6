@@ -119,27 +119,9 @@ export default function AcompanharDetails() {
                 initialValues={initialValues(data)}
                 onSubmit={async (values: Solicitacao, { setSubmitting }) => {
                   setSubmitting(false);
-                  if (
-                    data?.observacoes?.find((obs) => obs.resolved === false) !==
-                    undefined
-                  ) {
-                    const { isConfirmed } = await Swal.fire({
-                      icon: 'warning',
-                      title: 'Atenção! Ainda existem observações pendentes.',
-                      text: 'Deseja realmente enviar para reanálise?',
-                      showCancelButton: true,
-                      confirmButtonText: 'Enviar',
-                      cancelButtonText: 'Cancelar',
-                      confirmButtonColor: '#009045',
-                    });
-                    if (!isConfirmed) {
-                      return;
-                    }
-                  } else {
-                    const { isConfirmed } = await Swal.fire(warningAlert);
-                    if (!isConfirmed) {
-                      return;
-                    }
+                  const { isConfirmed } = await Swal.fire(warningAlert);
+                  if (!isConfirmed) {
+                    return;
                   }
                   setSubmitting(true);
                   const solicitacao = {
@@ -266,10 +248,7 @@ export default function AcompanharDetails() {
                     {data.observacoes?.length !== 0 ? (
                       data.observacoes?.map((obs) => (
                         <ObservacaoCard
-                          disabled={
-                            obs.resolved ||
-                            data.status !== SolicitacaoStatus.ChangeRequested
-                          }
+                          disabled={obs.resolved}
                           key={obs.id}
                           obs={obs}
                         />
