@@ -1,6 +1,6 @@
 import useAxios from 'axios-hooks';
 
-import { User } from '../models';
+import { User, UserRole } from '../models';
 import { endpoints } from '../services';
 
 export default function useUser() {
@@ -8,6 +8,7 @@ export default function useUser() {
 
   return {
     user: data,
+    isAluno: data?.role === UserRole.ALUNO,
     isUserLoading: loading,
   };
 }

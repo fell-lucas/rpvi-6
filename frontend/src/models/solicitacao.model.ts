@@ -1,18 +1,21 @@
-import { Estagiario, Instituicao, UnidadeConcedente } from '.';
+import { Estagiario, Instituicao, Observacao, UnidadeConcedente } from '.';
 
-export type Solicitacao = {
+export interface Solicitacao {
   [index: string]:
     | Estagiario
     | Instituicao
     | UnidadeConcedente
     | SolicitacaoStatus
+    | Observacao[]
+    | undefined
     | string;
   id: string;
   status: SolicitacaoStatus;
   estagiario: Estagiario;
   instituicao: Instituicao;
   unidadeConcedente: UnidadeConcedente;
-};
+  observacoes?: Observacao[];
+}
 
 export enum SolicitacaoStatus {
   InReview = 'IN_REVIEW',

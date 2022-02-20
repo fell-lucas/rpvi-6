@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import useAxios from 'axios-hooks';
 import MockAdapter from 'axios-mock-adapter';
 import { BrowserRouter } from 'react-router-dom';
 
