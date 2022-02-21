@@ -6,7 +6,7 @@ export function MockUser(_req): User {
     id: 'MockId',
     name: 'User',
     email: 'user@user.com',
-    campus: 'Alegrete',
+    campus: { cidade: 'Alegrete' },
     role: UserRole.ALUNO,
     matricula: '1824568422',
   } as User;

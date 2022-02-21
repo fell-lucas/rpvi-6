@@ -9,9 +9,9 @@ export const api = axios.create({
 
 export const endpoints = {
   solicitacoes: '/api/v1/solicitacoes',
-  observacoes: '/api/v1/solicitacoes/observations',
-  observacao: '/api/v1/solicitacoes/observation',
+  observacoes: '/api/v1/observacoes',
   auth: '/api/v1/auth',
+  campus: '/api/v1/campus',
 };
 
 /* istanbul ignore next */

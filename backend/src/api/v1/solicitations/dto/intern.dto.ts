@@ -1,4 +1,5 @@
 import { IsBoolean, IsString } from 'class-validator';
+import { Campus } from '../../campuses/entities/campus.entity';
 
 export class InternDto {
   @IsString()
@@ -18,7 +19,7 @@ export class InternDto {
   @IsString()
   uf: string;
   @IsString()
-  campus: string;
+  campus: Campus;
   @IsString()
   matricula: string;
   @IsString()

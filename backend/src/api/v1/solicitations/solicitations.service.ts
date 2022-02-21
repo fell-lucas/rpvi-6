@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateSolicitationDto } from './dto/create-solicitation.dto';
 import { UpdateSolicitationDto } from './dto/update-solicitation.dto';
@@ -12,11 +8,6 @@ import { InternsRepository } from './repositories/interns.repository';
 import { UnitsRepository } from './repositories/units.repository';
 import { SolicitationsRepository } from './repositories/solicitations.repository';
 import { FindAllSolicitationsFilterDto } from './dto/find-solicitations-filter.dto';
-import { ObservationsRepository } from './repositories/observations.repository';
-import { CreateObservationDto } from './dto/create-observation.dto';
-import { Observation } from './entities/observations.entity';
-import { UpdateObservationDto } from './dto/update-observation.dto';
-import { SolicitationStatus } from './entities/solicitation-status.enum';
 import { User } from '../auth/user.entity';
 import { SolicitationsResponse } from './dto/solicitations-response.dto';
 import { UserRole } from '../auth/user-role.enum';
@@ -31,9 +22,7 @@ export class SolicitationsService {
     @InjectRepository(InternsRepository)
     private internsRepository: InternsRepository,
     @InjectRepository(UnitsRepository)
-    private unitsRepository: UnitsRepository,
-    @InjectRepository(ObservationsRepository)
-    private observationsRepository: ObservationsRepository,
+    private unitsRepository: UnitsRepository, // @Inject(forwardRef(() => ObservationsService)) // private observationsService: ObservationsService,
   ) {}
 
   create(
@@ -44,63 +33,6 @@ export class SolicitationsService {
       createSolicitationDto,
       user,
     );
-  }
-
-  async createObservation(
-    createObservationDto: CreateObservationDto,
-    solicitationId: string,
-    user: User,
-  ): Promise<Observation> {
-    if (user.role == UserRole.ALUNO) throw new UnauthorizedException();
-    const solicitation = await this.findOne(solicitationId);
-
-    const createdObservation = this.observationsRepository.createObservation(
-      createObservationDto,
-      solicitation,
-      user,
-    );
-
-    solicitation.status = SolicitationStatus.CHANGE_REQUESTED;
-    await this.solicitationsRepository.save(solicitation);
-
-    return createdObservation;
-  }
-
-  async updateObservation(
-    updateSolicitationDto: UpdateObservationDto,
-    id: string,
-  ): Promise<Observation> {
-    const observation = await this.observationsRepository.findOne(id, {
-      relations: ['solicitacao'],
-    });
-
-    if (!observation) {
-      throw new NotFoundException(
-        `Solicitação com o ID "${id}" não foi encontrada`,
-      );
-    }
-
-    const { resolved } = updateSolicitationDto;
-    observation.resolved = resolved;
-
-    if (resolved) {
-      let haveMore = false;
-      const solicitacao = await this.findOne(observation.solicitacao.id);
-
-      solicitacao.observacoes.forEach((obs) => {
-        if (!obs.resolved && obs.id !== observation.id) haveMore = true;
-      });
-
-      if (!haveMore)
-        observation.solicitacao.status = SolicitationStatus.IN_REVIEW;
-
-      await this.solicitationsRepository.save(observation.solicitacao);
-    }
-
-    await this.observationsRepository.save(observation);
-
-    observation['solicitacao'] = undefined;
-    return observation;
   }
 
   async findAll(
@@ -123,16 +55,39 @@ export class SolicitationsService {
       found = await this.solicitationsRepository.findOne(id, {
         where: { user },
       });
-    } else {
-      found = await this.solicitationsRepository.findOne(id);
+    } else if (user && user.role == UserRole.ORIENTADOR) {
+      const userId = user.id;
+      found = await this.solicitationsRepository.findOne({
+        join: {
+          alias: 'solicitacao',
+          innerJoin: { instituicao: 'solicitacao.instituicao' },
+        },
+        where: (qb) => {
+          qb.where({
+            id: id,
+          }).andWhere('instituicao.orientadorEstagioId = :userId', { userId }); // Filter related field
+        },
+      });
+    } else if (user && user.role == UserRole.INTERFACE) {
+      const campusId = user.campus.id;
+      found = await this.solicitationsRepository.findOne({
+        join: {
+          alias: 'solicitacao',
+          innerJoin: { instituicao: 'solicitacao.instituicao' },
+        },
+        where: (qb) => {
+          qb.where({
+            id: id,
+          }).andWhere('instituicao.campusId = :campusId', { campusId }); // Filter related field
+        },
+      });
     }
 
-    if (!found) {
+    if (!found || found.length == 0) {
       throw new NotFoundException(
         `Solicitação com o ID "${id}" não foi encontrada`,
       );
     }
-
     return found;
   }
 
@@ -159,6 +114,7 @@ export class SolicitationsService {
       ...unidadeConcedente,
     };
     solicitation.status = status;
+    solicitation.observacoes = undefined;
 
     await this.solicitationsRepository.save(solicitation);
     return solicitation;

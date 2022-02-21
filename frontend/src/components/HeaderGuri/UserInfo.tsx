@@ -30,7 +30,7 @@ export default function UserInfo() {
         ) : (
           <div className='flex justify-start gap-2 w-full'>
             <div className='rounded-lg px-2 shadow-lg bg-green-900'>
-              {user?.campus}
+              {user?.campus.cidade}
             </div>
             <div
               className={classNames(

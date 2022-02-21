@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Solicitation } from './solicitation.entity';
+import { Solicitation } from '../../solicitations/entities/solicitation.entity';
 
 @Entity()
 export class Observation {

@@ -3,10 +3,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Campus } from '../../campuses/entities/campus.entity';
 import { Solicitation } from './solicitation.entity';
 
 @Entity()
@@ -43,8 +46,12 @@ export class Intern {
   @Column()
   uf: string;
 
-  @Column()
-  campus: string;
+  @ManyToOne((type) => Campus, (campus) => campus.estagiarios, {
+    onDelete: 'CASCADE',
+    eager: true,
+  })
+  @JoinColumn()
+  campus: Campus;
 
   @Column()
   matricula: string;

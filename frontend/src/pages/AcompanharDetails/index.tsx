@@ -14,7 +14,7 @@ import { ObservacaoCard } from '../../components/ObservacaoCard';
 
 import { AcompanharRoute } from '..';
 import useUser from '../../hooks/useUser';
-import { Observacao, Solicitacao, SolicitacaoStatus } from '../../models';
+import { Observacao, Solicitacao, SolicitacaoStatus, ObservacaoList } from '../../models';
 import { api, endpoints } from '../../services';
 import { colorAccordingToStatus, mapEstagiario } from '../../utils';
 import { errorAlert, warningAlert } from '../../utils/swal-alerts';
@@ -35,6 +35,11 @@ export default function AcompanharDetails() {
 
   const [{ data, loading, error }, refetch] = useAxios<Solicitacao>(
     `${endpoints.solicitacoes}/${id}`,
+    { useCache: false }
+  );
+
+  const [{ data:obsList }, obsRefetch] = useAxios<ObservacaoList>(
+    `${endpoints.observacoes}/solicitacao/${id}`,
     { useCache: false }
   );
 
@@ -204,7 +209,7 @@ export default function AcompanharDetails() {
                 )}
               </Formik>
               <Formik
-                initialValues={{ observation: '' } as Observacao}
+                initialValues={{ observacao: '' } as Observacao}
                 validationSchema={validationsObservacao}
                 onSubmit={(values: Observacao, { setSubmitting }) => {
                   setSubmitting(false);
@@ -225,7 +230,7 @@ export default function AcompanharDetails() {
                           confirmButtonText: 'Ok',
                           confirmButtonColor: '#009045',
                         });
-                        refetch();
+                        obsRefetch();
                       } catch (error) {
                         setSubmitting(false);
                         console.log(error);
@@ -238,15 +243,15 @@ export default function AcompanharDetails() {
                 {({
                   isSubmitting,
                   handleSubmit,
-                  errors: { observation: obsError },
-                  touched: { observation: obsTouched },
+                  errors: { observacao: obsError },
+                  touched: { observacao: obsTouched },
                 }) => (
                   <div className='grid grid-cols-12 gap-4 items-start mt-8 w-full'>
                     <h2 className='font-bold text-2xl col-span-12 w-2/3 '>
                       PEDIDOS DE MUDANÇA
                     </h2>
-                    {data.observacoes?.length !== 0 ? (
-                      data.observacoes?.map((obs) => (
+                    {obsList?.observacoes.length !== 0 ? (
+                      obsList?.observacoes.map((obs) => (
                         <ObservacaoCard
                           disabled={obs.resolved}
                           key={obs.id}
@@ -264,7 +269,7 @@ export default function AcompanharDetails() {
                           Nova Requisição de Mudança
                         </h2>
                         {obsError && obsTouched && (
-                          <small className='text-red-600 text-md'>
+                          <small className='text-red-600 text-md col-span-6'>
                             {obsError}
                           </small>
                         )}
@@ -274,7 +279,7 @@ export default function AcompanharDetails() {
                             'col-span-12 rounded-lg shadow-md',
                             { 'border-red-500': obsError && obsTouched }
                           )}
-                          name='observation'
+                          name='observacao'
                           as='textarea'
                         />
                         <div className='col-span-3'>

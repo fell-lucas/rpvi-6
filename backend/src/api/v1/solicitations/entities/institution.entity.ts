@@ -3,10 +3,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from '../../auth/user.entity';
+import { Campus } from '../../campuses/entities/campus.entity';
 import { Solicitation } from './solicitation.entity';
 
 @Entity()
@@ -53,11 +57,19 @@ export class Institution {
   @Column()
   cargoRepresentante: string;
 
-  @Column()
-  orientadorEstagio: string;
+  @ManyToOne((type) => User, (user) => user.orientedSolicitations, {
+    onDelete: 'CASCADE',
+    eager: true,
+  })
+  @JoinColumn()
+  orientadorEstagio: User;
 
-  @Column()
-  campus: string;
+  @ManyToOne((type) => Campus, (campus) => campus.instituicoes, {
+    onDelete: 'CASCADE',
+    eager: true,
+  })
+  @JoinColumn()
+  campus: Campus;
 
   @CreateDateColumn()
   created_at: Date;

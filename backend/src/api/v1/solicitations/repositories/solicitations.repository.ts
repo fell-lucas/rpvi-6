@@ -30,9 +30,14 @@ export class SolicitationsRepository extends Repository<Solicitation> {
         query.where({ user });
         break;
       }
-      case UserRole.ORIENTADOR:
+      case UserRole.ORIENTADOR: {
+        const userId = user.id;
+        query.where('institution.orientadorEstagioId = :userId', { userId });
+        break;
+      }
       case UserRole.INTERFACE: {
-        query.where('institution.campus = :campus', { campus });
+        const campusId = campus.id;
+        query.where('institution.campusId = :campusId', { campusId });
         break;
       }
     }

@@ -37,7 +37,7 @@ export const ObservacaoCard = ({
     setIsLoading(true);
     try {
       await api.patch(
-        `${endpoints.observacao}/${id}`,
+        `${endpoints.observacoes}/${id}`,
         JSON.stringify({ resolved: true } as Observacao)
       );
       setIsLoading(false);
