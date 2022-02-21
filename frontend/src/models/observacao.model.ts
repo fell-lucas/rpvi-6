@@ -1,6 +1,5 @@
 export interface Observacao {
   id?: string;
-  observation: string;
   observacao: string;
   nomeAutor: string;
   resolved: boolean;

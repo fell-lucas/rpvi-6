@@ -1,4 +1,6 @@
 import { IsString } from 'class-validator';
+import { User } from '../../auth/user.entity';
+import { Campus } from '../../campuses/entities/campus.entity';
 
 export class InstitutionDto {
   @IsString()
@@ -22,7 +24,7 @@ export class InstitutionDto {
   @IsString()
   cargoRepresentante: string;
   @IsString()
-  orientadorEstagio: string;
+  orientadorEstagio: User;
   @IsString()
-  campus: string;
+  campus: Campus;
 }

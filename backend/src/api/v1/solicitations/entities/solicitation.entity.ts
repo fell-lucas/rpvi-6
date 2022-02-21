@@ -12,9 +12,9 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../auth/user.entity';
+import { Observation } from '../../observations/entities/observation.entity';
 import { Institution } from './institution.entity';
 import { Intern } from './intern.entity';
-import { Observation } from './observations.entity';
 import { SolicitationStatus } from './solicitation-status.enum';
 import { Unit } from './unit.entity';
 
@@ -39,7 +39,7 @@ export class Solicitation {
   instituicao: Institution;
 
   @OneToMany((_type) => Observation, (observacao) => observacao.solicitacao, {
-    eager: true,
+    eager: false,
   })
   observacoes: Observation[];
 

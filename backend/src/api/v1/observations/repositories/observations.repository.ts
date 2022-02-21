@@ -1,8 +1,8 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { User } from '../../auth/user.entity';
+import { Solicitation } from '../../solicitations/entities/solicitation.entity';
 import { CreateObservationDto } from '../dto/create-observation.dto';
-import { Observation } from '../entities/observations.entity';
-import { Solicitation } from '../entities/solicitation.entity';
+import { Observation } from '../entities/observation.entity';
 
 @EntityRepository(Observation)
 export class ObservationsRepository extends Repository<Observation> {
@@ -11,10 +11,10 @@ export class ObservationsRepository extends Repository<Observation> {
     solicitation: Solicitation,
     user: User,
   ): Promise<Observation> {
-    const { observation } = createObservationDto;
+    const { observacao } = createObservationDto;
 
     const observationObject = this.create({
-      observacao: observation,
+      observacao: observacao,
       solicitacao: solicitation,
       resolved: false,
       nomeAutor: user.name,

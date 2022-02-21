@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
 import { AuthCredentialsSignInDto } from './dto/auth-credentials-signin.dto';
+import { UserRole } from './user-role.enum';
 
 @Injectable()
 export class AuthService {
@@ -33,5 +34,16 @@ export class AuthService {
     } else {
       throw new UnauthorizedException('Please check your login credentials');
     }
+  }
+
+  async findAll(id: string) {
+    let found = await this.usersRepository.find({
+      where: { role: UserRole.ORIENTADOR, campus: id },
+      order: { name: 'ASC' },
+    });
+    found.map((user) => {
+      user.password = undefined;
+    });
+    return found;
   }
 }

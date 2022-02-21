@@ -2,12 +2,14 @@
 import {
   IsEmail,
   IsEnum,
+  IsObject,
   IsOptional,
   IsString,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { Campus } from '../../campuses/entities/campus.entity';
 import { UserRole } from '../user-role.enum';
 
 export class AuthCredentialsDto {
@@ -27,8 +29,8 @@ export class AuthCredentialsDto {
   })
   password: string;
 
-  @IsString()
-  campus: string;
+  @IsObject()
+  campus: Campus;
 
   @IsEnum(UserRole)
   role: UserRole;

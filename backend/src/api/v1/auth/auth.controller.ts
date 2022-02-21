@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsSignInDto } from './dto/auth-credentials-signin.dto';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
@@ -28,5 +28,11 @@ export class AuthController {
   active(@GetUser() user: User): User {
     user.password = undefined;
     return user;
+  }
+
+  @Get('/orientadores/:id')
+  @UseGuards(AuthGuard('jwt'))
+  async orientadores(@Param('id') id: string): Promise<User[]> {
+    return await this.authService.findAll(id);
   }
 }
