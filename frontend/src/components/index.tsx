@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import Button from './Button';
 import HeaderGuri from './HeaderGuri';
 import IconButton from './IconButton';

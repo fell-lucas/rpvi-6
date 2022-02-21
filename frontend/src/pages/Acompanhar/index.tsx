@@ -21,6 +21,26 @@ export const AcompanharRoute = '/acompanhar';
 
 configure({ axios: api });
 
+const SkeletonLoader = (
+  <ContentLoader
+    data-testid='loading_acompanhamentos'
+    className='h-full w-full'
+    foregroundColor='#d6d6d6'
+  >
+    {Array.from({ length: 10 }, (_, x) => x * 80).map((y) => (
+      <rect
+        key={`rect_${y}`}
+        x='0'
+        y={y}
+        rx='8'
+        ry='8'
+        width='100%'
+        height='60'
+      />
+    ))}
+  </ContentLoader>
+);
+
 export default function Acompanhar() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get('page'));
@@ -66,23 +86,12 @@ export default function Acompanhar() {
           </div>
 
           {loading ? (
-            <ContentLoader className='h-full w-full' foregroundColor='#d6d6d6'>
-              {Array.from({ length: 10 }, (_, x) => x * 80).map((y) => (
-                <rect
-                  key={`rect_${y}`}
-                  x='0'
-                  y={y}
-                  rx='8'
-                  ry='8'
-                  width='100%'
-                  height='60'
-                />
-              ))}
-            </ContentLoader>
+            SkeletonLoader
           ) : error ? (
             <div className='m-auto flex flex-col items-center gap-4'>
               <h2 className='text-xl text-red-700'>
-                Algo deu errado ao recuperar as informações.
+                Algo deu errado ao recuperar as informações. Tente efetuar login
+                novamente.
               </h2>
               <div>
                 <Button
@@ -96,15 +105,10 @@ export default function Acompanhar() {
           ) : data !== undefined && data.solicitations.length !== 0 ? (
             <div className='flex flex-col w-full h-full gap-2'>
               {data.solicitations.map((solicitacao) => (
-                <Link
+                <SolicitacaoItem
                   key={solicitacao.id}
-                  to={`${AcompanharRoute}/${solicitacao.id}`}
-                >
-                  <SolicitacaoItem
-                    name={solicitacao.estagiario.nome}
-                    status={solicitacao.status}
-                  />
-                </Link>
+                  solicitacao={solicitacao}
+                />
               ))}
               <div className='grid grid-cols-12 w-full'>
                 {Number(page) - 1 > 0 ? (

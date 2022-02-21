@@ -11,23 +11,9 @@ import {
   Solicitar,
   SolicitarRoute,
 } from './pages';
+import { Exportar, ExportarRoute } from './pages/Exportar';
 
 import { useToken } from './hooks';
-import { api } from './services';
-
-api.interceptors.request.use(
-  async (config) => {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      config.headers = {
-        ...config.headers,
-        authorization: `Bearer ${sessionStorage.getItem('token')}`,
-      };
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
 
 export default function App() {
   const { token, setToken } = useToken();
@@ -56,6 +42,7 @@ export default function App() {
             path={`${AcompanharRoute}/:id`}
             element={<AcompanharDetails />}
           />
+          <Route path={`${ExportarRoute}/:id`} element={<Exportar />} />
         </Routes>
       </div>
     </BrowserRouter>

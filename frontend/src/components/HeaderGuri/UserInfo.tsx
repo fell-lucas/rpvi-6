@@ -11,7 +11,6 @@ import { capitalizeFirstLetter } from '../../utils';
 
 export default function UserInfo() {
   const { user, isUserLoading } = useUser();
-  console.log(user);
 
   return (
     <div className='text-ellipsis flex gap-2 justify-between bg-primary rounded-md px-4 p-2 text-white'>
@@ -50,6 +49,7 @@ export default function UserInfo() {
         )}
       </div>
       <button
+        data-testid='sign_out_button'
         onClick={async () => {
           const { isConfirmed } = await Swal.fire({
             icon: 'warning',
@@ -58,10 +58,12 @@ export default function UserInfo() {
             confirmButtonText: 'Sair',
             cancelButtonText: 'Cancelar',
             confirmButtonColor: '#009045',
+            confirmButtonAriaLabel: 'confirm_sign_out_button',
+            cancelButtonAriaLabel: 'cancel_sign_out_button',
           });
           if (!isConfirmed) return;
           sessionStorage.removeItem('token');
-          window.location.reload();
+          global.location.reload();
         }}
         className={classNames(
           'inline-block whitespace-nowrap active:scale-90 hover:text-green-300'

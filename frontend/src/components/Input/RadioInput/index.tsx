@@ -54,7 +54,7 @@ export const RadioButton = ({
         id={id}
         type='radio'
         value={label}
-        checked={value === label}
+        defaultChecked={value === label}
         onChange={onChange}
       />
       <label htmlFor={id}>{label}</label>
