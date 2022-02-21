@@ -1,6 +1,6 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import useAxios, { configure } from 'axios-hooks';
+import { configure } from 'axios-hooks';
 import { useEffect, useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -14,8 +14,8 @@ import {
 } from '../../components';
 
 import { HomeRoute } from '..';
-import { SolicitacaoList } from '../../models';
-import { api, endpoints } from '../../services';
+import { useSolicitacaoList } from '../../hooks';
+import { api } from '../../services';
 
 export const AcompanharRoute = '/acompanhar';
 
@@ -45,10 +45,8 @@ export default function Acompanhar() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get('page'));
 
-  const [{ data, loading, error }, refetch] = useAxios<SolicitacaoList>(
-    `${endpoints.solicitacoes}?page=${page}`,
-    { useCache: false }
-  );
+  const { data, loading, error, refetchSolicitationList } =
+    useSolicitacaoList(page);
 
   const isValidPage = !(
     page === null ||
@@ -96,7 +94,7 @@ export default function Acompanhar() {
               <div>
                 <Button
                   data-testid='acompanhar_refetch'
-                  onClick={() => refetch()}
+                  onClick={() => refetchSolicitationList()}
                 >
                   Tentar novamente
                 </Button>

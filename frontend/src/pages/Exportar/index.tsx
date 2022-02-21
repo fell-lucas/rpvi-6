@@ -34,8 +34,6 @@ export const Exportar = () => {
   const { id } = useParams();
   const [copied, setCopied] = useState(false);
 
-  console.log(copied);
-
   const [{ data: solicitacao, loading, error }, refetch] =
     useAxios<Solicitacao>(`${endpoints.solicitacoes}/${id}`);
 

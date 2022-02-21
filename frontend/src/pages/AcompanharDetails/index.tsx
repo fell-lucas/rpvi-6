@@ -13,8 +13,14 @@ import { Button, IconButton, LandingCard, ProgressBar } from '../../components';
 import { ObservacaoCard } from '../../components/ObservacaoCard';
 
 import { AcompanharRoute } from '..';
+import { useSolicitacaoList } from '../../hooks';
 import useUser from '../../hooks/useUser';
-import { Observacao, Solicitacao, SolicitacaoStatus, ObservacaoList } from '../../models';
+import {
+  Observacao,
+  ObservacaoList,
+  Solicitacao,
+  SolicitacaoStatus,
+} from '../../models';
 import { api, endpoints } from '../../services';
 import { colorAccordingToStatus, mapEstagiario } from '../../utils';
 import { errorAlert, warningAlert } from '../../utils/swal-alerts';
@@ -38,10 +44,12 @@ export default function AcompanharDetails() {
     { useCache: false }
   );
 
-  const [{ data:obsList }, obsRefetch] = useAxios<ObservacaoList>(
+  const [{ data: obsList }, obsRefetch] = useAxios<ObservacaoList>(
     `${endpoints.observacoes}/solicitacao/${id}`,
     { useCache: false }
   );
+
+  const { refetchSolicitationList } = useSolicitacaoList();
 
   const canEdit = isAluno && data?.status === SolicitacaoStatus.ChangeRequested;
 
@@ -56,6 +64,7 @@ export default function AcompanharDetails() {
     } as Solicitacao;
     try {
       await api.patch(`${endpoints.solicitacoes}/${id}`, solicitacao);
+      refetchSolicitationList();
       setApproveloading(false);
       Swal.fire({
         icon: 'success',
@@ -139,6 +148,7 @@ export default function AcompanharDetails() {
                       `${endpoints.solicitacoes}/${id}`,
                       JSON.stringify(solicitacao)
                     );
+                    refetchSolicitationList();
                     setSubmitting(false);
                     Swal.fire({
                       icon: 'success',
@@ -221,6 +231,7 @@ export default function AcompanharDetails() {
                           `${endpoints.observacoes}/${id}`,
                           JSON.stringify(values)
                         );
+                        refetchSolicitationList();
                         setSubmitting(false);
                         Swal.fire({
                           icon: 'success',
