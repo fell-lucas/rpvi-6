@@ -11,6 +11,7 @@ import {
   Solicitar,
   SolicitarRoute,
 } from './pages';
+import { Exportar, ExportarRoute } from './pages/Exportar';
 
 import { useToken } from './hooks';
 
@@ -41,6 +42,7 @@ export default function App() {
             path={`${AcompanharRoute}/:id`}
             element={<AcompanharDetails />}
           />
+          <Route path={`${ExportarRoute}/:id`} element={<Exportar />} />
         </Routes>
       </div>
     </BrowserRouter>

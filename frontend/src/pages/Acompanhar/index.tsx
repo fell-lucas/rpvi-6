@@ -105,13 +105,10 @@ export default function Acompanhar() {
           ) : data !== undefined && data.solicitations.length !== 0 ? (
             <div className='flex flex-col w-full h-full gap-2'>
               {data.solicitations.map((solicitacao) => (
-                <Link
-                  data-testid={solicitacao.id}
+                <SolicitacaoItem
                   key={solicitacao.id}
-                  to={`${AcompanharRoute}/${solicitacao.id}`}
-                >
-                  <SolicitacaoItem solicitacao={solicitacao} />
-                </Link>
+                  solicitacao={solicitacao}
+                />
               ))}
               <div className='grid grid-cols-12 w-full'>
                 {Number(page) - 1 > 0 ? (
