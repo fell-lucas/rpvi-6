@@ -48,8 +48,18 @@ export default function Login({ setToken }: LoginProps) {
                   JSON.stringify(values)
                 );
                 setToken(data.accessToken);
-              } catch (error) {
-                Swal.fire(errorAlert);
+              } catch (error: any) {
+                console.log((error.message as string).includes('401'));
+
+                if ((error.message as string).includes('401')) {
+                  Swal.fire({
+                    ...errorAlert,
+                    title: 'Credenciais inválidas.',
+                    text: "Por favor, tente novamente. Caso ainda não se lembre, pressione 'Esqueci minha senha'.",
+                  });
+                } else {
+                  Swal.fire(errorAlert);
+                }
               }
             }}
             validationSchema={userValidation}

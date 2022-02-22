@@ -19,6 +19,7 @@ export default function SolicitacaoItem({
     id,
     estagiario: { nome },
     status,
+    unidadeConcedente: { razaoSocial },
     updated_at,
   },
 }: SolicitacaoItemProps) {
@@ -29,18 +30,23 @@ export default function SolicitacaoItem({
       <Link className='w-full' data-testid={id} to={`${AcompanharRoute}/${id}`}>
         <div
           data-testid='solicitacao_item_div'
-          className='hover:scale-95 transition-transform hover:opacity-90 bg-gradient-to-r flex flex-1 from-primary to-secondary w-full rounded-xl p-2 justify-between text-white'
+          className='hover:scale-95 transition-transform hover:opacity-90 bg-gradient-to-r flex flex-1 from-primary to-secondary w-full rounded-xl p-[4px] px-2 justify-between text-white'
         >
           <div className='flex items-center justify-center ml-6 gap-4'>
             <FaUserCircle size='1.7rem' color='lightgray' />
             <span className='text-lg font-bold'>{nome}</span>
-            <span className='text-sm text-gray-300'>
-              Última atualização em {zdt.toLocaleString('pt-BR')}
+            <span className='text-sm text-gray-300'>Atualizado em</span>
+            <span className='text-white text-sm font-medium'>{` ${zdt.toLocaleString(
+              'pt-BR'
+            )} `}</span>
+            <span className='text-sm text-gray-300'>Unidade Concedente: </span>
+            <span className='text-md text-white font-medium'>
+              {razaoSocial}
             </span>
           </div>
           <div
             className={classNames(
-              'flex items-center my-2 px-2 w-1/6 justify-center rounded-xl shadow-2xl',
+              'flex items-center my-2 px-2 w-1/6 justify-center rounded-xl shadow-2xl text-center',
               colorAccordingToStatus('bg', status)
             )}
           >

@@ -1,6 +1,7 @@
+import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { HeaderGuri } from './components';
+import { ErrorFallback, HeaderGuri } from './components';
 import {
   Acompanhar,
   AcompanharDetails,
@@ -34,16 +35,18 @@ export default function App() {
         <div style={{ width: '100%' }}>
           <HeaderGuri />
         </div>
-        <Routes>
-          <Route path={HomeRoute} element={<Home />} />
-          <Route path={SolicitarRoute} element={<Solicitar />} />
-          <Route path={AcompanharRoute} element={<Acompanhar />} />
-          <Route
-            path={`${AcompanharRoute}/:id`}
-            element={<AcompanharDetails />}
-          />
-          <Route path={`${ExportarRoute}/:id`} element={<Exportar />} />
-        </Routes>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Routes>
+            <Route path={HomeRoute} element={<Home />} />
+            <Route path={SolicitarRoute} element={<Solicitar />} />
+            <Route path={AcompanharRoute} element={<Acompanhar />} />
+            <Route
+              path={`${AcompanharRoute}/:id`}
+              element={<AcompanharDetails />}
+            />
+            <Route path={`${ExportarRoute}/:id`} element={<Exportar />} />
+          </Routes>
+        </ErrorBoundary>
       </div>
     </BrowserRouter>
   );
