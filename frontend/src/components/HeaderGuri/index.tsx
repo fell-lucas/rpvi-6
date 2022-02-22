@@ -1,7 +1,4 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { faAdjust, faSitemap } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames';
+import { FaAdjust, FaSitemap } from 'react-icons/fa';
 
 import logo from '../../assets/guri-dtic-logo.png';
 
@@ -19,27 +16,27 @@ export default function HeaderGuri({ isLoginPage = false }: HeaderProps) {
       <div className='flex flex-col gap-6 mb-2'>
         {!isLoginPage && <UserInfo />}
 
-        <div className={classNames('flex', 'items-baseline', 'gap-8')}>
+        <div className='flex items-baseline gap-8'>
           <div>
-            <span className={classNames('cursor-pointer', 'text-sm')}>
+            <span className='cursor-pointer text-sm'>
               <b>A-</b>
             </span>
             &nbsp;&nbsp;
-            <span className={classNames('cursor-pointer')}>
+            <span className='cursor-pointer'>
               <b>A</b>
             </span>
             &nbsp;&nbsp;
-            <span className={classNames('cursor-pointer', 'text-2xl')}>
+            <span className='cursor-pointer text-2xl'>
               <b>A+</b>
             </span>
           </div>
-          <div className={classNames('inline-block')}>
-            <FontAwesomeIcon icon={faAdjust as IconProp} />
-            &nbsp;<b>Contraste</b>
+          <div className='flex items-center gap-2'>
+            <FaAdjust />
+            <b>Contraste</b>
           </div>
-          <div className={classNames('inline-block')}>
-            <FontAwesomeIcon icon={faSitemap as IconProp} />
-            &nbsp;<b>Mapa do Site</b>
+          <div className='flex items-center gap-2'>
+            <FaSitemap />
+            <b>Mapa do Site</b>
           </div>
         </div>
       </div>

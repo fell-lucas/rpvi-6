@@ -1,7 +1,5 @@
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
+import { FaUserCircle } from 'react-icons/fa';
 import { FaFileExport } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { ZonedDateTime } from 'temporal-polyfill';
@@ -34,11 +32,7 @@ export default function SolicitacaoItem({
           className='hover:scale-95 transition-transform hover:opacity-90 bg-gradient-to-r flex flex-1 from-primary to-secondary w-full rounded-xl p-2 justify-between text-white'
         >
           <div className='flex items-center justify-center ml-6 gap-4'>
-            <FontAwesomeIcon
-              icon={faUserCircle as IconDefinition}
-              size='2x'
-              color='lightgray'
-            />
+            <FaUserCircle size='1.7rem' color='lightgray' />
             <span className='text-lg font-bold'>{nome}</span>
             <span className='text-sm text-gray-300'>
               Última atualização em {zdt.toLocaleString('pt-BR')}

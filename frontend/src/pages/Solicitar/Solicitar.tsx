@@ -1,5 +1,3 @@
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames';
 import {
   Form,
@@ -9,6 +7,7 @@ import {
   FormikTouched,
 } from 'formik';
 import { Component } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
 import { NavigateFunction, useNavigate } from 'react-router';
 import Spinner from 'react-spinkit';
 import Swal from 'sweetalert2';
@@ -171,8 +170,9 @@ class SolicitarPage extends Component<Props, State> {
                     data-testid='solicitacao_back'
                     className='absolute'
                     onClick={handleBack}
-                    icon={faArrowLeft as IconDefinition}
-                  />
+                  >
+                    <FaArrowLeft />
+                  </IconButton>
                   {renderStep(this.state.step, errors, touched, values)}
                   <div className={classNames('grid', 'grid-cols-6', 'mt-8')}>
                     <div className='col-span-4'></div>

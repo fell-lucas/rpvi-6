@@ -1,9 +1,8 @@
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import useAxios from 'axios-hooks';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { FaArrowLeft } from 'react-icons/fa';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -45,7 +44,9 @@ export const Exportar = () => {
           <div className='flex items-end w-full mb-8'>
             <div className='w-1/3'>
               <Link to={AcompanharRoute}>
-                <IconButton icon={faArrowLeft as IconDefinition} />
+                <IconButton>
+                  <FaArrowLeft />
+                </IconButton>
               </Link>
             </div>
             <h2 className='font-bold text-2xl w-2/3 text-right border-b-gray-400 border-b pb-3'>
