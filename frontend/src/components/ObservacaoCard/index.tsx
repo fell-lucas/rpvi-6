@@ -40,7 +40,7 @@ export const ObservacaoCard = ({
         JSON.stringify({ resolved: true } as Observacao)
       );
       setIsLoading(false);
-      setFakeResolved(true);
+      setFakeResolved(!resolved);
     } catch (error) {
       setIsLoading(false);
       console.log(error);
@@ -70,9 +70,8 @@ export const ObservacaoCard = ({
         <IconContext.Provider
           value={{
             color: 'white',
-            size: '0.7rem',
             className: classNames(
-              'absolute p-1 -top-3 -right-3 rounded-full h-4 w-4',
+              'absolute p-1 -top-2 -right-2 rounded-full h-4 w-4',
               {
                 'bg-green-500': fakeResolved,
                 'bg-amber-500': !fakeResolved,

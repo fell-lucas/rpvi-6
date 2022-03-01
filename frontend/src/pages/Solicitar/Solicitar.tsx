@@ -149,19 +149,7 @@ class SolicitarPage extends Component<Props, State> {
             }}
           >
             {({ values, errors, touched, handleSubmit, isSubmitting }) => (
-              <div
-                className={classNames(
-                  'text-center',
-                  'flex',
-                  'flex-col',
-                  'justify-between',
-                  'flex-1',
-                  'h-full',
-                  'px-12',
-                  'pt-8',
-                  'gap-8'
-                )}
-              >
+              <div className='text-center flex flex-col justify-between flex-1 h-full px-12 pt-8 gap-8'>
                 <Form
                   onSubmit={handleSubmit}
                   className='flex-1 flex flex-col h-full justify-between'

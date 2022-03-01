@@ -47,9 +47,21 @@ export const ErrorFallback = ({
       action: () => navigate(HomeRoute),
     },
   } as mapIntToStr;
-
-  const { title, option, btn, action } = mapCodesToMessages[error.statusCode];
-
+  let title: string, option: string, btn: string, action: Function;
+  try {
+    const obj = mapCodesToMessages[error.statusCode];
+    title = obj.title;
+    option = obj.option;
+    btn = obj.btn;
+    action = obj.action;
+  } catch (error) {
+    title = 'Erro desconhecido';
+    option = 'Recarregar a página';
+    btn = 'Recarregar';
+    action = () => {
+      global.location.reload();
+    };
+  }
   return (
     <>
       <ProgressBar active={0} items={0} />
@@ -60,19 +72,25 @@ export const ErrorFallback = ({
             ⚡ Encontramos um problema e estamos suando para consertar tudo o
             mais rápido possível!
           </h2>
-          <h2 className='text-lg '>🧑‍💻 Detalhes do erro: </h2>
-          <div className='bg-black text-green-400 rounded-md p-2 flex flex-col'>
-            <h2>
-              {` > `}
-              <span className='text-sm text-green-300'>Resposta da API:</span>
-              {` ${error.message}`}
-            </h2>
-            <h2>
-              {` > `}
-              <span className='text-sm text-green-300'>Código:</span>
-              {` ${error.statusCode}`}
-            </h2>
-          </div>
+          {error.message && error.statusCode && (
+            <>
+              <h2 className='text-lg '>🧑‍💻 Detalhes do erro: </h2>
+              <div className='bg-black text-green-400 rounded-md p-2 flex flex-col'>
+                <h2>
+                  {` > `}
+                  <span className='text-sm text-green-300'>
+                    Resposta da API:
+                  </span>
+                  {` ${error.message}`}
+                </h2>
+                <h2>
+                  {` > `}
+                  <span className='text-sm text-green-300'>Código:</span>
+                  {` ${error.statusCode}`}
+                </h2>
+              </div>
+            </>
+          )}
           <h2 className='text-lg '>
             Enquanto isso, por favor, tente o seguinte:
           </h2>
