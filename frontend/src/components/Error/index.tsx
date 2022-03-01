@@ -31,7 +31,7 @@ export const ErrorFallback = ({
   const navigate = useNavigate();
 
   const mapCodesToMessages = {
-    [401]: {
+    401: {
       title: 'Ops... Algo de errado não está certo. 😥',
       option: 'Logar novamente.',
       btn: 'Sair',
@@ -40,7 +40,7 @@ export const ErrorFallback = ({
         global.location.reload();
       },
     },
-    [404]: {
+    404: {
       title: 'Ops... Não encontramos essa página. 😥',
       option: 'Voltar para a página inicial.',
       btn: 'Voltar',

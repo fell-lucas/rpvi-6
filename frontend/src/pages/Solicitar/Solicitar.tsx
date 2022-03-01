@@ -194,7 +194,7 @@ class SolicitarPage extends Component<Props, State> {
 const Solicitar = () => {
   const navigation = useNavigate();
 
-  return <SolicitarPage navigation={navigation}></SolicitarPage>;
+  return <SolicitarPage navigation={navigation} />;
 };
 
 export default Solicitar;
