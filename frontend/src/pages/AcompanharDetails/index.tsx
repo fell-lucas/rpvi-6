@@ -38,7 +38,7 @@ export default function AcompanharDetails() {
   const navigate = useNavigate();
   const { isAluno } = useUser();
 
-  const [{ data, loading, error }, refetch] = useAxios<Solicitacao>(
+  const [{ data, loading }] = useAxios<Solicitacao>(
     `${endpoints.solicitacoes}/${id}`,
     { useCache: false }
   );
@@ -113,16 +113,6 @@ export default function AcompanharDetails() {
 
           {loading ? (
             <SkeletonLoader />
-          ) : error ? (
-            <div className='m-auto flex flex-col items-center gap-4'>
-              <h2 className='text-xl text-red-700'>
-                Algo deu errado ao recuperar a solicitação. Tente efetuar login
-                novamente.
-              </h2>
-              <div>
-                <Button onClick={() => refetch()}>Tentar novamente</Button>
-              </div>
-            </div>
           ) : data !== undefined ? (
             <>
               <Formik
