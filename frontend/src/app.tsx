@@ -45,6 +45,18 @@ export default function App() {
               element={<AcompanharDetails />}
             />
             <Route path={`${ExportarRoute}/:id`} element={<Exportar />} />
+            <Route
+              path='*'
+              element={
+                <ErrorFallback
+                  error={{
+                    name: '',
+                    message: JSON.stringify({ statusCode: 404 }),
+                  }}
+                  resetErrorBoundary={() => {}}
+                />
+              }
+            />
           </Routes>
         </ErrorBoundary>
       </div>
