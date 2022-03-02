@@ -49,8 +49,6 @@ export default function Login({ setToken }: LoginProps) {
                 );
                 setToken(data.accessToken);
               } catch (error: any) {
-                console.log((error.message as string).includes('401'));
-
                 if ((error.message as string).includes('401')) {
                   Swal.fire({
                     ...errorAlert,

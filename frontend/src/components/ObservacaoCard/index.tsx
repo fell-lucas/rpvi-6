@@ -32,7 +32,6 @@ export const ObservacaoCard = ({
       confirmButtonText: 'Resolver',
     });
     if (!isConfirmed || !id) return;
-    console.log(id);
     setIsLoading(true);
     try {
       await api.patch(
