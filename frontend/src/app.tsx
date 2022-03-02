@@ -9,7 +9,7 @@ import {
   Home,
   HomeRoute,
   Login,
-  Solicitar,
+  SolicitarPage,
   SolicitarRoute,
 } from './pages';
 import { Exportar, ExportarRoute } from './pages/Exportar';
@@ -38,7 +38,7 @@ export default function App() {
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Routes>
             <Route path={HomeRoute} element={<Home />} />
-            <Route path={SolicitarRoute} element={<Solicitar />} />
+            <Route path={SolicitarRoute} element={<SolicitarPage />} />
             <Route path={AcompanharRoute} element={<Acompanhar />} />
             <Route
               path={`${AcompanharRoute}/:id`}

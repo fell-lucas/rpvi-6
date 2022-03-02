@@ -14,7 +14,10 @@ const mockSolicitacao = {
     cep: '',
     cidade: '',
     uf: '',
-    campus: '',
+    campus: {
+      cidade: '',
+      id: '',
+    },
     matricula: '',
     curso: '',
     semestre: '',

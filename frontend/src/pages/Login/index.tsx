@@ -32,7 +32,7 @@ export default function Login({ setToken }: LoginProps) {
     <>
       <ProgressBar hide items={0} active={0} />
       <LandingCard items='center'>
-        <div className='flex flex-col border rounded-lg shadow-lg px-8 py-6 w-1/3'>
+        <div className='flex flex-col border rounded-lg shadow-lg px-8 py-6'>
           <div className='border-b pb-4'>
             <h2 className='font-bold text-gray-600'>Faça seu Login </h2>
           </div>

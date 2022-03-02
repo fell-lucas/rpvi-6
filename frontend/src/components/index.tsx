@@ -4,6 +4,7 @@ import { ErrorFallback } from './Error';
 import HeaderGuri from './HeaderGuri';
 import { IconButton } from './IconButton';
 import { RadioButton, RadioButtonGroup } from './Input/RadioInput';
+import { SelectInput } from './Input/SelectInput';
 import TextInput from './Input/TextInput';
 import { LandingCard } from './LandingCard';
 import ProgressBar from './ProgressBar/ProgressBar';
@@ -20,4 +21,5 @@ export {
   SolicitacaoItem,
   IconButton,
   ErrorFallback,
+  SelectInput,
 };

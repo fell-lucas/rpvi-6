@@ -27,7 +27,6 @@ export const ErrorFallback = ({
   error: { message },
   resetErrorBoundary,
 }: FallbackProps) => {
-  const error: HttpError = JSON.parse(message);
   const navigate = useNavigate();
 
   const mapCodesToMessages = {
@@ -48,13 +47,16 @@ export const ErrorFallback = ({
     },
   } as mapIntToStr;
   let title: string, option: string, btn: string, action: Function;
+  let error: HttpError;
   try {
+    error = JSON.parse(message);
     const obj = mapCodesToMessages[error.statusCode];
     title = obj.title;
     option = obj.option;
     btn = obj.btn;
     action = obj.action;
-  } catch (error) {
+  } catch (e) {
+    error = { message, statusCode: 500 };
     title = 'Erro desconhecido';
     option = 'Recarregar a página';
     btn = 'Recarregar';

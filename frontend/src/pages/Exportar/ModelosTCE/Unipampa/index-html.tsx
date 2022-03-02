@@ -1,4 +1,4 @@
-import { Solicitacao } from '../../../../models';
+import { Campus, Solicitacao } from '../../../../models';
 
 export const UnipampaHtml = ({
   estagiario,
@@ -78,7 +78,9 @@ export const UnipampaHtml = ({
         <td class="tg-73oq" colspan="2">Curso: ${estagiario.curso}</td>
       </tr>
       <tr>
-        <td class="tg-73oq" colspan="2">Campus: ${estagiario.campus}</td>
+        <td class="tg-73oq" colspan="2">Campus: ${
+          (estagiario.campus as Campus).cidade
+        }</td>
         <td class="tg-73oq" colspan="2">Matrícula Nº: ${
           estagiario.matricula
         }</td>
@@ -143,7 +145,9 @@ export const UnipampaHtml = ({
         <td class="tg-73oq" colspan="2">Razão social: ${
           instituicao.razaoSocial
         }</td>
-        <td class="tg-73oq" colspan="2">Campus: ${instituicao.campus}</td>
+        <td class="tg-73oq" colspan="2">Campus: ${
+          (instituicao.campus as Campus).cidade
+        }</td>
       </tr>
       <tr>
         <td class="tg-73oq" colspan="2">Endereço: ${instituicao.endereco}</td>
@@ -464,7 +468,9 @@ export const UnipampaHtml = ({
         <td class="tg-73oq" colspan="2">Curso: ${estagiario.curso}</td>
       </tr>
       <tr>
-        <td class="tg-73oq" colspan="2">Campus: ${estagiario.campus}</td>
+        <td class="tg-73oq" colspan="2">Campus: ${
+          (estagiario.campus as Campus).cidade
+        }</td>
         <td class="tg-73oq" colspan="2">Matrícula Nº: ${
           estagiario.matricula
         }</td>
@@ -529,7 +535,9 @@ export const UnipampaHtml = ({
         <td class="tg-73oq" colspan="2">Razão social: ${
           instituicao.razaoSocial
         }</td>
-        <td class="tg-73oq" colspan="2">Campus: ${instituicao.campus}</td>
+        <td class="tg-73oq" colspan="2">Campus: ${
+          (instituicao.campus as Campus).cidade
+        }</td>
       </tr>
       <tr>
         <td class="tg-73oq" colspan="2">Endereço: ${instituicao.endereco}</td>

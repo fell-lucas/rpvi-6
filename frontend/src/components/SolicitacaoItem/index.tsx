@@ -23,7 +23,9 @@ export default function SolicitacaoItem({
     updated_at,
   },
 }: SolicitacaoItemProps) {
-  const zdt = ZonedDateTime.from(updated_at.toString() + '[America/Sao_Paulo]');
+  const zdt = ZonedDateTime.from(
+    updated_at!.toString() + '[America/Sao_Paulo]'
+  );
 
   return (
     <div className='flex gap-3'>

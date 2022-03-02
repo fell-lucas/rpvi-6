@@ -1,7 +1,8 @@
 import { FormikErrors, FormikTouched } from 'formik';
 
-import { TextInput } from '../../../../components';
+import { SelectInput, TextInput } from '../../../../components';
 
+import useCampus from '../../../../hooks/useCampus';
 import { Solicitacao } from '../../../../models';
 
 interface Props {
@@ -15,6 +16,7 @@ export const InstituicaoTextInputs = ({
   touched,
   disabled = false,
 }: Props) => {
+  const { campusList } = useCampus();
   return (
     <>
       {[
@@ -29,7 +31,6 @@ export const InstituicaoTextInputs = ({
         ['Nome do Representante Legal', 'representanteLegal', '', '5', '2'],
         ['Cargo', 'cargoRepresentante', 'Cargo do Representante Legal', '4'],
         ['Nome do Orientador de Estágio', 'orientadorEstagio', '', '5', '2'],
-        ['Campus', 'campus', '', '4'],
       ].map(([label, name, ph, span, labelSpan]) => (
         <TextInput
           key={name}
@@ -43,6 +44,16 @@ export const InstituicaoTextInputs = ({
           touched={touched.instituicao}
         />
       ))}
+      <SelectInput
+        disabled={disabled}
+        label={'Campus'}
+        name='instituicao.campus'
+        placeholder={'Campus'}
+        inputSpan='4'
+        errors={errors.instituicao}
+        touched={touched.instituicao}
+        options={campusList ?? []}
+      />
     </>
   );
 };

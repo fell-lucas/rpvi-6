@@ -16,7 +16,7 @@ export const validationSchemaEstagiario = yup.object({
     cep: yup.number().typeError(number).required(required),
     cidade: yup.string().min(2, min).required(required),
     uf: yup.string().length(2, length).required(required),
-    campus: yup.string().min(2, min).required(required),
+    campus: yup.string().typeError(required).required(required),
     matricula: yup.number().typeError(number).required(required),
     curso: yup.string().min(2, min).required(required),
     semestre: yup.number().typeError(number).required(required),

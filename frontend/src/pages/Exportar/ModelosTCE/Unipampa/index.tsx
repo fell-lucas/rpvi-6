@@ -1,4 +1,4 @@
-import { Solicitacao } from '../../../../models';
+import { Campus, Solicitacao } from '../../../../models';
 import styles from './index.module.css';
 
 interface Props {
@@ -60,7 +60,7 @@ export const Unipampa = ({
           </tr>
           <tr>
             <td className={styles['tg-73oq']} colSpan={2}>
-              Campus: {estagiario.campus}
+              Campus: {(estagiario.campus as Campus).cidade}
             </td>
             <td className={styles['tg-73oq']} colSpan={2}>
               Matrícula Nº: {estagiario.matricula}
@@ -136,7 +136,7 @@ export const Unipampa = ({
               Razão social: {instituicao.razaoSocial}
             </td>
             <td className={styles['tg-73oq']} colSpan={2}>
-              Campus: {instituicao.campus}
+              Campus: {(instituicao.campus as Campus).cidade}
             </td>
           </tr>
           <tr>
@@ -520,7 +520,7 @@ export const Unipampa = ({
               </tr>
               <tr>
                 <td className={styles['tg-73oq']} colSpan={2}>
-                  Campus: {estagiario.campus}
+                  Campus: {(estagiario.campus as Campus).cidade}
                 </td>
                 <td className={styles['tg-73oq']} colSpan={2}>
                   Matrícula Nº: {estagiario.matricula}
@@ -600,7 +600,7 @@ export const Unipampa = ({
                   Razão social: {instituicao.razaoSocial}
                 </td>
                 <td className={styles['tg-73oq']} colSpan={2}>
-                  Campus: {instituicao.campus}
+                  Campus: {(instituicao.campus as Campus).cidade}
                 </td>
               </tr>
               <tr>
