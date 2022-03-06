@@ -18,7 +18,7 @@ import { AcompanharRoute, HomeRoute } from '..';
 import { useUser } from '../../hooks';
 import { Solicitacao } from '../../models';
 import { api, endpoints } from '../../services';
-import { mapEstagiario, mapInstituicao } from '../../utils';
+import { mapDadosEstagio, mapEstagiario, mapInstituicao } from '../../utils';
 import { warningAlert } from '../../utils/swal-alerts';
 import EstagiarioStep from './Steps/Estagiario';
 import { estagiarioInitialValues } from './Steps/Estagiario/initial-values';
@@ -30,18 +30,22 @@ import {
 import UnidadeConcedenteStep from './Steps/UnidadeConcedente';
 import { unidadeInitialValues } from './Steps/UnidadeConcedente/initialValues';
 import {
+  validationSchemaDadosEstagio,
   validationSchemaEstagiario,
   validationSchemaInstituicao,
   validationSchemaUnidade,
 } from './Steps/validation-schema';
+import DadosEstagioStep from './Steps/DadosEstagio';
+import { dadosEstagioInitialValues } from './Steps/DadosEstagio/initialValues';
 
 export const SolicitarRoute = '/solicitar';
 
-const steps = ['estagiario', 'unidade', 'instituicao'];
+const steps = ['estagiario', 'unidade', 'instituicao', 'dadosEstagio'];
 const validationsSchemas = [
   validationSchemaEstagiario,
   validationSchemaUnidade,
   validationSchemaInstituicao,
+  validationSchemaDadosEstagio,
 ];
 
 export const SolicitarPage = () => {
@@ -62,6 +66,7 @@ export const SolicitarPage = () => {
       ...mapCampusWithAddress(user?.campus!),
     },
     unidadeConcedente: unidadeInitialValues,
+    dadosEstagio: dadosEstagioInitialValues
   } as Solicitacao;
 
   const handleBack = () => {
@@ -90,6 +95,11 @@ export const SolicitarPage = () => {
       />,
       <InstituicaoStep
         key='instituicao_step'
+        errors={errors as FormikErrors<Solicitacao>}
+        touched={touched as FormikTouched<Solicitacao>}
+      />,
+      <DadosEstagioStep
+        key='dadosEstagio_step'
         errors={errors as FormikErrors<Solicitacao>}
         touched={touched as FormikTouched<Solicitacao>}
       />,
@@ -122,6 +132,7 @@ export const SolicitarPage = () => {
                       ...values,
                       estagiario: mapEstagiario(values.estagiario),
                       instituicao: mapInstituicao(values.instituicao),
+                      dadosEstagio: mapDadosEstagio(values.dadosEstagio),
                     })
                   );
                   await api.post(
@@ -129,6 +140,7 @@ export const SolicitarPage = () => {
                     JSON.stringify({
                       ...values,
                       estagiario: mapEstagiario(values.estagiario),
+                      dadosEstagio: mapDadosEstagio(values.dadosEstagio),
                     })
                   );
                   setSubmitting(false);

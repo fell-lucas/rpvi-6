@@ -16,7 +16,7 @@ type InputProps = {
   errors?: FormikErrors<{ [x: string]: string }>;
   touched?: FormikTouched<{ [x: string]: string }>;
   disabled?: boolean;
-  options: Campus[] | User[];
+  options: Campus[] | User[] | string[];
 };
 
 const Skeleton = (
@@ -88,6 +88,7 @@ export const SelectInput = ({
             {options.map((option) => {
               const isCampus = (e: any): e is Campus => !!e.cidade;
               const isUser = (e: any): e is User => !!e.name;
+              const isString = (e: any): e is string => !!e;
               if (isCampus(option)) {
                 return (
                   <option key={option.id} value={option.id}>
@@ -98,6 +99,12 @@ export const SelectInput = ({
                 return (
                   <option key={option.id} value={option.id}>
                     {option.name}
+                  </option>
+                );
+              } else if (isString(option)) {
+                return (
+                  <option key={option} value={option}>
+                    {option}
                   </option>
                 );
               }

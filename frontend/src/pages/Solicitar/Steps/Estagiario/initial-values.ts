@@ -13,5 +13,4 @@ export const estagiarioInitialValues = {
   matricula: '1900000000',
   curso: 'Engenharia de Software',
   semestre: '6',
-  estagioObrigatorio: 'Obrigatório',
 } as Estagiario;

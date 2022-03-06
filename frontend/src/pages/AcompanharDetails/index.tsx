@@ -29,6 +29,7 @@ import { UnidadeConcedenteTextInputs } from '../Solicitar/Steps/UnidadeConcedent
 import { initialValues } from './initial-values';
 import { SkeletonLoader } from './skeleton-loader';
 import { validationsObservacao } from './validation-schema';
+import { DadosEstagioTextInputs } from '../Solicitar/Steps/DadosEstagio/text-inputs';
 
 configure({ axios: api });
 
@@ -42,6 +43,7 @@ export default function AcompanharDetails() {
     `${endpoints.solicitacoes}/${id}`,
     { useCache: false }
   );
+  console.log(data);
 
   const [{ data: obsList }, obsRefetch] = useAxios<ObservacaoList>(
     `${endpoints.observacoes}/solicitacao/${id}`,
@@ -175,6 +177,14 @@ export default function AcompanharDetails() {
                       INSTITUIÇÃO DE ENSINO
                     </h2>
                     <InstituicaoTextInputs
+                      errors={errors}
+                      touched={touched}
+                      disabled={!canEdit}
+                    />
+                    <h2 className='font-bold text-2xl col-span-12 border-b mt-4 w-2/3 border-gray-400'>
+                      DADOS DO ESTÁGIO
+                    </h2>
+                    <DadosEstagioTextInputs
                       errors={errors}
                       touched={touched}
                       disabled={!canEdit}

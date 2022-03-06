@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const Unipampa = ({
-  solicitacao: { estagiario, unidadeConcedente, instituicao },
+  solicitacao: { estagiario, unidadeConcedente, instituicao, dadosEstagio },
 }: Props) => {
   return (
     <div className={styles.body}>
@@ -69,7 +69,7 @@ export const Unipampa = ({
           <tr>
             <td className={styles['tg-73oq']} colSpan={4}>
               Estágio curricular:{' '}
-              {estagiario.estagioObrigatorio
+              {dadosEstagio.estagioObrigatorio
                 ? 'Obrigatório'
                 : 'Não obrigatório'}
             </td>
@@ -529,7 +529,7 @@ export const Unipampa = ({
               <tr>
                 <td className={styles['tg-73oq']} colSpan={4}>
                   Estágio curricular:{' '}
-                  {estagiario.estagioObrigatorio
+                  {dadosEstagio.estagioObrigatorio
                     ? 'Obrigatório'
                     : 'Não obrigatório'}
                 </td>

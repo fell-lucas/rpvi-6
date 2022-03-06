@@ -1,13 +1,21 @@
-import { Estagiario, Instituicao } from '../models';
+import { DadosEstagio, Estagiario, Instituicao } from '../models';
 
 export const mapEstagiario = (estagiario: Estagiario) => {
-  const estagioObrigatorio = estagiario.estagioObrigatorio === 'Obrigatório';
   return {
     ...estagiario,
     campus: { id: estagiario.campus },
-    estagioObrigatorio,
   };
 };
+
+export const mapDadosEstagio = (dados: DadosEstagio) => {
+  const estagioObrigatorio = dados.estagioObrigatorio === 'Obrigatório';
+  const remunerado = dados.remunerado === 'Remunerado';
+  return {
+    ...dados,
+    estagioObrigatorio,
+    remunerado
+  };
+}
 
 export const mapInstituicao = (instituicao: Instituicao) => {
   return {

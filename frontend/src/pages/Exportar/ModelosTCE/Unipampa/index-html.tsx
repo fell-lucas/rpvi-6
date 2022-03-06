@@ -4,6 +4,7 @@ export const UnipampaHtml = ({
   estagiario,
   unidadeConcedente,
   instituicao,
+  dadosEstagio
 }: Solicitacao) => `<html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -87,7 +88,7 @@ export const UnipampaHtml = ({
       </tr>
       <tr>
         <td class="tg-73oq" colspan="4">Estágio curricular: ${
-          estagiario.estagioObrigatorio ? 'Obrigatório' : 'Não obrigatório'
+          dadosEstagio.estagioObrigatorio ? 'Obrigatório' : 'Não obrigatório'
         }</td>
       </tr>
     </tbody>
@@ -477,7 +478,7 @@ export const UnipampaHtml = ({
       </tr>
       <tr>
         <td class="tg-73oq" colspan="4">Estágio curricular: ${
-          estagiario.estagioObrigatorio ? 'Obrigatório' : 'Não obrigatório'
+          dadosEstagio.estagioObrigatorio ? 'Obrigatório' : 'Não obrigatório'
         }</td>
       </tr>
     </tbody>

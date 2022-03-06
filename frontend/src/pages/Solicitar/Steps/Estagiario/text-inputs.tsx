@@ -1,8 +1,6 @@
-import { Field, FormikErrors, FormikTouched } from 'formik';
+import { FormikErrors, FormikTouched } from 'formik';
 
 import {
-  RadioButton,
-  RadioButtonGroup,
   SelectInput,
   TextInput,
 } from '../../../../components';
@@ -67,28 +65,6 @@ export const EstagiarioTextInputs = ({
         errors={errors.estagiario}
         touched={touched.estagiario}
       />
-      <div className='col-span-6 justify-start'>
-        <RadioButtonGroup
-          label='Estágio Obrigatório : '
-          error={errors.estagiario?.estagioObrigatorio}
-          touched={touched.estagiario?.estagioObrigatorio}
-        >
-          <Field
-            component={RadioButton}
-            name='estagiario.estagioObrigatorio'
-            id='estagiario.estagioObrigatorio1'
-            label='Obrigatório'
-            disabled={disabled}
-          />
-          <Field
-            component={RadioButton}
-            name='estagiario.estagioObrigatorio'
-            id='estagiario.estagioObrigatorio2'
-            label='Não obrigatório'
-            disabled={disabled}
-          />
-        </RadioButtonGroup>
-      </div>
     </>
   );
 };

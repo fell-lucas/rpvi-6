@@ -20,7 +20,6 @@ export const validationSchemaEstagiario = yup.object({
     matricula: yup.number().typeError(number).required(required),
     curso: yup.string().min(2, min).required(required),
     semestre: yup.number().typeError(number).required(required),
-    estagioObrigatorio: yup.string().min(2, min).required(required),
   }),
 });
 
@@ -55,5 +54,19 @@ export const validationSchemaUnidade = yup.object({
     cargoSupervisor: yup.string().min(2, min).required(required),
     representanteLegal: yup.string().min(2, min).required(required),
     cargoRepresentante: yup.string().min(2, min).required(required),
+  }),
+});
+
+export const validationSchemaDadosEstagio = yup.object({
+  dadosEstagio: yup.object({
+    dataInicio: yup.string().required(required),
+    dataFim: yup.string().required(required),
+    horarioInicial: yup.string().required(required),
+    horarioFinal: yup.string().required(required),
+    intervalo: yup.string().required(required),
+    remunerado: yup.string().min(2, min).required(required),
+    valorRemuneracao: yup.string(),
+    cargaHoraria: yup.string().min(1, min).required(required),
+    estagioObrigatorio: yup.string().min(2, min).required(required),
   }),
 });

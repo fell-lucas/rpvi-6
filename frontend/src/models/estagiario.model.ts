@@ -1,7 +1,7 @@
 import { Campus } from '.';
 
 export type Estagiario = {
-  [index: string]: string | boolean | Campus;
+  [index: string]: string | Campus;
   id: string;
   nome: string;
   email: string;
@@ -15,5 +15,4 @@ export type Estagiario = {
   matricula: string;
   curso: string;
   semestre: string;
-  estagioObrigatorio: string | boolean;
 };
