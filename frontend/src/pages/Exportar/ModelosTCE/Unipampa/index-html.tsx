@@ -1,4 +1,4 @@
-import { Campus, Solicitacao } from '../../../../models';
+import { Campus, Solicitacao, User } from '../../../../models';
 
 export const UnipampaHtml = ({
   estagiario,
@@ -172,7 +172,7 @@ export const UnipampaHtml = ({
       </tr>
       <tr>
         <td class="tg-73oq" colspan="4">Orientador Estágio: ${
-          instituicao.orientadorEstagio
+          (instituicao.orientadorEstagio as User).name
         }</td>
       </tr>
     </tbody>
@@ -562,7 +562,7 @@ export const UnipampaHtml = ({
       </tr>
       <tr>
         <td class="tg-73oq" colspan="4">Orientador Estágio: ${
-          instituicao.orientadorEstagio
+          (instituicao.orientadorEstagio as User).name
         }</td>
       </tr>
     </tbody>

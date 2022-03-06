@@ -10,8 +10,8 @@ interface HeaderProps {
 
 export default function HeaderGuri({ isLoginPage = false }: HeaderProps) {
   return (
-    <div className='bg-bg1 flex mt-6 p-2 px-10 items-end justify-items-stretch text-primary'>
-      <img src={logo} alt='logo guri' width={886} height={109} />
+    <div className='w-full bg-bg1 flex mt-6 p-2 px-10 items-end justify-items-stretch text-primary'>
+      <img src={logo} alt='logo guri' className='max-w-[40vw]' />
       <div className='flex-grow'></div>
       <div className='flex flex-col gap-6 mb-2'>
         {!isLoginPage && <UserInfo />}

@@ -20,7 +20,7 @@ export default class Home extends Component {
             <div className='flex flex-col items-center justify-center flex-1 gap-6'>
               <img src={logo} width='80%' alt='unipampa_logo' />
             </div>
-            <div className='flex gap-12 flex-1 mt-8'>
+            <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 flex-1 mt-8'>
               {[
                 [
                   SolicitarRoute,

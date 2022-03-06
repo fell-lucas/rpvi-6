@@ -1,17 +1,17 @@
 import { Estagiario } from '../../../../models';
 
 export const estagiarioInitialValues = {
-  nome: '12',
-  email: '12@com.com',
-  telefone: '12',
-  endereco: '12',
-  bairro: '12',
-  cep: '12',
-  cidade: '12',
-  uf: '12',
+  nome: 'Fulano da Costa',
+  email: 'fulano@email.com',
+  telefone: '51999999999',
+  endereco: 'Rua das Flores, 111',
+  bairro: 'Capoeira',
+  cep: '99999000',
+  cidade: 'Alegrete',
+  uf: 'RS',
   campus: '',
-  matricula: '12',
-  curso: '12',
-  semestre: '12',
+  matricula: '1900000000',
+  curso: 'Engenharia de Software',
+  semestre: '6',
   estagioObrigatorio: 'Obrigatório',
 } as Estagiario;

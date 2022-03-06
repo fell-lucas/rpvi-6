@@ -1,4 +1,4 @@
-import { Campus, Solicitacao } from '../../../../models';
+import { Campus, Solicitacao, User } from '../../../../models';
 import styles from './index.module.css';
 
 interface Props {
@@ -168,7 +168,7 @@ export const Unipampa = ({
           </tr>
           <tr>
             <td className={styles['tg-73oq']} colSpan={4}>
-              Orientador Estágio: {instituicao.orientadorEstagio}
+              Orientador Estágio: {(instituicao.orientadorEstagio as User).name}
             </td>
           </tr>
         </tbody>
@@ -636,7 +636,8 @@ export const Unipampa = ({
               </tr>
               <tr>
                 <td className={styles['tg-73oq']} colSpan={4}>
-                  Orientador Estágio: {instituicao.orientadorEstagio}
+                  Orientador Estágio:{' '}
+                  {(instituicao.orientadorEstagio as User).name}
                 </td>
               </tr>
             </tbody>

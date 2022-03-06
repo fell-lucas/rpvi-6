@@ -2,6 +2,7 @@ import { FormikErrors, FormikTouched } from 'formik';
 
 import { SelectInput, TextInput } from '../../../../components';
 
+import { useOrientador, useUser } from '../../../../hooks';
 import useCampus from '../../../../hooks/useCampus';
 import { Solicitacao } from '../../../../models';
 
@@ -16,7 +17,9 @@ export const InstituicaoTextInputs = ({
   touched,
   disabled = false,
 }: Props) => {
+  const { user } = useUser();
   const { campusList } = useCampus();
+  const { orientadorList } = useOrientador(user!.campus.id);
   return (
     <>
       {[
@@ -30,7 +33,6 @@ export const InstituicaoTextInputs = ({
         ['CNPJ', 'cnpj', '', '4'],
         ['Nome do Representante Legal', 'representanteLegal', '', '5', '2'],
         ['Cargo', 'cargoRepresentante', 'Cargo do Representante Legal', '4'],
-        ['Nome do Orientador de Estágio', 'orientadorEstagio', '', '5', '2'],
       ].map(([label, name, ph, span, labelSpan]) => (
         <TextInput
           key={name}
@@ -44,6 +46,16 @@ export const InstituicaoTextInputs = ({
           touched={touched.instituicao}
         />
       ))}
+      <SelectInput
+        disabled={disabled}
+        label={'Orientador de Estágio'}
+        name='instituicao.orientadorEstagio'
+        inputSpan='5'
+        labelSpan='2'
+        errors={errors.instituicao}
+        touched={touched.instituicao}
+        options={orientadorList ?? []}
+      />
       <SelectInput
         disabled={disabled}
         label={'Campus'}

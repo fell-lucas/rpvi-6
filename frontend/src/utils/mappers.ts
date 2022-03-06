@@ -13,5 +13,6 @@ export const mapInstituicao = (instituicao: Instituicao) => {
   return {
     ...instituicao,
     campus: { id: instituicao.campus },
+    orientadorEstagio: { id: instituicao.orientadorEstagio },
   };
 };

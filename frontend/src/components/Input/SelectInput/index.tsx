@@ -3,7 +3,7 @@ import { Field, FormikErrors, FormikTouched } from 'formik';
 import ContentLoader from 'react-content-loader';
 
 import useCampus from '../../../hooks/useCampus';
-import { Campus } from '../../../models';
+import { Campus, User } from '../../../models';
 import { colSpan } from '../../../utils/helpers';
 
 type InputProps = {
@@ -16,7 +16,7 @@ type InputProps = {
   errors?: FormikErrors<{ [x: string]: string }>;
   touched?: FormikTouched<{ [x: string]: string }>;
   disabled?: boolean;
-  options: Campus[];
+  options: Campus[] | User[];
 };
 
 const Skeleton = (
@@ -85,11 +85,24 @@ export const SelectInput = ({
             component='select'
           >
             <option value=''></option>
-            {options.map((option) => (
-              <option key={option.id} value={option.id}>
-                {option.cidade}
-              </option>
-            ))}
+            {options.map((option) => {
+              const isCampus = (e: any): e is Campus => !!e.cidade;
+              const isUser = (e: any): e is User => !!e.name;
+              if (isCampus(option)) {
+                return (
+                  <option key={option.id} value={option.id}>
+                    {option.cidade}
+                  </option>
+                );
+              } else if (isUser(option)) {
+                return (
+                  <option key={option.id} value={option.id}>
+                    {option.name}
+                  </option>
+                );
+              }
+              return <></>;
+            })}
           </Field>
         )}
       </div>

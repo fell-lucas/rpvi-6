@@ -18,7 +18,7 @@ export default class InstituicaoStep extends Component<InstituicaoProps> {
             INSTITUIÇÃO DE ENSINO
           </h2>
         </div>
-        <div className='grid grid-cols-12 gap-4 items-center mt-8'>
+        <div className='grid md:grid-cols-8 lg:grid-cols-12 gap-4 items-center mt-8'>
           <InstituicaoTextInputs
             errors={this.props.errors}
             touched={this.props.touched}

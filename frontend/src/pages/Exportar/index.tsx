@@ -58,8 +58,8 @@ export const Exportar = () => {
             ? Skeleton
             : solicitacao !== undefined && (
                 <>
-                  <div className='flex whitespace-pre-wrap gap-3'>
-                    <div className='w-1/3'>
+                  <div className='flex lg:flex-row flex-col whitespace-pre-wrap gap-3'>
+                    <div className='w-full lg:w-1/3'>
                       <div className='flex gap-6'>
                         <h2 className='text-xl'>Modelo em {`<HTML />`}</h2>
                         {copied && (
@@ -80,7 +80,7 @@ export const Exportar = () => {
                         </div>
                       </CopyToClipboard>
                     </div>
-                    <div className='w-2/3'>
+                    <div className='w-full lg:w-2/3'>
                       <h2 className='text-xl'>Modelo gerado</h2>
                       <div className='max-h-[55vh] overflow-auto'>
                         <Unipampa solicitacao={solicitacao} />

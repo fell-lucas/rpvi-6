@@ -32,11 +32,13 @@ export default function SolicitacaoItem({
       <Link className='w-full' data-testid={id} to={`${AcompanharRoute}/${id}`}>
         <div
           data-testid='solicitacao_item_div'
-          className='hover:scale-95 transition-transform hover:opacity-90 bg-gradient-to-r flex flex-1 from-primary to-secondary w-full rounded-xl p-[4px] px-2 justify-between text-white'
+          className='hover:scale-95 md:flex-col lg:flex-row transition-transform hover:opacity-90 bg-gradient-to-r flex flex-1 from-primary to-secondary w-full rounded-xl p-[4px] px-2 justify-between text-white'
         >
-          <div className='flex items-center justify-center ml-6 gap-4'>
-            <FaUserCircle size='1.7rem' color='lightgray' />
-            <span className='text-lg font-bold'>{nome}</span>
+          <div className='flex md:flex-col lg:flex-row items-center justify-center ml-6 md:gap-1 lg:gap-4'>
+            <div className='flex gap-3'>
+              <FaUserCircle size='1.7rem' color='lightgray' />
+              <span className='text-lg font-bold'>{nome}</span>
+            </div>
             <span className='text-sm text-gray-300'>Atualizado em</span>
             <span className='text-white text-sm font-medium'>{` ${zdt.toLocaleString(
               'pt-BR'
@@ -48,7 +50,7 @@ export default function SolicitacaoItem({
           </div>
           <div
             className={classNames(
-              'flex items-center my-2 px-2 w-1/6 justify-center rounded-xl shadow-2xl text-center',
+              'flex items-center my-2 px-2 lg:w-1/6 md:w-full justify-center rounded-xl shadow-2xl text-center',
               colorAccordingToStatus('bg', status)
             )}
           >

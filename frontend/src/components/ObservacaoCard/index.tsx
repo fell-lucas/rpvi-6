@@ -52,7 +52,9 @@ export const ObservacaoCard = ({
       title={disabled || fakeResolved || isAluno ? '' : 'Clique para resolver'}
       disabled={disabled || fakeResolved || isAluno}
       onClick={() => handleResolve()}
-      className={classNames('group flex flex-col flex-start col-span-3')}
+      className={classNames(
+        'group flex flex-col flex-start col-span-12 md:col-span-6 lg:col-span-3'
+      )}
     >
       <div
         className={classNames(
