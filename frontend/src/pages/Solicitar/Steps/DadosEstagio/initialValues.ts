@@ -7,7 +7,7 @@ export const dadosEstagioInitialValues = {
   horarioInicial: '',
   horarioFinal: '',
   intervalo: '',
-  remunerado: 'Remunerado',
+  remunerado: '',
   valorRemuneracao: '',
-  estagioObrigatorio: 'Obrigatório',
+  estagioObrigatorio: '',
 } as DadosEstagio;

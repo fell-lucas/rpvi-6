@@ -20,6 +20,8 @@ import { Solicitacao } from '../../models';
 import { api, endpoints } from '../../services';
 import { mapDadosEstagio, mapEstagiario, mapInstituicao } from '../../utils';
 import { warningAlert } from '../../utils/swal-alerts';
+import DadosEstagioStep from './Steps/DadosEstagio';
+import { dadosEstagioInitialValues } from './Steps/DadosEstagio/initialValues';
 import EstagiarioStep from './Steps/Estagiario';
 import { estagiarioInitialValues } from './Steps/Estagiario/initial-values';
 import InstituicaoStep from './Steps/Instituicao';
@@ -35,8 +37,6 @@ import {
   validationSchemaInstituicao,
   validationSchemaUnidade,
 } from './Steps/validation-schema';
-import DadosEstagioStep from './Steps/DadosEstagio';
-import { dadosEstagioInitialValues } from './Steps/DadosEstagio/initialValues';
 
 export const SolicitarRoute = '/solicitar';
 
@@ -66,7 +66,7 @@ export const SolicitarPage = () => {
       ...mapCampusWithAddress(user?.campus!),
     },
     unidadeConcedente: unidadeInitialValues,
-    dadosEstagio: dadosEstagioInitialValues
+    dadosEstagio: dadosEstagioInitialValues,
   } as Solicitacao;
 
   const handleBack = () => {
@@ -102,6 +102,7 @@ export const SolicitarPage = () => {
         key='dadosEstagio_step'
         errors={errors as FormikErrors<Solicitacao>}
         touched={touched as FormikTouched<Solicitacao>}
+        values={values}
       />,
     ].map((element, index) => index === step && element);
   };

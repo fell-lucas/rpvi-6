@@ -1,6 +1,11 @@
 import { Field, FormikErrors, FormikTouched } from 'formik';
 
-import { RadioButton, RadioButtonGroup, SelectInput, TextInput } from '../../../../components';
+import {
+  RadioButton,
+  RadioButtonGroup,
+  SelectInput,
+  TextInput,
+} from '../../../../components';
 
 import { Solicitacao } from '../../../../models';
 
@@ -8,13 +13,19 @@ interface Props {
   errors: FormikErrors<Solicitacao>;
   touched: FormikTouched<Solicitacao>;
   disabled?: boolean;
+  values?: Solicitacao;
 }
 
 export const DadosEstagioTextInputs = ({
   errors,
   touched,
   disabled = false,
+  values,
 }: Props) => {
+  const {
+    dadosEstagio: { remunerado },
+  } = values!;
+
   return (
     <>
       {[
@@ -23,7 +34,6 @@ export const DadosEstagioTextInputs = ({
         ['Horario de Início', 'horarioInicial', '', '3'],
         ['Horario de Fim', 'horarioFinal', '', '3'],
         ['Intervalo', 'intervalo', '', '3'],
-        ['Remuneracao', 'valorRemuneracao', 'Valor em reais', '3'],
       ].map(([label, name, ph, span, labelSpan]) => (
         <TextInput
           key={name}
@@ -37,6 +47,17 @@ export const DadosEstagioTextInputs = ({
           touched={touched.dadosEstagio}
         />
       ))}
+      {remunerado === 'Remunerado' && (
+        <TextInput
+          disabled={disabled}
+          label={'Remuneração'}
+          name={`dadosEstagio.valorRemuneracao`}
+          placeholder={'Valor em reais'}
+          inputSpan={'3'}
+          errors={errors.dadosEstagio}
+          touched={touched.dadosEstagio}
+        />
+      )}
       <SelectInput
         disabled={disabled}
         label={'Carga Horária'}
@@ -45,7 +66,7 @@ export const DadosEstagioTextInputs = ({
         inputSpan='3'
         errors={errors.dadosEstagio}
         touched={touched.dadosEstagio}
-        options={['2','4','8']}
+        options={['2', '4', '8']}
       />
       <div className='col-span-12 justify-start'>
         <RadioButtonGroup

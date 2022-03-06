@@ -7,6 +7,7 @@ import { DadosEstagioTextInputs } from './text-inputs';
 type DadosEstagioProps = {
   errors: FormikErrors<Solicitacao>;
   touched: FormikTouched<Solicitacao>;
+  values?: Solicitacao;
 };
 
 export default class DadosEstagioStep extends Component<DadosEstagioProps> {
@@ -22,6 +23,7 @@ export default class DadosEstagioStep extends Component<DadosEstagioProps> {
           <DadosEstagioTextInputs
             errors={this.props.errors}
             touched={this.props.touched}
+            values={this.props.values}
           />
         </div>
       </>

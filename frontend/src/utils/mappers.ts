@@ -13,9 +13,10 @@ export const mapDadosEstagio = (dados: DadosEstagio) => {
   return {
     ...dados,
     estagioObrigatorio,
-    remunerado
+    remunerado,
+    valorRemuneracao: remunerado ? dados.valorRemuneracao : '',
   };
-}
+};
 
 export const mapInstituicao = (instituicao: Instituicao) => {
   return {
