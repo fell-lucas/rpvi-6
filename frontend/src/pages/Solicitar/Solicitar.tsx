@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 import { Button, IconButton, LandingCard, ProgressBar } from '../../components';
 
 import { AcompanharRoute, HomeRoute } from '..';
-import { useUser } from '../../hooks';
+import { useSolicitacaoList, useUser } from '../../hooks';
 import { Solicitacao } from '../../models';
 import { api, endpoints } from '../../services';
 import { mapDadosEstagio, mapEstagiario, mapInstituicao } from '../../utils';
@@ -52,6 +52,7 @@ export const SolicitarPage = () => {
   const [step, setStep] = useState(0);
   const { user } = useUser();
   const navigation = useNavigate();
+  const { refetchSolicitationList } = useSolicitacaoList();
 
   const initialValues = {
     estagiario: {
@@ -144,6 +145,7 @@ export const SolicitarPage = () => {
                       dadosEstagio: mapDadosEstagio(values.dadosEstagio),
                     })
                   );
+                  refetchSolicitationList();
                   setSubmitting(false);
                   await Swal.fire({
                     icon: 'success',

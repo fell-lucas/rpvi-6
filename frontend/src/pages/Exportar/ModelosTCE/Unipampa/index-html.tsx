@@ -4,7 +4,7 @@ export const UnipampaHtml = ({
   estagiario,
   unidadeConcedente,
   instituicao,
-  dadosEstagio
+  dadosEstagio,
 }: Solicitacao) => `<html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -208,14 +208,20 @@ export const UnipampaHtml = ({
       desempenho do estudante, (Art. 7º, parágrafo único da Lei nº 11.788/08).
     </p>
     <p style="text-align: justify">
-      As atividades não podem exceder a ( ) horas diárias, perfazendo um total
-      de ( ) horas semanais, e deve ser realizado em período compatível com o
+      As atividades não podem exceder a ${
+        dadosEstagio.cargaHoraria
+      } horas diárias, perfazendo um total
+      de ${
+        Number(dadosEstagio.cargaHoraria) * 5
+      } horas semanais, e deve ser realizado em período compatível com o
       seu horário escolar, e serão desenvolvidas pelo ESTAGIÁRIO no setor da
       UNIDADE CONCEDENTE.
     </p>
     <p style="text-align: justify">
-      A jornada diária será das ( ) as ( ) e das ( ) as ( ), com intervalo de
-      ( ) horas.
+      A jornada diária será das ${dadosEstagio.horarioInicial} as ${
+  dadosEstagio.horarioFinal
+}, com intervalo de
+      ${dadosEstagio.intervalo} horas.
     </p>
     <p style="text-align: justify">
       Nos períodos de férias acadêmicas, a jornada de estágio será
@@ -244,7 +250,9 @@ export const UnipampaHtml = ({
     <p style="text-align: justify">O estágio será:</p>
     <p style="text-align: justify">
       Remunerado, pelo qual o estagiário receberá uma bolsa de Complementação
-      Educacional mensal, no valor de R$ ( ) , que deverá ser paga até o 5º
+      Educacional mensal, no valor de R$ ${
+        dadosEstagio.valorRemuneracao
+      }, que deverá ser paga até o 5º
       (quinto) dia útil do mês subsequente.
     </p>
     <p style="text-align: justify">
@@ -426,7 +434,9 @@ export const UnipampaHtml = ({
       E por estarem de comum acordo com as condições do TCE, as partes o
       assinam em 04 vias de igual teor.
     </p>
-    <p style="text-align: right">( ), ( ), de ( ) de 20</p>
+    <p style="text-align: right">${instituicao.cidade}, ${
+  dadosEstagio.dataInicio
+}</p>
     <div style="display: flex; text-align: center; margin-bottom: 2rem">
       <p style="line-height: 1.7rem; margin: auto">
         _____________________<br />UNIDADE CONCEDENTE
@@ -442,7 +452,9 @@ export const UnipampaHtml = ({
     </div>
     <div style="text-align: center; margin-top: 5rem">
       <p><b>PLANO DE ATIVIDADES DO ESTAGIÁRIO</b></p>
-      <p><b>Vigência de ( ) até ( ) </b></p>
+      <p><b>Vigência de ${dadosEstagio.dataInicio} até ${
+  dadosEstagio.dataFim
+} </b></p>
       <b>ESTAGIÁRIO</b>
   <table class="tg">
     <tbody>
@@ -579,7 +591,9 @@ export const UnipampaHtml = ({
     <br />
     <br />
     <br />
-    <p style="text-align: right">( ), ( ), de ( ) de 20</p>
+    <p style="text-align: right">${instituicao.cidade}, ${
+  dadosEstagio.dataInicio
+}</p>
     <div style="display: flex; text-align: center; margin-bottom: 2rem">
       <p style="line-height: 1.7rem; margin: auto">
         _____________________<br />UNIDADE CONCEDENTE
