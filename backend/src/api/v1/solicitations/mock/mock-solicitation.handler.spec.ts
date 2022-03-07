@@ -14,11 +14,10 @@ describe('MockSolicitacao Tests', () => {
           cep: '96570000',
           cidade: 'Cidade',
           uf: 'UF',
-          campus: 'Alegrete',
+          campus: { cidade: 'Alegrete' },
           matricula: '1920391093413',
           curso: 'Engenharia de Software',
           semestre: '1',
-          estagioObrigatorio: false,
         },
         instituicao: {
           razaoSocial: 'UNIPAMPA',
@@ -31,8 +30,8 @@ describe('MockSolicitacao Tests', () => {
           cnpj: '128371287481349',
           representanteLegal: 'Representante',
           cargoRepresentante: 'Cargo',
-          orientadorEstagio: 'Orientador',
-          campus: 'Alegrete',
+          orientadorEstagio: { id: 'id' },
+          campus: { cidade: 'Alegrete' },
         },
         unidadeConcedente: {
           razaoSocial: 'UNIPAMPA',
@@ -57,6 +56,17 @@ describe('MockSolicitacao Tests', () => {
             resolved: false,
           },
         ],
+        dadosEstagio: {
+          cargaHoraria: undefined,
+          dataFim: undefined,
+          dataInicio: undefined,
+          estagioObrigatorio: undefined,
+          horarioFinal: undefined,
+          horarioInicial: undefined,
+          intervalo: undefined,
+          remunerado: undefined,
+          valorRemuneracao: undefined,
+        },
       };
 
       expect(MockSolicitation({})).toEqual(expected);

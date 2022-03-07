@@ -25,16 +25,19 @@ export class CampusesController {
     return this.campusesService.findAll();
   }
 
+  /* istanbul ignore next */
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.campusesService.findOne(+id);
   }
 
+  /* istanbul ignore next */
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCampusDto: UpdateCampusDto) {
     return this.campusesService.update(+id, updateCampusDto);
   }
 
+  /* istanbul ignore next */
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.campusesService.remove(+id);

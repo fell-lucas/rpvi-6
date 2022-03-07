@@ -2,16 +2,13 @@ import { NotFoundException } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import { User } from '../auth/user.entity';
-import { CreateObservationDto } from './dto/create-observation.dto';
 import { CreateSolicitationDto } from './dto/create-solicitation.dto';
-import { UpdateObservationDto } from './dto/update-observation.dto';
 import { UpdateSolicitationDto } from './dto/update-solicitation.dto';
 import { Solicitation } from './entities/solicitation.entity';
 import { MockSolicitation } from './mock/mock-solicitation.handler';
 import { MockUser } from './mock/mock-user.handler';
 import { InstitutionsRepository } from './repositories/institution.repository';
 import { InternsRepository } from './repositories/interns.repository';
-import { ObservationsRepository } from './repositories/observations.repository';
 import { SolicitationsRepository } from './repositories/solicitations.repository';
 import { UnitsRepository } from './repositories/units.repository';
 import { SolicitationsController } from './solicitations.controller';
@@ -21,7 +18,6 @@ const mockSolicitationsRepository = () => ({});
 const mockInternsRepository = () => ({});
 const mockInstitutionsRepository = () => ({});
 const mockUnitsRepository = () => ({});
-const mockObservationsRepository = () => ({});
 
 describe('SolicitacoesController', () => {
   let solicitationController: SolicitationsController;
@@ -50,10 +46,6 @@ describe('SolicitacoesController', () => {
         {
           provide: UnitsRepository,
           useFactory: mockUnitsRepository,
-        },
-        {
-          provide: ObservationsRepository,
-          useFactory: mockObservationsRepository,
         },
       ],
     }).compile();
@@ -116,58 +108,6 @@ describe('SolicitacoesController', () => {
       expect(result).toBe(mockSolicitation);
       expect(solicitationsService.create).toHaveBeenCalled();
       expect(solicitationsService.create).toHaveBeenCalledWith({}, mockUser);
-    });
-  });
-
-  describe('createObservation', () => {
-    it('createObservation should return expected value', async () => {
-      solicitationsService.createObservation = jest.fn().mockResolvedValue({});
-
-      const result = await solicitationController.createObservation(
-        {} as CreateObservationDto,
-        '1',
-        mockUser,
-      );
-
-      expect(result).toStrictEqual({});
-      expect(solicitationsService.createObservation).toHaveBeenCalled();
-      expect(solicitationsService.createObservation).toHaveBeenCalledWith(
-        {},
-        '1',
-        mockUser,
-      );
-    });
-  });
-
-  describe('updateObservation', () => {
-    it('updateObservation should return expected changed value', async () => {
-      solicitationsService.updateObservation = jest.fn().mockResolvedValue({});
-
-      const result = await solicitationController.updateObservation(
-        {} as UpdateObservationDto,
-        '1',
-      );
-
-      expect(result).toStrictEqual({});
-      expect(solicitationsService.updateObservation).toHaveBeenCalled();
-      expect(solicitationsService.updateObservation).toHaveBeenCalledWith(
-        {},
-        '1',
-      );
-    });
-
-    it('updateObservation should return 404 when not found', async () => {
-      solicitationsService.updateObservation = jest
-        .fn()
-        .mockResolvedValue(new NotFoundException());
-      try {
-        await solicitationController.updateObservation(
-          {} as UpdateObservationDto,
-          '1',
-        );
-      } catch (e) {
-        expect(e).toEqual(new NotFoundException());
-      }
     });
   });
 
