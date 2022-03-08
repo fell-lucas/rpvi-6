@@ -22,10 +22,6 @@ export const DadosEstagioTextInputs = ({
   disabled = false,
   values,
 }: Props) => {
-  const {
-    dadosEstagio: { remunerado },
-  } = values!;
-
   return (
     <>
       {[
@@ -47,7 +43,7 @@ export const DadosEstagioTextInputs = ({
           touched={touched.dadosEstagio}
         />
       ))}
-      {remunerado === 'Remunerado' && (
+      {values?.dadosEstagio.remunerado === 'Remunerado' && (
         <TextInput
           disabled={disabled}
           label={'Remuneração'}
