@@ -76,7 +76,7 @@ export class SolicitationsRepository extends Repository<Solicitation> {
     createSolicitationDto: CreateSolicitationDto,
     user: User,
   ): Promise<Solicitation> {
-    const { estagiario, instituicao, unidadeConcedente } =
+    const { estagiario, instituicao, unidadeConcedente, dadosEstagio } =
       createSolicitationDto;
 
     const solicitation = this.create({
@@ -85,6 +85,7 @@ export class SolicitationsRepository extends Repository<Solicitation> {
       unidadeConcedente,
       status: SolicitationStatus.IN_REVIEW,
       user,
+      dadosEstagio,
     });
 
     await this.save(solicitation);

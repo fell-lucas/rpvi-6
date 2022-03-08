@@ -16,7 +16,6 @@ export function MockSolicitation(_req): Solicitation {
       matricula: '1920391093413',
       curso: 'Engenharia de Software',
       semestre: '1',
-      estagioObrigatorio: false,
     },
     instituicao: {
       razaoSocial: 'UNIPAMPA',
@@ -55,5 +54,16 @@ export function MockSolicitation(_req): Solicitation {
         resolved: false,
       },
     ],
+    dadosEstagio: {
+      cargaHoraria: undefined,
+      dataFim: undefined,
+      dataInicio: undefined,
+      estagioObrigatorio: undefined,
+      horarioFinal: undefined,
+      horarioInicial: undefined,
+      intervalo: undefined,
+      remunerado: undefined,
+      valorRemuneracao: undefined,
+    },
   } as Solicitation;
 }

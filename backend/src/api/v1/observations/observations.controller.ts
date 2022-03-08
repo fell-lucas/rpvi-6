@@ -45,11 +45,13 @@ export class ObservationsController {
     return this.observationsService.findAll(idSolicitation);
   }
 
+  /* istanbul ignore next */
   @Get(':id')
   findOne(@Param('id') id: string) {
     throw new NotImplementedException();
   }
 
+  /* istanbul ignore next */
   @Delete(':id')
   remove(@Param('id') id: string) {
     throw new NotImplementedException();

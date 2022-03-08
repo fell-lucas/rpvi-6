@@ -9,3 +9,4 @@ export * from './solicitacao-list.model';
 export * from './observacao.model';
 export * from './observacao-list.model';
 export * from './campus.model';
+export * from './dados-estagio.model';

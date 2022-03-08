@@ -2,10 +2,10 @@ import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Repository } from 'typeorm';
 import { User } from '../../auth/user.entity';
+import { Solicitation } from '../../solicitations/entities/solicitation.entity';
+import { MockSolicitation } from '../../solicitations/mock/mock-solicitation.handler';
+import { MockUser } from '../../solicitations/mock/mock-user.handler';
 import { CreateObservationDto } from '../dto/create-observation.dto';
-import { Solicitation } from '../entities/solicitation.entity';
-import { MockSolicitation } from '../mock/mock-solicitation.handler';
-import { MockUser } from '../mock/mock-user.handler';
 import { ObservationsRepository } from './observations.repository';
 
 describe('Observations Repository', () => {
@@ -30,7 +30,7 @@ describe('Observations Repository', () => {
       jest.spyOn(Repository.prototype, 'save').mockReturnThis();
 
       const createdObservation = await observationsRepository.createObservation(
-        { observation: 'Test' } as CreateObservationDto,
+        { observacao: 'Test' } as CreateObservationDto,
         mockSolicitation as Solicitation,
         mockUser,
       );

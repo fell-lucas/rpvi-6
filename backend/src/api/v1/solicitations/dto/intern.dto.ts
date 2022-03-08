@@ -1,4 +1,4 @@
-import { IsBoolean, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 import { Campus } from '../../campuses/entities/campus.entity';
 
 export class InternDto {
@@ -26,6 +26,4 @@ export class InternDto {
   curso: string;
   @IsString()
   semestre: string;
-  @IsBoolean()
-  estagioObrigatorio: boolean;
 }

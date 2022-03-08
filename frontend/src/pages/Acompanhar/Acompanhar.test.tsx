@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import { clearCache } from 'axios-hooks';
 import MockAdapter from 'axios-mock-adapter';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -47,6 +48,7 @@ describe('acompanhar page', () => {
 
   test('renders acompanhar with request loading', async () => {
     mock.onGet(`${endpoints.solicitacoes}?page=1`).reply(500);
+    clearCache();
     render(
       <BrowserRouter>
         <Acompanhar />

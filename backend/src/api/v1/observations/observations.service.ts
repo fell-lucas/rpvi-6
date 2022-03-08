@@ -64,6 +64,7 @@ export class ObservationsService {
     return response;
   }
 
+  /* istanbul ignore next */
   findOne(id: number) {
     return `This action returns a #${id} observation`;
   }
@@ -106,6 +107,7 @@ export class ObservationsService {
     return observation;
   }
 
+  /* istanbul ignore next */
   remove(id: number) {
     return `This action removes a #${id} observation`;
   }

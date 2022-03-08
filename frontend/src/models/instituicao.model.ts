@@ -1,5 +1,7 @@
+import { Campus, User } from '.';
+
 export type Instituicao = {
-  [index: string]: string;
+  [index: string]: string | Campus | User;
   id: string;
   razaoSocial: string;
   telefone: string;
@@ -11,6 +13,6 @@ export type Instituicao = {
   cnpj: string;
   representanteLegal: string;
   cargoRepresentante: string;
-  orientadorEstagio: string;
-  campus: string;
+  orientadorEstagio: User | string;
+  campus: Campus | string;
 };

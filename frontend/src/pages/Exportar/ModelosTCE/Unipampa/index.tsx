@@ -1,4 +1,4 @@
-import { Solicitacao } from '../../../../models';
+import { Campus, Solicitacao, User } from '../../../../models';
 import styles from './index.module.css';
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const Unipampa = ({
-  solicitacao: { estagiario, unidadeConcedente, instituicao },
+  solicitacao: { estagiario, unidadeConcedente, instituicao, dadosEstagio },
 }: Props) => {
   return (
     <div className={styles.body}>
@@ -60,7 +60,7 @@ export const Unipampa = ({
           </tr>
           <tr>
             <td className={styles['tg-73oq']} colSpan={2}>
-              Campus: {estagiario.campus}
+              Campus: {(estagiario.campus as Campus).cidade}
             </td>
             <td className={styles['tg-73oq']} colSpan={2}>
               Matrícula Nº: {estagiario.matricula}
@@ -69,7 +69,7 @@ export const Unipampa = ({
           <tr>
             <td className={styles['tg-73oq']} colSpan={4}>
               Estágio curricular:{' '}
-              {estagiario.estagioObrigatorio
+              {dadosEstagio.estagioObrigatorio
                 ? 'Obrigatório'
                 : 'Não obrigatório'}
             </td>
@@ -136,7 +136,7 @@ export const Unipampa = ({
               Razão social: {instituicao.razaoSocial}
             </td>
             <td className={styles['tg-73oq']} colSpan={2}>
-              Campus: {instituicao.campus}
+              Campus: {(instituicao.campus as Campus).cidade}
             </td>
           </tr>
           <tr>
@@ -168,7 +168,7 @@ export const Unipampa = ({
           </tr>
           <tr>
             <td className={styles['tg-73oq']} colSpan={4}>
-              Orientador Estágio: {instituicao.orientadorEstagio}
+              Orientador Estágio: {(instituicao.orientadorEstagio as User).name}
             </td>
           </tr>
         </tbody>
@@ -520,7 +520,7 @@ export const Unipampa = ({
               </tr>
               <tr>
                 <td className={styles['tg-73oq']} colSpan={2}>
-                  Campus: {estagiario.campus}
+                  Campus: {(estagiario.campus as Campus).cidade}
                 </td>
                 <td className={styles['tg-73oq']} colSpan={2}>
                   Matrícula Nº: {estagiario.matricula}
@@ -529,7 +529,7 @@ export const Unipampa = ({
               <tr>
                 <td className={styles['tg-73oq']} colSpan={4}>
                   Estágio curricular:{' '}
-                  {estagiario.estagioObrigatorio
+                  {dadosEstagio.estagioObrigatorio
                     ? 'Obrigatório'
                     : 'Não obrigatório'}
                 </td>
@@ -600,7 +600,7 @@ export const Unipampa = ({
                   Razão social: {instituicao.razaoSocial}
                 </td>
                 <td className={styles['tg-73oq']} colSpan={2}>
-                  Campus: {instituicao.campus}
+                  Campus: {(instituicao.campus as Campus).cidade}
                 </td>
               </tr>
               <tr>
@@ -636,7 +636,8 @@ export const Unipampa = ({
               </tr>
               <tr>
                 <td className={styles['tg-73oq']} colSpan={4}>
-                  Orientador Estágio: {instituicao.orientadorEstagio}
+                  Orientador Estágio:{' '}
+                  {(instituicao.orientadorEstagio as User).name}
                 </td>
               </tr>
             </tbody>

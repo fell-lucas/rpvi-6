@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { forwardRef, Module } from '@nestjs/common';
 import { ObservationsService } from './observations.service';
 import { ObservationsController } from './observations.controller';

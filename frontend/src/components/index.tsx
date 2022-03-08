@@ -1,8 +1,10 @@
 /* istanbul ignore file */
 import Button from './Button';
+import { ErrorFallback } from './Error';
 import HeaderGuri from './HeaderGuri';
-import IconButton from './IconButton';
+import { IconButton } from './IconButton';
 import { RadioButton, RadioButtonGroup } from './Input/RadioInput';
+import { SelectInput } from './Input/SelectInput';
 import TextInput from './Input/TextInput';
 import { LandingCard } from './LandingCard';
 import ProgressBar from './ProgressBar/ProgressBar';
@@ -18,4 +20,6 @@ export {
   HeaderGuri,
   SolicitacaoItem,
   IconButton,
+  ErrorFallback,
+  SelectInput,
 };

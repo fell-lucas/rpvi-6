@@ -15,6 +15,7 @@ import { User } from '../../auth/user.entity';
 import { Observation } from '../../observations/entities/observation.entity';
 import { Institution } from './institution.entity';
 import { Intern } from './intern.entity';
+import { InternshipData } from './internshipData.entity';
 import { SolicitationStatus } from './solicitation-status.enum';
 import { Unit } from './unit.entity';
 
@@ -53,6 +54,13 @@ export class Solicitation {
   @JoinColumn()
   @Exclude({ toPlainOnly: true })
   user!: User;
+
+  @OneToOne(() => InternshipData, {
+    eager: true,
+    cascade: true,
+  })
+  @JoinColumn()
+  dadosEstagio: InternshipData;
 
   @CreateDateColumn()
   created_at: Date;

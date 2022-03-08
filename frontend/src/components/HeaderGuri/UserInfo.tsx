@@ -1,8 +1,6 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import ContentLoader from 'react-content-loader';
+import { FaSignOutAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
 import useUser from '../../hooks/useUser';
@@ -44,7 +42,9 @@ export default function UserInfo() {
             >
               {capitalizeFirstLetter(user?.role)}
             </div>
-            <p className='truncate w-44'>{user !== undefined && user.name}</p>
+            <p className='truncate max-w-44'>
+              {user !== undefined && user.name}
+            </p>
           </div>
         )}
       </div>
@@ -65,12 +65,9 @@ export default function UserInfo() {
           sessionStorage.removeItem('token');
           global.location.reload();
         }}
-        className={classNames(
-          'inline-block whitespace-nowrap active:scale-90 hover:text-green-300'
-        )}
+        className='active:scale-90 hover:text-green-300'
       >
-        <FontAwesomeIcon icon={faSignOutAlt as IconProp} />
-        &nbsp;Sair
+        <FaSignOutAlt />
       </button>
     </div>
   );

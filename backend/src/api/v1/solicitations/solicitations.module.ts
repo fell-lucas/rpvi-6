@@ -9,6 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SolicitationsRepository } from './repositories/solicitations.repository';
 import { AuthModule } from '../auth/auth.module';
 import { ObservationsModule } from '../observations/observations.module';
+import { InternshipDataRepository } from './repositories/internshipData.repository';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ObservationsModule } from '../observations/observations.module';
       InternsRepository,
       InstitutionsRepository,
       UnitsRepository,
+      InternshipDataRepository,
     ]),
     AuthModule,
     forwardRef(() => ObservationsModule),

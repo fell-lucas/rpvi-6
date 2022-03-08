@@ -62,9 +62,6 @@ export class Intern {
   @Column()
   semestre: string;
 
-  @Column()
-  estagioObrigatorio: boolean;
-
   @CreateDateColumn()
   created_at: Date;
 

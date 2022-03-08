@@ -1,7 +1,8 @@
-import { Campus } from ".";
+import { Campus } from '.';
 
 export interface User {
-  [x: string]: string | undefined | Campus | UserRole; 
+  [x: string]: string | undefined | Campus | UserRole;
+  id: string;
   name: string;
   email: string;
   campus: Campus;

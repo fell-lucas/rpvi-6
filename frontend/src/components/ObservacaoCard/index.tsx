@@ -1,8 +1,7 @@
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faCheck, faExclamation } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { useState } from 'react';
+import { IconContext } from 'react-icons';
+import { FaCheck, FaExclamation } from 'react-icons/fa';
 import Spinner from 'react-spinkit';
 import Swal from 'sweetalert2';
 import { ZonedDateTime } from 'temporal-polyfill';
@@ -33,7 +32,6 @@ export const ObservacaoCard = ({
       confirmButtonText: 'Resolver',
     });
     if (!isConfirmed || !id) return;
-    console.log(id);
     setIsLoading(true);
     try {
       await api.patch(
@@ -41,7 +39,7 @@ export const ObservacaoCard = ({
         JSON.stringify({ resolved: true } as Observacao)
       );
       setIsLoading(false);
-      setFakeResolved(true);
+      setFakeResolved(!resolved);
     } catch (error) {
       setIsLoading(false);
       console.log(error);
@@ -54,7 +52,9 @@ export const ObservacaoCard = ({
       title={disabled || fakeResolved || isAluno ? '' : 'Clique para resolver'}
       disabled={disabled || fakeResolved || isAluno}
       onClick={() => handleResolve()}
-      className={classNames('group flex flex-col flex-start col-span-3')}
+      className={classNames(
+        'group flex flex-col flex-start col-span-12 md:col-span-6 lg:col-span-3'
+      )}
     >
       <div
         className={classNames(
@@ -68,22 +68,20 @@ export const ObservacaoCard = ({
         {!fakeResolved && (
           <span className='animate-ping -top-3 -right-3 absolute h-6 w-6 rounded-full opacity-75 bg-amber-400'></span>
         )}
-        <FontAwesomeIcon
-          icon={
-            fakeResolved
-              ? (faCheck as IconDefinition)
-              : (faExclamation as IconDefinition)
-          }
-          color='white'
-          size='sm'
-          className={classNames(
-            'absolute p-1 -top-3 -right-3 rounded-full h-4 w-4',
-            {
-              'bg-green-500': fakeResolved,
-              'bg-amber-500': !fakeResolved,
-            }
-          )}
-        />
+        <IconContext.Provider
+          value={{
+            color: 'white',
+            className: classNames(
+              'absolute p-1 -top-2 -right-2 rounded-full h-4 w-4',
+              {
+                'bg-green-500': fakeResolved,
+                'bg-amber-500': !fakeResolved,
+              }
+            ),
+          }}
+        >
+          {fakeResolved ? <FaCheck /> : <FaExclamation />}
+        </IconContext.Provider>
         <>
           <h2 className='text-md text-left'>
             <span className='group-hover:text-white'>{nomeAutor}&nbsp;</span>

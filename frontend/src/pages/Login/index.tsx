@@ -32,7 +32,7 @@ export default function Login({ setToken }: LoginProps) {
     <>
       <ProgressBar hide items={0} active={0} />
       <LandingCard items='center'>
-        <div className='flex flex-col border rounded-lg shadow-lg px-8 py-6 w-1/3'>
+        <div className='flex flex-col border rounded-lg shadow-lg px-8 py-6'>
           <div className='border-b pb-4'>
             <h2 className='font-bold text-gray-600'>Faça seu Login </h2>
           </div>
@@ -48,8 +48,16 @@ export default function Login({ setToken }: LoginProps) {
                   JSON.stringify(values)
                 );
                 setToken(data.accessToken);
-              } catch (error) {
-                Swal.fire(errorAlert);
+              } catch (error: any) {
+                if ((error.message as string).includes('401')) {
+                  Swal.fire({
+                    ...errorAlert,
+                    title: 'Credenciais inválidas.',
+                    text: "Por favor, tente novamente. Caso ainda não se lembre, pressione 'Esqueci minha senha'.",
+                  });
+                } else {
+                  Swal.fire(errorAlert);
+                }
               }
             }}
             validationSchema={userValidation}

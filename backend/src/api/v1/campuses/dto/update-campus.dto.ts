@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateCampusDto } from './create-campus.dto';
 

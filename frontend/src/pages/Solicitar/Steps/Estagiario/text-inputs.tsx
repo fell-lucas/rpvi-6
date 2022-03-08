@@ -1,11 +1,11 @@
-import { Field, FormikErrors, FormikTouched } from 'formik';
+import { FormikErrors, FormikTouched } from 'formik';
 
 import {
-  RadioButton,
-  RadioButtonGroup,
+  SelectInput,
   TextInput,
 } from '../../../../components';
 
+import useCampus from '../../../../hooks/useCampus';
 import { Solicitacao } from '../../../../models';
 
 interface Props {
@@ -19,6 +19,8 @@ export const EstagiarioTextInputs = ({
   touched,
   disabled = false,
 }: Props) => {
+  const { campusList } = useCampus();
+
   return (
     <>
       {[
@@ -32,8 +34,6 @@ export const EstagiarioTextInputs = ({
         ['Curso', 'curso', '', '3'],
         ['Telefone', 'telefone', '( )', '3'],
         ['CEP', 'cep', '', '3'],
-        ['Campus', 'campus', '', '3'],
-        ['Semestre', 'semestre', '', '3'],
       ].map(([label, name, ph, span]) => (
         <TextInput
           key={name}
@@ -46,28 +46,25 @@ export const EstagiarioTextInputs = ({
           touched={touched.estagiario}
         />
       ))}
-      <div className='col-span-6 justify-start'>
-        <RadioButtonGroup
-          label='Estágio Obrigatório : '
-          error={errors.estagiario?.estagioObrigatorio}
-          touched={touched.estagiario?.estagioObrigatorio}
-        >
-          <Field
-            component={RadioButton}
-            name='estagiario.estagioObrigatorio'
-            id='estagiario.estagioObrigatorio1'
-            label='Obrigatório'
-            disabled={disabled}
-          />
-          <Field
-            component={RadioButton}
-            name='estagiario.estagioObrigatorio'
-            id='estagiario.estagioObrigatorio2'
-            label='Não obrigatório'
-            disabled={disabled}
-          />
-        </RadioButtonGroup>
-      </div>
+      <SelectInput
+        disabled={disabled}
+        label={'Campus'}
+        name='estagiario.campus'
+        placeholder={'Campus'}
+        inputSpan='3'
+        errors={errors.estagiario}
+        touched={touched.estagiario}
+        options={campusList ?? []}
+      />
+      <TextInput
+        disabled={disabled}
+        label={'Semestre'}
+        name={`estagiario.semestre`}
+        placeholder={'Semestre'}
+        inputSpan='3'
+        errors={errors.estagiario}
+        touched={touched.estagiario}
+      />
     </>
   );
 };

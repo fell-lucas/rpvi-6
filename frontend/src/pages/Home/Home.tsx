@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -21,7 +20,7 @@ export default class Home extends Component {
             <div className='flex flex-col items-center justify-center flex-1 gap-6'>
               <img src={logo} width='80%' alt='unipampa_logo' />
             </div>
-            <div className='flex gap-12 flex-1 mt-8'>
+            <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 flex-1 mt-8'>
               {[
                 [
                   SolicitarRoute,
@@ -31,10 +30,15 @@ export default class Home extends Component {
                 ['/acompanhar', 'Acompanhar Processo', writtenFile],
                 ['/relatorio', 'Submeter Relatórios', multipleFiles],
               ].map(([url, desc, img]) => (
-                <Link to={url} key={url} data-testid={`btn_${url}`}>
-                  <div className='w-72 items-center flex justify-center flex-col gap-8 border-2 p-4 border-black rounded-lg h-60'>
+                <Link
+                  className='h-60 hover:scale-90 transition-transform'
+                  to={url}
+                  key={url}
+                  data-testid={`btn_${url}`}
+                >
+                  <div className='w-[16rem] h-full items-center flex justify-center flex-col gap-8 p-4 shadow-lg rounded-lg '>
                     <img src={img} alt={`${img}_icon`} />
-                    <p className={classNames('text-center')}>{desc}</p>
+                    <p className='text-center'>{desc}</p>
                   </div>
                 </Link>
               ))}

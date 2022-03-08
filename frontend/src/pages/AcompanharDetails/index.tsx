@@ -1,9 +1,8 @@
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import useAxios, { configure } from 'axios-hooks';
 import classNames from 'classnames';
 import { Field, Formik } from 'formik';
 import { useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import Spinner from 'react-spinkit';
@@ -13,8 +12,14 @@ import { Button, IconButton, LandingCard, ProgressBar } from '../../components';
 import { ObservacaoCard } from '../../components/ObservacaoCard';
 
 import { AcompanharRoute } from '..';
+import { useSolicitacaoList } from '../../hooks';
 import useUser from '../../hooks/useUser';
-import { Observacao, Solicitacao, SolicitacaoStatus, ObservacaoList } from '../../models';
+import {
+  Observacao,
+  ObservacaoList,
+  Solicitacao,
+  SolicitacaoStatus,
+} from '../../models';
 import { api, endpoints } from '../../services';
 import { colorAccordingToStatus, mapEstagiario } from '../../utils';
 import { errorAlert, warningAlert } from '../../utils/swal-alerts';
@@ -24,6 +29,7 @@ import { UnidadeConcedenteTextInputs } from '../Solicitar/Steps/UnidadeConcedent
 import { initialValues } from './initial-values';
 import { SkeletonLoader } from './skeleton-loader';
 import { validationsObservacao } from './validation-schema';
+import { DadosEstagioTextInputs } from '../Solicitar/Steps/DadosEstagio/text-inputs';
 
 configure({ axios: api });
 
@@ -33,15 +39,18 @@ export default function AcompanharDetails() {
   const navigate = useNavigate();
   const { isAluno } = useUser();
 
-  const [{ data, loading, error }, refetch] = useAxios<Solicitacao>(
+  const [{ data, loading }] = useAxios<Solicitacao>(
     `${endpoints.solicitacoes}/${id}`,
     { useCache: false }
   );
+  console.log(data);
 
-  const [{ data:obsList }, obsRefetch] = useAxios<ObservacaoList>(
+  const [{ data: obsList }, obsRefetch] = useAxios<ObservacaoList>(
     `${endpoints.observacoes}/solicitacao/${id}`,
     { useCache: false }
   );
+
+  const { refetchSolicitationList } = useSolicitacaoList();
 
   const canEdit = isAluno && data?.status === SolicitacaoStatus.ChangeRequested;
 
@@ -56,6 +65,7 @@ export default function AcompanharDetails() {
     } as Solicitacao;
     try {
       await api.patch(`${endpoints.solicitacoes}/${id}`, solicitacao);
+      refetchSolicitationList();
       setApproveloading(false);
       Swal.fire({
         icon: 'success',
@@ -85,10 +95,9 @@ export default function AcompanharDetails() {
           <div className='flex items-end w-full mb-8'>
             <div className='w-1/3'>
               <Link to={AcompanharRoute}>
-                <IconButton
-                  icon={faArrowLeft as IconDefinition}
-                  data-testid={`acompanhamentos_${id}_back`}
-                />
+                <IconButton data-testid={`acompanhamentos_${id}_back`}>
+                  <FaArrowLeft />
+                </IconButton>
               </Link>
             </div>
             <h2 className='inline font-bold text-2xl w-2/3 text-right border-b-gray-400 border-b pb-3'>
@@ -106,16 +115,6 @@ export default function AcompanharDetails() {
 
           {loading ? (
             <SkeletonLoader />
-          ) : error ? (
-            <div className='m-auto flex flex-col items-center gap-4'>
-              <h2 className='text-xl text-red-700'>
-                Algo deu errado ao recuperar a solicitação. Tente efetuar login
-                novamente.
-              </h2>
-              <div>
-                <Button onClick={() => refetch()}>Tentar novamente</Button>
-              </div>
-            </div>
           ) : data !== undefined ? (
             <>
               <Formik
@@ -139,6 +138,7 @@ export default function AcompanharDetails() {
                       `${endpoints.solicitacoes}/${id}`,
                       JSON.stringify(solicitacao)
                     );
+                    refetchSolicitationList();
                     setSubmitting(false);
                     Swal.fire({
                       icon: 'success',
@@ -177,6 +177,14 @@ export default function AcompanharDetails() {
                       INSTITUIÇÃO DE ENSINO
                     </h2>
                     <InstituicaoTextInputs
+                      errors={errors}
+                      touched={touched}
+                      disabled={!canEdit}
+                    />
+                    <h2 className='font-bold text-2xl col-span-12 border-b mt-4 w-2/3 border-gray-400'>
+                      DADOS DO ESTÁGIO
+                    </h2>
+                    <DadosEstagioTextInputs
                       errors={errors}
                       touched={touched}
                       disabled={!canEdit}
@@ -221,6 +229,7 @@ export default function AcompanharDetails() {
                           `${endpoints.observacoes}/${id}`,
                           JSON.stringify(values)
                         );
+                        refetchSolicitationList();
                         setSubmitting(false);
                         Swal.fire({
                           icon: 'success',

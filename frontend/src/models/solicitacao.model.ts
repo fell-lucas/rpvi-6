@@ -1,23 +1,26 @@
 import { Estagiario, Instituicao, Observacao, UnidadeConcedente } from '.';
+import { DadosEstagio } from './dados-estagio.model';
 
 export interface Solicitacao {
   [index: string]:
     | Estagiario
     | Instituicao
     | UnidadeConcedente
+    | DadosEstagio
     | SolicitacaoStatus
     | Observacao[]
     | Date
     | undefined
     | string;
-  id: string;
-  status: SolicitacaoStatus;
+  id?: string;
+  status?: SolicitacaoStatus;
   estagiario: Estagiario;
   instituicao: Instituicao;
   unidadeConcedente: UnidadeConcedente;
+  dadosEstagio: DadosEstagio;
   observacoes?: Observacao[];
-  created_at: Date | string;
-  updated_at: Date | string;
+  created_at?: Date | string;
+  updated_at?: Date | string;
 }
 
 export enum SolicitacaoStatus {

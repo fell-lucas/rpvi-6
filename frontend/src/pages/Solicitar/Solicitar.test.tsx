@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { Home, HomeRoute } from '..';
-import Solicitar, { SolicitarRoute } from './Solicitar';
+import { SolicitarPage, SolicitarRoute } from './Solicitar';
 import EstagiarioStep from './Steps/Estagiario';
 import InstituicaoStep from './Steps/Instituicao';
 import UnidadeConcedenteStep from './Steps/UnidadeConcedente';
@@ -11,7 +11,7 @@ import UnidadeConcedenteStep from './Steps/UnidadeConcedente';
 test('renders solicitacao form page', () => {
   render(
     <BrowserRouter>
-      <Solicitar />
+      <SolicitarPage />
     </BrowserRouter>
   );
   const elem = screen.getByText(/ESTAGIÁRIO/i);
@@ -59,7 +59,7 @@ test('presses go back button at home initial step', () => {
     <BrowserRouter>
       <Routes>
         <Route path={HomeRoute} element={<Home />} />
-        <Route path={SolicitarRoute} element={<Solicitar />} />
+        <Route path={SolicitarRoute} element={<SolicitarPage />} />
       </Routes>
     </BrowserRouter>
   );
