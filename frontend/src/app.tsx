@@ -9,6 +9,8 @@ import {
   Home,
   HomeRoute,
   Login,
+  Relatorio,
+  RelatorioRoute,
   SolicitarPage,
   SolicitarRoute,
 } from './pages';
@@ -40,6 +42,7 @@ export default function App() {
             <Route path={HomeRoute} element={<Home />} />
             <Route path={SolicitarRoute} element={<SolicitarPage />} />
             <Route path={AcompanharRoute} element={<Acompanhar />} />
+            <Route path={RelatorioRoute} element={<Relatorio />} />
             <Route
               path={`${AcompanharRoute}/:id`}
               element={<AcompanharDetails />}
