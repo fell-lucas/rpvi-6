@@ -10,6 +10,8 @@ import { SolicitationsRepository } from './repositories/solicitations.repository
 import { AuthModule } from '../auth/auth.module';
 import { ObservationsModule } from '../observations/observations.module';
 import { InternshipDataRepository } from './repositories/internshipData.repository';
+import { UnitsController } from './units.controller';
+import { UnitsService } from './units.service';
 
 @Module({
   imports: [
@@ -23,8 +25,8 @@ import { InternshipDataRepository } from './repositories/internshipData.reposito
     AuthModule,
     forwardRef(() => ObservationsModule),
   ],
-  controllers: [SolicitationsController],
-  providers: [SolicitationsService],
+  controllers: [SolicitationsController, UnitsController],
+  providers: [SolicitationsService, UnitsService],
   exports: [SolicitationsService],
 })
 export class SolicitationsModule {}
