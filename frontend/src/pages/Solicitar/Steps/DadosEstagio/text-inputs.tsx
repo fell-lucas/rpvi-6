@@ -25,11 +25,11 @@ export const DadosEstagioTextInputs = ({
   return (
     <>
       {[
-        ['Data de Início', 'dataInicio', '', '3'],
-        ['Data de Fim', 'dataFim', '', '3'],
-        ['Horario de Início', 'horarioInicial', '', '3'],
-        ['Horario de Fim', 'horarioFinal', '', '3'],
-        ['Intervalo', 'intervalo', '', '3'],
+        ['Data de Início', 'dataInicio', '', '11'],
+        ['Data de Fim', 'dataFim', '', '11'],
+        ['Horario de Início', 'horarioInicial', '', '11'],
+        ['Horario de Fim', 'horarioFinal', '', '11'],
+        ['Intervalo', 'intervalo', '', '11'],
       ].map(([label, name, ph, span, labelSpan]) => (
         <TextInput
           key={name}
@@ -49,7 +49,7 @@ export const DadosEstagioTextInputs = ({
           label={'Remuneração'}
           name={`dadosEstagio.valorRemuneracao`}
           placeholder={'Valor em reais'}
-          inputSpan={'3'}
+          inputSpan={'11'}
           errors={errors.dadosEstagio}
           touched={touched.dadosEstagio}
         />
@@ -59,7 +59,7 @@ export const DadosEstagioTextInputs = ({
         label={'Carga Horária'}
         name='dadosEstagio.cargaHoraria'
         placeholder={'Carga Horária'}
-        inputSpan='3'
+        inputSpan='11'
         errors={errors.dadosEstagio}
         touched={touched.dadosEstagio}
         options={['2', '4', '8']}

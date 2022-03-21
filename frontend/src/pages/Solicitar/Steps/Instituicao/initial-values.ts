@@ -27,6 +27,8 @@ export const mapCampusWithAddress = (campus?: Campus) => {
         cep: '96570000',
         cidade: 'Alegrete',
         uf: 'RS',
+        representanteLegal: 'Ederli Marangon',
+        cargoRepresentante: 'Diretor do Campus'
       };
     case 'Uruguaiana':
       return {
@@ -37,6 +39,8 @@ export const mapCampusWithAddress = (campus?: Campus) => {
         cep: '97501970',
         cidade: 'Uruguaiana',
         uf: 'RS',
+        representanteLegal: 'Cheila Denise Ottoneli Stopiglia',
+        cargoRepresentante: 'Diretor do Campus'
       };
     default:
       return {};

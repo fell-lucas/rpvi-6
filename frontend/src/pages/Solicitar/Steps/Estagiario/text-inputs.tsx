@@ -31,13 +31,13 @@ export const EstagiarioTextInputs = ({
         ['E-mail', 'email', '', '3'],
         ['Bairro', 'bairro', '', '3'],
         ['UF', 'uf', '', '3'],
-        ['Curso', 'curso', '', '3'],
+        ['Curso', 'curso', '', '3', 'true'],
         ['Telefone', 'telefone', '( )', '3'],
         ['CEP', 'cep', '', '3'],
-      ].map(([label, name, ph, span]) => (
+      ].map(([label, name, ph, span, isDisabled]) => (
         <TextInput
           key={name}
-          disabled={disabled}
+          disabled={isDisabled === 'true' ? true : disabled}
           label={label}
           name={`estagiario.${name}`}
           placeholder={ph !== '' ? ph : label}

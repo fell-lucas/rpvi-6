@@ -58,7 +58,7 @@ export default class TextInput extends Component<InputProps> {
             disabled={p.disabled}
             name={p.name}
             id={p.name}
-            className={classNames('w-full', { 'border-red-600': hasError })}
+            className={classNames('w-full', { 'border-red-600': hasError, 'bg-gray-200' : p.disabled })}
             type={p.name === 'password' ? 'password' : 'text'}
             placeholder={p.placeholder ?? p.label}
           />

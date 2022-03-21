@@ -19,7 +19,7 @@ export default class UnidadeConcedenteStep extends Component<UnidadeConcedentePr
             UNIDADE CONCEDENTE / SETOR DA UNIPAMPA
           </h2>
         </div>
-        <div className='grid md:grid-cols-8 lg:grid-cols-12 gap-4 items-center mt-8'>
+        <div className='grid md:grid-cols-4 lg:grid-cols-4 gap-4 items-center mt-8'>
           <UnidadeConcedenteTextInputs
             errors={this.props.errors}
             touched={this.props.touched}
