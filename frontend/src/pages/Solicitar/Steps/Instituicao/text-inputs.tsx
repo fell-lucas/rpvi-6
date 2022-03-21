@@ -36,7 +36,7 @@ export const InstituicaoTextInputs = ({
       ].map(([label, name, ph, span, labelSpan]) => (
         <TextInput
           key={name}
-          disabled={disabled}
+          disabled={true}
           label={label}
           name={`instituicao.${name}`}
           placeholder={ph !== '' ? ph : label}
