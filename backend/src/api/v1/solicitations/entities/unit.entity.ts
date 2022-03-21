@@ -3,7 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,12 +14,14 @@ export class Unit {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(
-    (type) => Solicitation,
+  @OneToMany(
+    (_type) => Solicitation,
     (solicitation) => solicitation.unidadeConcedente,
-    { onDelete: 'CASCADE' },
+    {
+      eager: false,
+    },
   )
-  solicitacao!: Solicitation;
+  solicitacoes!: Solicitation[];
 
   @Column()
   razaoSocial: string;

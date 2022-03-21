@@ -1,6 +1,8 @@
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UnitDto {
+  @IsOptional()
+  id: string;
   @IsString()
   razaoSocial: string;
   @IsString()
