@@ -2,8 +2,7 @@ import classNames from 'classnames';
 import { Field, FormikErrors, FormikTouched } from 'formik';
 import ContentLoader from 'react-content-loader';
 
-import useCampus from '../../../hooks/useCampus';
-import { Campus, User } from '../../../models';
+import { Campus, Solicitacao, UnidadeConcedente, User } from '../../../models';
 import { colSpan } from '../../../utils/helpers';
 
 type InputProps = {
@@ -16,7 +15,9 @@ type InputProps = {
   errors?: FormikErrors<{ [x: string]: string }>;
   touched?: FormikTouched<{ [x: string]: string }>;
   disabled?: boolean;
-  options: Campus[] | User[] | string[];
+  options: Campus[] | User[] | string[] | UnidadeConcedente[];
+  isLoading?: boolean;
+  values?: Solicitacao;
 };
 
 const Skeleton = (
@@ -39,13 +40,15 @@ export const SelectInput = ({
   inputSpan,
   labelSpan,
   placeholder,
+  isLoading = false,
+  values,
 }: InputProps) => {
   const fieldname = name.split('.')[1] ?? name;
   const errors = errorsProp?.[fieldname];
   const touched = touchedProp?.[fieldname];
   const hasError = !!errors && touched;
 
-  const { campusLoading } = useCampus();
+  const isUnidade = (e: any): e is UnidadeConcedente => !!e.razaoSocial;
 
   return (
     <>
@@ -71,7 +74,7 @@ export const SelectInput = ({
         >
           {hasError && errorsProp?.[fieldname]}
         </small>
-        {campusLoading ? (
+        {isLoading ? (
           Skeleton
         ) : (
           <Field
@@ -89,6 +92,14 @@ export const SelectInput = ({
               const isCampus = (e: any): e is Campus => !!e.cidade;
               const isUser = (e: any): e is User => !!e.name;
               const isString = (e: any): e is string => !!e;
+
+              if (isUnidade(option)) {
+                return (
+                  <option key={option.id} value={option.id}>
+                    {`${option.razaoSocial} - ${option.cnpj}`}
+                  </option>
+                );
+              }
               if (isCampus(option)) {
                 return (
                   <option key={option.id} value={option.id}>

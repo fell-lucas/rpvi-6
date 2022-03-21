@@ -1,6 +1,7 @@
 import { UnidadeConcedente } from '../../../../models';
 
 export const unidadeInitialValues = {
+  id: '',
   razaoSocial: '',
   telefone: '',
   endereco: '',

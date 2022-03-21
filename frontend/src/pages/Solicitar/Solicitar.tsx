@@ -93,6 +93,7 @@ export const SolicitarPage = () => {
         key='unidade_step'
         errors={errors as FormikErrors<Solicitacao>}
         touched={touched as FormikTouched<Solicitacao>}
+        values={values}
       />,
       <InstituicaoStep
         key='instituicao_step'
