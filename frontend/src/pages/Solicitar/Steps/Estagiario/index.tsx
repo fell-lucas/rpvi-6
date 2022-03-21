@@ -19,7 +19,7 @@ export default class EstagiarioStep extends Component<EstagiarioProps> {
             ESTAGIÁRIO
           </h2>
         </div>
-        <div className='grid md:grid-cols-8 grid-cols-12 gap-4 items-center mt-8'>
+        <div className='grid md:grid-cols-4 lg:grid-cols-4 gap-4 items-center mt-8'>
           <EstagiarioTextInputs
             errors={this.props.errors}
             touched={this.props.touched}

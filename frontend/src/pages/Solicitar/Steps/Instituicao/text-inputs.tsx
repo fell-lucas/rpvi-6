@@ -23,16 +23,16 @@ export const InstituicaoTextInputs = ({
   return (
     <>
       {[
-        ['Razão Social', 'razaoSocial', 'Nome completo', '6'],
-        ['Telefone', 'telefone', '( )', '4'],
+        ['Razão Social', 'razaoSocial', 'Nome completo', '3'],
+        ['Telefone', 'telefone', '( )', '3'],
         ['Endereço', 'endereco', '', '3'],
-        ['Bairro', 'bairro', '', '2'],
-        ['CEP', 'cep', '', '4'],
+        ['Bairro', 'bairro', '', '3'],
+        ['CEP', 'cep', '', '3'],
         ['Cidade', 'cidade', '', '3'],
-        ['UF', 'uf', '', '2'],
-        ['CNPJ', 'cnpj', '', '4'],
-        ['Nome do Representante Legal', 'representanteLegal', '', '5', '2'],
-        ['Cargo', 'cargoRepresentante', 'Cargo do Representante Legal', '4'],
+        ['UF', 'uf', '', '3'],
+        ['CNPJ', 'cnpj', '', '3'],
+        ['Nome do Representante Legal', 'representanteLegal', '', '3', '1'],
+        ['Cargo', 'cargoRepresentante', 'Cargo do Representante Legal', '3'],
       ].map(([label, name, ph, span, labelSpan]) => (
         <TextInput
           key={name}
@@ -50,8 +50,8 @@ export const InstituicaoTextInputs = ({
         disabled={disabled}
         label={'Orientador de Estágio'}
         name='instituicao.orientadorEstagio'
-        inputSpan='5'
-        labelSpan='2'
+        inputSpan='3'
+        labelSpan='1'
         errors={errors.instituicao}
         touched={touched.instituicao}
         options={orientadorList ?? []}
@@ -61,7 +61,7 @@ export const InstituicaoTextInputs = ({
         label={'Campus'}
         name='instituicao.campus'
         placeholder={'Campus'}
-        inputSpan='4'
+        inputSpan='3'
         errors={errors.instituicao}
         touched={touched.instituicao}
         options={campusList ?? []}
