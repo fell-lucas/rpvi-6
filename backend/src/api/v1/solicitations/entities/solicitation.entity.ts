@@ -28,7 +28,7 @@ export class Solicitation {
   @JoinColumn()
   estagiario: Intern;
 
-  @ManyToOne((type) => Unit, (campus) => campus.solicitacoes, {
+  @ManyToOne((type) => Unit, (unit) => unit.solicitacoes, {
     eager: true,
     cascade: true,
   })
