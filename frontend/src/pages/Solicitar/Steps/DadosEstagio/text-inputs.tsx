@@ -49,7 +49,7 @@ export const DadosEstagioTextInputs = ({
           label={'Remuneração'}
           name={`dadosEstagio.valorRemuneracao`}
           placeholder={'Valor em reais'}
-          inputSpan={'3'}
+          inputSpan={'11'}
           errors={errors.dadosEstagio}
           touched={touched.dadosEstagio}
         />
