@@ -1,9 +1,11 @@
 import classNames from 'classnames';
-import { Field, FormikErrors, FormikTouched } from 'formik';
+import { Field, FormikErrors, FormikTouched, useFormikContext } from 'formik';
 import ContentLoader from 'react-content-loader';
 
-import useCampus from '../../../hooks/useCampus';
-import { Campus, User } from '../../../models';
+import { unidadeInitialValues } from '../../../pages/Solicitar/Steps/UnidadeConcedente/initialValues';
+
+import { useUnidade } from '../../../hooks';
+import { Campus, UnidadeConcedente, User } from '../../../models';
 import { colSpan } from '../../../utils/helpers';
 
 type InputProps = {
@@ -16,7 +18,8 @@ type InputProps = {
   errors?: FormikErrors<{ [x: string]: string }>;
   touched?: FormikTouched<{ [x: string]: string }>;
   disabled?: boolean;
-  options: Campus[] | User[] | string[];
+  options: Campus[] | User[] | string[] | UnidadeConcedente[];
+  isLoading?: boolean;
 };
 
 const Skeleton = (
@@ -39,13 +42,17 @@ export const SelectInput = ({
   inputSpan,
   labelSpan,
   placeholder,
+  isLoading = false,
 }: InputProps) => {
   const fieldname = name.split('.')[1] ?? name;
   const errors = errorsProp?.[fieldname];
   const touched = touchedProp?.[fieldname];
   const hasError = !!errors && touched;
 
-  const { campusLoading } = useCampus();
+  const isUnidade = (e: any): e is UnidadeConcedente => !!e.razaoSocial;
+
+  const { setSelected } = useUnidade();
+  const { setFieldValue } = useFormikContext();
 
   return (
     <>
@@ -71,7 +78,7 @@ export const SelectInput = ({
         >
           {hasError && errorsProp?.[fieldname]}
         </small>
-        {campusLoading ? (
+        {isLoading ? (
           Skeleton
         ) : (
           <Field
@@ -79,16 +86,69 @@ export const SelectInput = ({
             disabled={disabled}
             name={name}
             id={name}
-            className={classNames('w-full', { 'border-red-600': hasError })}
+            className={classNames('w-full', {
+              'border-red-600': hasError,
+              'bg-gray-200': disabled,
+            })}
             type={name === 'password' ? 'password' : 'text'}
             placeholder={placeholder ?? label}
             component='select'
+            onChange={(event: any) => {
+              const optionValue =
+                event.target.options[event.target.options.selectedIndex].value;
+              if (event.target.id === 'fake') {
+                const unidadeId = optionValue;
+                let unidade = setSelected(unidadeId);
+                if (unidade === undefined) {
+                  unidade = unidadeInitialValues;
+                }
+                setFieldValue('unidadeConcedente.id', unidade.id);
+                setFieldValue(
+                  'unidadeConcedente.razaoSocial',
+                  unidade.razaoSocial
+                );
+
+                setFieldValue('unidadeConcedente.telefone', unidade.telefone);
+                setFieldValue('unidadeConcedente.endereco', unidade.endereco);
+                setFieldValue('unidadeConcedente.bairro', unidade.bairro);
+                setFieldValue('unidadeConcedente.cep', unidade.cep);
+                setFieldValue('unidadeConcedente.cidade', unidade.cidade);
+                setFieldValue('unidadeConcedente.uf', unidade.uf);
+                setFieldValue('unidadeConcedente.cnpj', unidade.cnpj);
+                setFieldValue(
+                  'unidadeConcedente.supervisorEstagio',
+                  unidade.supervisorEstagio
+                );
+                setFieldValue(
+                  'unidadeConcedente.cargoSupervisor',
+                  unidade.cargoSupervisor
+                );
+                setFieldValue(
+                  'unidadeConcedente.representanteLegal',
+                  unidade.representanteLegal
+                );
+                setFieldValue(
+                  'unidadeConcedente.cargoRepresentante',
+                  unidade.cargoRepresentante
+                );
+              } else {
+                setFieldValue(name, optionValue);
+              }
+            }}
           >
             <option value=''></option>
             {options.map((option) => {
               const isCampus = (e: any): e is Campus => !!e.cidade;
               const isUser = (e: any): e is User => !!e.name;
               const isString = (e: any): e is string => !!e;
+
+              if (isUnidade(option)) {
+                return (
+                  <option key={option.id} value={option.id}>
+                    {`${option.razaoSocial} - ${option.cnpj}`}
+                  </option>
+                );
+              }
               if (isCampus(option)) {
                 return (
                   <option key={option.id} value={option.id}>

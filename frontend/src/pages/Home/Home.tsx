@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -31,7 +32,10 @@ export default class Home extends Component {
                 ['/relatorio', 'Submeter Relatórios', multipleFiles],
               ].map(([url, desc, img]) => (
                 <Link
-                  className='h-60 hover:scale-90 transition-transform'
+                  className={classNames(
+                    'h-60 hover:scale-90 transition-transform',
+                    { 'pointer-events-none opacity-50': url === '/relatorio' }
+                  )}
                   to={url}
                   key={url}
                   data-testid={`btn_${url}`}

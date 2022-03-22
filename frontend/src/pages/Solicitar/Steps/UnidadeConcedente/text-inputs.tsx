@@ -1,7 +1,8 @@
-import { FormikErrors, FormikTouched } from 'formik';
+import { Field, FormikErrors, FormikTouched } from 'formik';
 
-import { TextInput } from '../../../../components';
+import { SelectInput, TextInput } from '../../../../components';
 
+import { useUnidade } from '../../../../hooks';
 import { Solicitacao } from '../../../../models';
 
 interface Props {
@@ -15,21 +16,41 @@ export const UnidadeConcedenteTextInputs = ({
   touched,
   disabled = false,
 }: Props) => {
+  const { unidadeList, unidadeLoading } = useUnidade();
+
   return (
     <>
+      {!disabled && (
+        <SelectInput
+          disabled={disabled}
+          label={'Unidade Concedente'}
+          name='fake'
+          placeholder={'Unidade'}
+          inputSpan='3'
+          options={unidadeList ?? []}
+          isLoading={unidadeLoading}
+        />
+      )}
+      <Field
+        type='text'
+        disabled
+        name='unidadeConcedente.id'
+        id='unidadeConcedente.id'
+        hidden
+      />
       {[
-        ['Razão Social', 'razaoSocial', 'Nome completo', '6'],
-        ['Telefone', 'telefone', '( )', '4'],
+        ['Razão Social', 'razaoSocial', 'Nome completo', '3'],
+        ['Telefone', 'telefone', '( )', '3'],
         ['Endereço', 'endereco', '', '3'],
-        ['Bairro', 'bairro', '', '2'],
-        ['CEP', 'cep', '', '4'],
+        ['Bairro', 'bairro', '', '3'],
+        ['CEP', 'cep', '', '3'],
         ['Cidade', 'cidade', '', '3'],
-        ['UF', 'uf', '', '2'],
-        ['CNPJ', 'cnpj', '', '4'],
-        ['Nome do Supervisor de Estágio', 'supervisorEstagio', '', '5', '2'],
-        ['Cargo', 'cargoSupervisor', 'Cargo do Supervisor de Estágio', '4'],
-        ['Nome do Representante Legal', 'representanteLegal', '', '5', '2'],
-        ['Cargo', 'cargoRepresentante', 'Cargo do Representante Legal', '4'],
+        ['UF', 'uf', '', '3'],
+        ['CNPJ', 'cnpj', '', '3'],
+        ['Nome do Supervisor de Estágio', 'supervisorEstagio', '', '3', '1'],
+        ['Cargo', 'cargoSupervisor', 'Cargo do Supervisor de Estágio', '3'],
+        ['Nome do Representante Legal', 'representanteLegal', '', '3', '1'],
+        ['Cargo', 'cargoRepresentante', 'Cargo do Representante Legal', '3'],
       ].map(([label, name, ph, span, labelSpan]) => (
         <TextInput
           key={name}
