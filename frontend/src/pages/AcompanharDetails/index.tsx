@@ -23,13 +23,13 @@ import {
 import { api, endpoints } from '../../services';
 import { colorAccordingToStatus, mapEstagiario } from '../../utils';
 import { errorAlert, warningAlert } from '../../utils/swal-alerts';
+import { DadosEstagioTextInputs } from '../Solicitar/Steps/DadosEstagio/text-inputs';
 import { EstagiarioTextInputs } from '../Solicitar/Steps/Estagiario/text-inputs';
 import { InstituicaoTextInputs } from '../Solicitar/Steps/Instituicao/text-inputs';
 import { UnidadeConcedenteTextInputs } from '../Solicitar/Steps/UnidadeConcedente/text-inputs';
 import { initialValues } from './initial-values';
 import { SkeletonLoader } from './skeleton-loader';
 import { validationsObservacao } from './validation-schema';
-import { DadosEstagioTextInputs } from '../Solicitar/Steps/DadosEstagio/text-inputs';
 
 configure({ axios: api });
 
@@ -67,7 +67,7 @@ export default function AcompanharDetails() {
       await api.patch(`${endpoints.solicitacoes}/${id}`, solicitacao);
       refetchSolicitationList();
       setApproveloading(false);
-      Swal.fire({
+      await Swal.fire({
         icon: 'success',
         title: 'Sucesso! Solicitação aprovada.',
         text: 'O TCE agora pode ser gerado.',
@@ -140,7 +140,7 @@ export default function AcompanharDetails() {
                     );
                     refetchSolicitationList();
                     setSubmitting(false);
-                    Swal.fire({
+                    await Swal.fire({
                       icon: 'success',
                       title: 'Sucesso! Solicitação enviada para reanálise.',
                       text: 'Aguarde avaliação do Interface.',
@@ -230,8 +230,9 @@ export default function AcompanharDetails() {
                           JSON.stringify(values)
                         );
                         refetchSolicitationList();
+                        obsRefetch();
                         setSubmitting(false);
-                        Swal.fire({
+                        await Swal.fire({
                           icon: 'success',
                           title:
                             'Sucesso! Sua requisição de mudança foi enviada.',
@@ -239,7 +240,6 @@ export default function AcompanharDetails() {
                           confirmButtonText: 'Ok',
                           confirmButtonColor: '#009045',
                         });
-                        obsRefetch();
                       } catch (error) {
                         setSubmitting(false);
                         console.log(error);
