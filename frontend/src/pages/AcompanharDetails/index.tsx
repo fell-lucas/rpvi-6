@@ -43,7 +43,6 @@ export default function AcompanharDetails() {
     `${endpoints.solicitacoes}/${id}`,
     { useCache: false }
   );
-  console.log(data);
 
   const [{ data: obsList }, obsRefetch] = useAxios<ObservacaoList>(
     `${endpoints.observacoes}/solicitacao/${id}`,
@@ -219,7 +218,10 @@ export default function AcompanharDetails() {
               <Formik
                 initialValues={{ observacao: '' } as Observacao}
                 validationSchema={validationsObservacao}
-                onSubmit={(values: Observacao, { setSubmitting }) => {
+                onSubmit={(
+                  values: Observacao,
+                  { setSubmitting, resetForm }
+                ) => {
                   setSubmitting(false);
                   Swal.fire(warningAlert).then(async (result) => {
                     if (result.isConfirmed) {
@@ -229,6 +231,7 @@ export default function AcompanharDetails() {
                           `${endpoints.observacoes}/${id}`,
                           JSON.stringify(values)
                         );
+                        resetForm();
                         refetchSolicitationList();
                         obsRefetch();
                         setSubmitting(false);
