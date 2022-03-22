@@ -1,8 +1,11 @@
 import classNames from 'classnames';
-import { Field, FormikErrors, FormikTouched } from 'formik';
+import { Field, FormikErrors, FormikTouched, useFormikContext } from 'formik';
 import ContentLoader from 'react-content-loader';
 
-import { Campus, Solicitacao, UnidadeConcedente, User } from '../../../models';
+import { unidadeInitialValues } from '../../../pages/Solicitar/Steps/UnidadeConcedente/initialValues';
+
+import { useUnidade } from '../../../hooks';
+import { Campus, UnidadeConcedente, User } from '../../../models';
 import { colSpan } from '../../../utils/helpers';
 
 type InputProps = {
@@ -17,7 +20,6 @@ type InputProps = {
   disabled?: boolean;
   options: Campus[] | User[] | string[] | UnidadeConcedente[];
   isLoading?: boolean;
-  values?: Solicitacao;
 };
 
 const Skeleton = (
@@ -41,7 +43,6 @@ export const SelectInput = ({
   labelSpan,
   placeholder,
   isLoading = false,
-  values,
 }: InputProps) => {
   const fieldname = name.split('.')[1] ?? name;
   const errors = errorsProp?.[fieldname];
@@ -49,6 +50,9 @@ export const SelectInput = ({
   const hasError = !!errors && touched;
 
   const isUnidade = (e: any): e is UnidadeConcedente => !!e.razaoSocial;
+
+  const { setSelected } = useUnidade();
+  const { setFieldValue } = useFormikContext();
 
   return (
     <>
@@ -82,10 +86,55 @@ export const SelectInput = ({
             disabled={disabled}
             name={name}
             id={name}
-            className={classNames('w-full', { 'border-red-600': hasError })}
+            className={classNames('w-full', {
+              'border-red-600': hasError,
+              'bg-gray-200': disabled,
+            })}
             type={name === 'password' ? 'password' : 'text'}
             placeholder={placeholder ?? label}
             component='select'
+            onChange={(event: any) => {
+              const optionValue =
+                event.target.options[event.target.options.selectedIndex].value;
+              if (event.target.id === 'fake') {
+                const unidadeId = optionValue;
+                let unidade = setSelected(unidadeId);
+                if (unidade === undefined) {
+                  unidade = unidadeInitialValues;
+                }
+                setFieldValue('unidadeConcedente.id', unidade.id);
+                setFieldValue(
+                  'unidadeConcedente.razaoSocial',
+                  unidade.razaoSocial
+                );
+
+                setFieldValue('unidadeConcedente.telefone', unidade.telefone);
+                setFieldValue('unidadeConcedente.endereco', unidade.endereco);
+                setFieldValue('unidadeConcedente.bairro', unidade.bairro);
+                setFieldValue('unidadeConcedente.cep', unidade.cep);
+                setFieldValue('unidadeConcedente.cidade', unidade.cidade);
+                setFieldValue('unidadeConcedente.uf', unidade.uf);
+                setFieldValue('unidadeConcedente.cnpj', unidade.cnpj);
+                setFieldValue(
+                  'unidadeConcedente.supervisorEstagio',
+                  unidade.supervisorEstagio
+                );
+                setFieldValue(
+                  'unidadeConcedente.cargoSupervisor',
+                  unidade.cargoSupervisor
+                );
+                setFieldValue(
+                  'unidadeConcedente.representanteLegal',
+                  unidade.representanteLegal
+                );
+                setFieldValue(
+                  'unidadeConcedente.cargoRepresentante',
+                  unidade.cargoRepresentante
+                );
+              } else {
+                setFieldValue(name, optionValue);
+              }
+            }}
           >
             <option value=''></option>
             {options.map((option) => {

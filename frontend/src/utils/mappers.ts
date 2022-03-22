@@ -1,4 +1,9 @@
-import { DadosEstagio, Estagiario, Instituicao } from '../models';
+import {
+  DadosEstagio,
+  Estagiario,
+  Instituicao,
+  UnidadeConcedente,
+} from '../models';
 
 export const mapEstagiario = (estagiario: Estagiario) => {
   return {
@@ -24,4 +29,15 @@ export const mapInstituicao = (instituicao: Instituicao) => {
     campus: { id: instituicao.campus },
     orientadorEstagio: { id: instituicao.orientadorEstagio },
   };
+};
+
+export const mapUnidadeConcedente = (unidade: UnidadeConcedente) => {
+  const uni = {
+    ...unidade,
+    id: unidade.id,
+  };
+  if (unidade.id === '') {
+    delete uni.id;
+  }
+  return uni;
 };

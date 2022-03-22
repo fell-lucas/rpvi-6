@@ -1,6 +1,6 @@
 export type UnidadeConcedente = {
-  [index: string]: string;
-  id: string;
+  [index: string]: string | undefined;
+  id?: string;
   razaoSocial: string;
   telefone: string;
   endereco: string;

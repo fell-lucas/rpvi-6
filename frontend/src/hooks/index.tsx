@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 import useCampus from './useCampus';
+import useFormValues from './useFormValues';
 import useOrientador from './useOrientador';
 import useSolicitacaoList from './useSolicitacaoList';
 import useToken from './useToken';
@@ -13,4 +14,5 @@ export {
   useCampus,
   useOrientador,
   useUnidade,
+  useFormValues,
 };

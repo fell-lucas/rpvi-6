@@ -1,4 +1,4 @@
-import { FormikErrors, FormikTouched } from 'formik';
+import { Field, FormikErrors, FormikTouched } from 'formik';
 
 import { SelectInput, TextInput } from '../../../../components';
 
@@ -9,28 +9,34 @@ interface Props {
   errors: FormikErrors<Solicitacao>;
   touched: FormikTouched<Solicitacao>;
   disabled?: boolean;
-  values?: Solicitacao;
 }
 
 export const UnidadeConcedenteTextInputs = ({
   errors,
   touched,
   disabled = false,
-  values,
 }: Props) => {
   const { unidadeList, unidadeLoading } = useUnidade();
 
   return (
     <>
-      <SelectInput
-        disabled={disabled}
-        label={'Unidade Concedente'}
+      {!disabled && (
+        <SelectInput
+          disabled={disabled}
+          label={'Unidade Concedente'}
+          name='fake'
+          placeholder={'Unidade'}
+          inputSpan='3'
+          options={unidadeList ?? []}
+          isLoading={unidadeLoading}
+        />
+      )}
+      <Field
+        type='text'
+        disabled
         name='unidadeConcedente.id'
-        placeholder={'Unidade'}
-        inputSpan='3'
-        options={unidadeList ?? []}
-        isLoading={unidadeLoading}
-        values={values}
+        id='unidadeConcedente.id'
+        hidden
       />
       {[
         ['Razão Social', 'razaoSocial', 'Nome completo', '3'],

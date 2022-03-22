@@ -7,7 +7,6 @@ import { UnidadeConcedenteTextInputs } from './text-inputs';
 type UnidadeConcedenteProps = {
   errors: FormikErrors<Solicitacao>;
   touched: FormikTouched<Solicitacao>;
-  values?: Solicitacao;
 };
 
 export default class UnidadeConcedenteStep extends Component<UnidadeConcedenteProps> {
@@ -23,7 +22,6 @@ export default class UnidadeConcedenteStep extends Component<UnidadeConcedentePr
           <UnidadeConcedenteTextInputs
             errors={this.props.errors}
             touched={this.props.touched}
-            values={this.props.values}
           />
         </div>
       </>

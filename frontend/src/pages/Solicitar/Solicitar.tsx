@@ -15,22 +15,19 @@ import Swal from 'sweetalert2';
 import { Button, IconButton, LandingCard, ProgressBar } from '../../components';
 
 import { AcompanharRoute, HomeRoute } from '..';
-import { useSolicitacaoList, useUser } from '../../hooks';
+import { useFormValues, useSolicitacaoList } from '../../hooks';
 import { Solicitacao } from '../../models';
 import { api, endpoints } from '../../services';
-import { mapDadosEstagio, mapEstagiario, mapInstituicao } from '../../utils';
+import {
+  mapDadosEstagio,
+  mapEstagiario,
+  mapUnidadeConcedente,
+} from '../../utils';
 import { warningAlert } from '../../utils/swal-alerts';
 import DadosEstagioStep from './Steps/DadosEstagio';
-import { dadosEstagioInitialValues } from './Steps/DadosEstagio/initialValues';
 import EstagiarioStep from './Steps/Estagiario';
-import { estagiarioInitialValues } from './Steps/Estagiario/initial-values';
 import InstituicaoStep from './Steps/Instituicao';
-import {
-  instituicaoInitialValues,
-  mapCampusWithAddress,
-} from './Steps/Instituicao/initial-values';
 import UnidadeConcedenteStep from './Steps/UnidadeConcedente';
-import { unidadeInitialValues } from './Steps/UnidadeConcedente/initialValues';
 import {
   validationSchemaDadosEstagio,
   validationSchemaEstagiario,
@@ -50,25 +47,10 @@ const validationsSchemas = [
 
 export const SolicitarPage = () => {
   const [step, setStep] = useState(0);
-  const { user } = useUser();
   const navigation = useNavigate();
   const { refetchSolicitationList } = useSolicitacaoList();
 
-  const initialValues = {
-    estagiario: {
-      ...estagiarioInitialValues,
-      nome: user?.name || '',
-      email: user?.email || '',
-      matricula: user?.matricula || '',
-      campus: user?.campus.id || '',
-    },
-    instituicao: {
-      ...instituicaoInitialValues,
-      ...mapCampusWithAddress(user?.campus!),
-    },
-    unidadeConcedente: unidadeInitialValues,
-    dadosEstagio: dadosEstagioInitialValues,
-  } as Solicitacao;
+  const { initialValues } = useFormValues();
 
   const handleBack = () => {
     if (step === 0) {
@@ -80,7 +62,8 @@ export const SolicitarPage = () => {
     step: number,
     errors: FormikErrors<Solicitacao>,
     touched: FormikTouched<Solicitacao>,
-    values: Solicitacao
+    values: Solicitacao,
+    resetForm: (values: Solicitacao) => void
   ) => {
     return [
       <EstagiarioStep
@@ -93,7 +76,6 @@ export const SolicitarPage = () => {
         key='unidade_step'
         errors={errors as FormikErrors<Solicitacao>}
         touched={touched as FormikTouched<Solicitacao>}
-        values={values}
       />,
       <InstituicaoStep
         key='instituicao_step'
@@ -134,8 +116,10 @@ export const SolicitarPage = () => {
                     JSON.stringify({
                       ...values,
                       estagiario: mapEstagiario(values.estagiario),
-                      instituicao: mapInstituicao(values.instituicao),
                       dadosEstagio: mapDadosEstagio(values.dadosEstagio),
+                      unidadeConcedente: mapUnidadeConcedente(
+                        values.unidadeConcedente
+                      ),
                     })
                   );
                   await api.post(
@@ -144,6 +128,9 @@ export const SolicitarPage = () => {
                       ...values,
                       estagiario: mapEstagiario(values.estagiario),
                       dadosEstagio: mapDadosEstagio(values.dadosEstagio),
+                      unidadeConcedente: mapUnidadeConcedente(
+                        values.unidadeConcedente
+                      ),
                     })
                   );
                   refetchSolicitationList();
@@ -171,7 +158,15 @@ export const SolicitarPage = () => {
             });
           }}
         >
-          {({ values, errors, touched, handleSubmit, isSubmitting }) => (
+          {({
+            values,
+            errors,
+            touched,
+            handleSubmit,
+            isSubmitting,
+            resetForm,
+            setValues,
+          }) => (
             <div className='text-center flex flex-col justify-between flex-1 h-full px-12 pt-8 gap-8'>
               <Form
                 onSubmit={handleSubmit}
@@ -184,7 +179,7 @@ export const SolicitarPage = () => {
                 >
                   <FaArrowLeft />
                 </IconButton>
-                {renderStep(step, errors, touched, values)}
+                {renderStep(step, errors, touched, values, setValues)}
                 <div className={classNames('grid', 'grid-cols-6', 'mt-8')}>
                   <div className='col-span-4'></div>
                   <div className='col-span-2'>

@@ -12,7 +12,7 @@ export const endpoints = {
   observacoes: '/api/v1/observacoes',
   auth: '/api/v1/auth',
   campus: '/api/v1/campus',
-  unidade: 'api/v1/unidades',
+  unidade: '/api/v1/unidades',
 };
 
 /* istanbul ignore next */
