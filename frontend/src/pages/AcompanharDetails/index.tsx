@@ -272,7 +272,8 @@ export default function AcompanharDetails() {
                       ))
                     ) : (
                       <div className='col-span-12 text-gray-600 text-center py-4'>
-                        Nenhum pedido de mudança feito.
+                        Nenhum pedido de mudança feito, aguarde o orientador
+                        fazer a análise.
                       </div>
                     )}
                     {!isAluno ? (

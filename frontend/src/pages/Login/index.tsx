@@ -25,7 +25,7 @@ const userValidation = yup.object({
 export default function Login({ setToken }: LoginProps) {
   const initialValues = {
     email: '',
-    password: '',
+    password: 'password',
   } as User;
 
   return (
@@ -35,6 +35,8 @@ export default function Login({ setToken }: LoginProps) {
         <div className='flex flex-col border rounded-lg shadow-lg px-8 py-6'>
           <div className='border-b pb-4'>
             <h2 className='font-bold text-gray-600'>Faça seu Login </h2>
+            <p className='text-sm text-blue-600'>Aluno: aluno@rpvi.com</p>
+            <p className='text-sm text-green-600'>Orientador: ori@rpvi.com</p>
           </div>
           <Formik
             initialValues={initialValues}
