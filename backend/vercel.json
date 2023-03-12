@@ -6,6 +6,12 @@
       "use": "@vercel/node"
     }
   ],
+  "crons": [
+    {
+      "path": "/reset-database",
+      "schedule": "0 0 1 * *"
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",

@@ -1,13 +1,14 @@
 /* istanbul ignore file */
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { SeedingService } from './seeding.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly seedingService: SeedingService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('reset-database')
+  async resetDatabase(): Promise<string> {
+    await this.seedingService.clearAndSeed();
+    return 'Database cleared and re-seeded.';
   }
 }
