@@ -1,9 +1,6 @@
 import { FormikErrors, FormikTouched } from 'formik';
 
-import {
-  SelectInput,
-  TextInput,
-} from '../../../../components';
+import { SelectInput, TextInput } from '../../../../components';
 
 import useCampus from '../../../../hooks/useCampus';
 import { Solicitacao } from '../../../../models';
@@ -31,13 +28,12 @@ export const EstagiarioTextInputs = ({
         ['E-mail', 'email', '', '3'],
         ['Bairro', 'bairro', '', '3'],
         ['UF', 'uf', '', '3'],
-        ['Curso', 'curso', '', '3', 'true'],
+        ['Curso', 'curso', '', '3'],
         ['Telefone', 'telefone', '( )', '3'],
         ['CEP', 'cep', '', '3'],
       ].map(([label, name, ph, span, isDisabled]) => (
         <TextInput
           key={name}
-          disabled={isDisabled === 'true' ? true : disabled}
           label={label}
           name={`estagiario.${name}`}
           placeholder={ph !== '' ? ph : label}

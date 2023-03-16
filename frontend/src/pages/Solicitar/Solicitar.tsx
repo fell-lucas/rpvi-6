@@ -68,24 +68,24 @@ export const SolicitarPage = () => {
     return [
       <EstagiarioStep
         key='estagiario_step'
-        errors={errors as FormikErrors<Solicitacao>}
-        touched={touched as FormikTouched<Solicitacao>}
+        errors={errors}
+        touched={touched}
         values={values}
       />,
       <UnidadeConcedenteStep
         key='unidade_step'
-        errors={errors as FormikErrors<Solicitacao>}
-        touched={touched as FormikTouched<Solicitacao>}
+        errors={errors}
+        touched={touched}
       />,
       <InstituicaoStep
         key='instituicao_step'
-        errors={errors as FormikErrors<Solicitacao>}
-        touched={touched as FormikTouched<Solicitacao>}
+        errors={errors}
+        touched={touched}
       />,
       <DadosEstagioStep
         key='dadosEstagio_step'
-        errors={errors as FormikErrors<Solicitacao>}
-        touched={touched as FormikTouched<Solicitacao>}
+        errors={errors}
+        touched={touched}
         values={values}
       />,
     ].map((element, index) => index === step && element);
@@ -112,16 +112,6 @@ export const SolicitarPage = () => {
               if (result.isConfirmed) {
                 setSubmitting(true);
                 try {
-                  console.log(
-                    JSON.stringify({
-                      ...values,
-                      estagiario: mapEstagiario(values.estagiario),
-                      dadosEstagio: mapDadosEstagio(values.dadosEstagio),
-                      unidadeConcedente: mapUnidadeConcedente(
-                        values.unidadeConcedente
-                      ),
-                    })
-                  );
                   await api.post(
                     endpoints.solicitacoes,
                     JSON.stringify({
